@@ -1,0 +1,13 @@
+main {
+    padding-top: 5rem;
+    padding-bottom: 1rem;
+}
+
+.extra-margins {
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+}
+
+.extra-padding {
+	padding-right:2rem;
+}
