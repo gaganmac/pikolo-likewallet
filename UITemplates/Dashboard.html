@@ -19,6 +19,7 @@
 <body>
 
     <header>
+
         <!--Navbar-->
         <nav class="navbar navbar-toggleable navbar-dark danger-color fixed-top">
             <div class="container">
@@ -37,7 +38,7 @@
                             <a class="nav-link">Activity</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link">Influencers</a>
+                            <a class="nav-link" href="influencers.html">Influencers</a>
                         </li>
                         <li class="nav-item navbar-toggler-right">
                             <a class="nav-link">Account</a>
@@ -46,53 +47,66 @@
                 </div>
             </div>
         </nav>
-    
+
+        <div class="secondary-navbar">
+            <div class="d-flex flex-wrap w-100 justify-content-start">
+                <ul class="list-inline">
+                    <!--Influencers dropdown-->
+                    <li class="list-inline-item">
+                        <div class="dropdown"> 
+                            <div class="btn-group">
+                                <button class="btn btn-default dropdown-toggle btn-narrow" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Influencers</button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">All Influencers</a>
+                                    <a class="dropdown-item" href="#">West Coast</a>
+                                    <a class="dropdown-item" href="#">East Coast</a>
+                                    <a class="dropdown-item" href="#">Spring Campaign</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-inline-item">
+                        <!--Timerange dropdown-->
+                        <div class="dropdown"> 
+                            <div class="btn-group">
+                                <button class="btn btn-default dropdown-toggle btn-narrow" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Week to Date</button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Week to Date</a>
+                                    <a class="dropdown-item" href="#">Last Week</a>
+                                    <a class="dropdown-item" href="#">Month to Date</a>
+                                    <a class="dropdown-item" href="#">Last Month</a>
+                                    <a class="dropdown-item" href="#">Year to Date</a>
+                                    <a class="dropdown-item" href="#">Last Year</a>
+                                    <a class="dropdown-item" href="#">Custom</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+                <nav class='align-self-center ml-auto hidden-xs-down'>
+                    <ul class="pagination">
+                        <li class="page-item active">
+                            <a class="page-link" href="#goals">Goals<span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#dashboard-influencers">Influencers</a></li>
+                        <li class="page-item"><a class="page-link" href="#posts">Posts</a></li>
+                    </ul>
+                </nav>
+
+            </div>
+ 
+        </div>
+
     </header>
 
     <main>
 
         <div class="container">
 
-            <section id="campaign-report">
-                <div class="d-flex flex-wrap w-100 justify-content-between">
-                    <h1 class="h1.responsive">Dashboard</h1>
+            <section id="goals">
 
-                    <ul class="list-inline">
-                        <!--Influencers dropdown-->
-                        <li class="list-inline-item">
-                            <div class="dropdown"> 
-                                <div class="btn-group">
-                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Influencers</button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">All Influencers</a>
-                                        <a class="dropdown-item" href="#">West Coast</a>
-                                        <a class="dropdown-item" href="#">East Coast</a>
-                                        <a class="dropdown-item" href="#">Spring Campaign</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-inline-item">
-                            <!--Timerange dropdown-->
-                            <div class="dropdown"> 
-                                <div class="btn-group">
-                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Week to Date</button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">Week to Date</a>
-                                        <a class="dropdown-item" href="#">Last Week</a>
-                                        <a class="dropdown-item" href="#">Month to Date</a>
-                                        <a class="dropdown-item" href="#">Last Month</a>
-                                        <a class="dropdown-item" href="#">Year to Date</a>
-                                        <a class="dropdown-item" href="#">Last Year</a>
-                                        <a class="dropdown-item" href="#">Custom</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                
-                <br>
+                <h1 class=h1.responsive>Goals</h1>
 
                 <div class="row">
 
@@ -210,216 +224,167 @@
 
             <hr class="extra-margins">
 
-            <section id="influencers">
+            <section id="dashboard-influencers">
 
                 <h1 class="h1.responsive">Influencers</h1>
 
                 <!--Influencers Card-->
                 <div class="list-group">
                     
-                    <!--Influencers-->
-                    <li class="list-group-item hoverable">
+                    <!--Influencer-->
+                    <a href="https://www.instagram.com/ruerodier/" class="list-group-item list-group-item-action d-flex justify-content-start" target="_blank">
+
+                        <!--Profile Pic-->
+                        <img class="img-fluid rounded-circle align-self-center" src="https://scontent-cdt1-1.cdninstagram.com/t51.2885-19/s320x320/19985367_1604318926253628_6975478607594389504_a.jpg">
+
+                        <div class="extra-margin-right-2x align-self-center">
+                             <!--Influencer Name-->
+                            <strong>Marissa Cox</strong>
+                            <!--Influencer Rating-->
+                            <ul class="rating inline-ul margins-reset">
+                                <li><i class="fa fa-star amber-text"></i></li>
+                                <li><i class="fa fa-star amber-text"></i></li>
+                                <li><i class="fa fa-star amber-text"></i></li>
+                                <li><i class="fa fa-star amber-text"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                            </ul>
+                        </div>
+
+                        <!--Influencer Stats-->
+                        <div class="row align-self-center">
+                            <div class="col-2">1<br /><small>posts</small></div>
+                            <div class="col-2">62k<br /><small>views</small></div>
+                            <div class="col-2">2.2k<br /><small>likes</small></div>
+                            <div class="col-2">304<br /><small>coms</small></div>
+                            <div class="col-2">1.3k<br /><small>clicks</small></div>
+                            <div class="col-2">153<br /><small>sales</small></div>
+                        </div> 
                         
-                        <div class="row">
-                            <!--Influencer Profile Pic-->
-                            <div class="col-2">
-                                <img class="img-fluid rounded-circle" src="https://scontent-cdt1-1.cdninstagram.com/t51.2885-19/s320x320/19985367_1604318926253628_6975478607594389504_a.jpg">
-                            </div>
+                    </a>
 
-                            <!--Influencer Content-->
-                            <div class="col-10">
-                                <div class="row">
-                                    <!--Influencer Name-->
-                                    <div class="d-flex flex-wrap w-100 justify-content-between extra-padding">
-                                        <h2 class="h2.responsive">Marissa Cox</h2>
-                                        <!--Influencer Rating-->
-                                        <ul class="rating inline-ul">
-                                            <li><i class="fa fa-star amber-text"></i></li>
-                                            <li><i class="fa fa-star amber-text"></i></li>
-                                            <li><i class="fa fa-star amber-text"></i></li>
-                                            <li><i class="fa fa-star amber-text"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!--Influencer Stats-->
-                                <ul class="list-inline">
-                                    <li class="list-inline-item extra-padding">1<br /><small>posts</small></li>
-                                    <li class="list-inline-item extra-padding">62k<br /><small>views</small></li>
-                                    <li class="list-inline-item extra-padding">2.2k<br /><small>likes</small></li>
-                                    <li class="list-inline-item extra-padding">304<br /><small>coms</small></li>
-                                    <li class="list-inline-item extra-padding">1.3k<br /><small>clicks</small></li>
-                                    <li class="list-inline-item extra-padding">153<br /><small>sales</small></li>
-                                </ul>
-                            </div>
+                    <!--Influencer-->
+                    <a href="https://www.instagram.com/milkywaysblueyes/" class="list-group-item list-group-item-action d-flex justify-content-start" target="_blank">
 
-                        </div>    
+                        <!--Profile Pic-->
+                        <img class="img-fluid rounded-circle align-self-center" src="https://scontent-cdt1-1.cdninstagram.com/t51.2885-19/s320x320/20065292_393261667742977_8836248891956396032_a.jpg">
+
+                        <div class="extra-margin-right-2x align-self-center">
+                             <!--Influencer Name-->
+                            <strong>Claire Marnette</strong>
+                            <!--Influencer Rating-->
+                            <ul class="rating inline-ul margins-reset">
+                                <li><i class="fa fa-star amber-text"></i></li>
+                                <li><i class="fa fa-star amber-text"></i></li>
+                                <li><i class="fa fa-star amber-text"></i></li>
+                                <li><i class="fa fa-star amber-text"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                            </ul>
+                        </div>
+
+                        <!--Influencer Stats-->
+                        <div class="row align-self-center">
+                            <div class="col-2">1<br /><small>posts</small></div>
+                            <div class="col-2">57k<br /><small>views</small></div>
+                            <div class="col-2">4.4k<br /><small>likes</small></div>
+                            <div class="col-2">74<br /><small>coms</small></div>
+                            <div class="col-2">1.9k<br /><small>clicks</small></div>
+                            <div class="col-2">192<br /><small>sales</small></div>
+                        </div> 
                         
-                    </li>
+                    </a>
 
-                    <li class="list-group-item hoverable">
+                    <!--Influencer-->
+                    <a href="https://www.instagram.com/satyaoblette/" class="list-group-item list-group-item-action d-flex justify-content-start" target="_blank">
+
+                        <!--Profile Pic-->
+                        <img class="img-fluid rounded-circle align-self-center" src="https://scontent-cdt1-1.cdninstagram.com/t51.2885-19/s320x320/17882389_1094629587309725_4576407663864184832_a.jpg">
+
+                        <div class="extra-margin-right-2x align-self-center">
+                             <!--Influencer Name-->
+                            <strong>Satya Oblette</strong>
+                            <!--Influencer Rating-->
+                            <ul class="rating inline-ul margins-reset">
+                                <li><i class="fa fa-star amber-text"></i></li>
+                                <li><i class="fa fa-star amber-text"></i></li>
+                                <li><i class="fa fa-star amber-text"></i></li>
+                                <li><i class="fa fa-star amber-text"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                            </ul>
+                        </div>
+
+                        <!--Influencer Stats-->
+                        <div class="row align-self-center">
+                            <div class="col-2">1<br /><small>posts</small></div>
+                            <div class="col-2">2.4k<br /><small>views</small></div>
+                            <div class="col-2">324<br /><small>likes</small></div>
+                            <div class="col-2">12<br /><small>coms</small></div>
+                            <div class="col-2">291<br /><small>clicks</small></div>
+                            <div class="col-2">16<br /><small>sales</small></div>
+                        </div> 
                         
-                        <div class="row">
-                            <!--Influencer Profile Pic-->
-                            <div class="col-2">
-                                <img class="img-fluid rounded-circle" src="https://scontent-cdt1-1.cdninstagram.com/t51.2885-19/s320x320/20065292_393261667742977_8836248891956396032_a.jpg">
-                            </div>
+                    </a>
 
-                            <!--Influencer Content-->
-                            <div class="col-10">
-                                <div class="row">
-                                    <!--Influencer Name-->
-                                    <div class="col-sm-8">
-                                        <h2 class="h2.responsive">Claire Marnette</h2>
-                                    </div>
-                                    <!--Influencer Rating-->
-                                    <div class="col-sm-4">
-                                        <ul class="rating inline-ul">
-                                            <li><i class="fa fa-star amber-text"></i></li>
-                                            <li><i class="fa fa-star amber-text"></i></li>
-                                            <li><i class="fa fa-star amber-text"></i></li>
-                                            <li><i class="fa fa-star amber-text"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!--Influencer Stats-->
-                                <div class="row">
-                                    <div class="col"><p class="card-text">1<br /><small>posts</small></p></div>
-                                    <div class="col"><p class="card-text">57k<br /><small>views</small></p></div>
-                                    <div class="col"><p class="card-text">4.4k<br /><small>likes</small></p></div>
-                                    <div class="col"><p class="card-text">74<br /><small>comments</small></p></div>
-                                    <div class="col"><p class="card-text">1.9k<br /><small>clicks</small></p></div>
-                                    <div class="col"><p class="card-text">192<br /><small>sales</small></p></div>
-                                </div>
-                            </div>
+                    <!--Influencer-->
+                    <a href="https://www.instagram.com/audreylombard/" class="list-group-item list-group-item-action d-flex justify-content-start" target="_blank">
 
-                        </div>    
+                        <!--Profile Pic-->
+                        <img class="img-fluid rounded-circle align-self-center" src="https://scontent-cdt1-1.cdninstagram.com/t51.2885-19/s320x320/19932976_327605547690183_5593401918933172224_a.jpg">
+
+                        <div class="extra-margin-right-2x align-self-center">
+                             <!--Influencer Name-->
+                            <strong>Audrey Lombard</strong>
+                            <!--Influencer Rating-->
+                            <ul class="rating inline-ul margins-reset">
+                                <li><i class="fa fa-star amber-text"></i></li>
+                                <li><i class="fa fa-star amber-text"></i></li>
+                                <li><i class="fa fa-star amber-text"></i></li>
+                                <li><i class="fa fa-star amber-text"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                            </ul>
+                        </div>
+
+                        <!--Influencer Stats-->
+                        <div class="row align-self-center">
+                            <div class="col-2">1<br /><small>posts</small></div>
+                            <div class="col-2">140k<br /><small>views</small></div>
+                            <div class="col-2">6.2k<br /><small>likes</small></div>
+                            <div class="col-2">51<br /><small>coms</small></div>
+                            <div class="col-2">1.1k<br /><small>clicks</small></div>
+                            <div class="col-2">44<br /><small>sales</small></div>
+                        </div> 
                         
-                    </li>
+                    </a>
 
-                    <li class="list-group-item hoverable">
+                    <!--Influencer-->
+                    <a href="https://www.instagram.com/valerietribes/" class="list-group-item list-group-item-action d-flex justify-content-start" target="_blank">
+
+                        <!--Profile Pic-->
+                        <img class="img-fluid rounded-circle align-self-center" src="https://scontent-cdt1-1.cdninstagram.com/t51.2885-19/s320x320/13643689_280170579041870_807103403_a.jpg">
+
+                        <div class="extra-margin-right-2x align-self-center">
+                             <!--Influencer Name-->
+                            <strong>Valerie Tribes</strong>
+                            <!--Influencer Rating-->
+                            <ul class="rating inline-ul margins-reset">
+                                <li><i class="fa fa-star amber-text"></i></li>
+                                <li><i class="fa fa-star amber-text"></i></li>
+                                <li><i class="fa fa-star amber-text"></i></li>
+                                <li><i class="fa fa-star amber-text"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                            </ul>
+                        </div>
+
+                        <!--Influencer Stats-->
+                        <div class="row align-self-center">
+                            <div class="col-2">1<br /><small>posts</small></div>
+                            <div class="col-2">26k<br /><small>views</small></div>
+                            <div class="col-2">913<br /><small>likes</small></div>
+                            <div class="col-2">21<br /><small>coms</small></div>
+                            <div class="col-2">363<br /><small>clicks</small></div>
+                            <div class="col-2">11<br /><small>sales</small></div>
+                        </div> 
                         
-                        <div class="row">
-                            <!--Influencer Profile Pic-->
-                            <div class="col-2">
-                                <img class="img-fluid rounded-circle" src="https://scontent-cdt1-1.cdninstagram.com/t51.2885-19/s320x320/17882389_1094629587309725_4576407663864184832_a.jpg">
-                            </div>
-
-                            <!--Influencer Content-->
-                            <div class="col-10">
-                                <div class="row">
-                                    <!--Influencer Name-->
-                                    <div class="col-sm-8">
-                                        <h2 class="h2.responsive">Satya Oblette</h2>
-                                    </div>
-                                    <!--Influencer Rating-->
-                                    <div class="col-sm-4">
-                                        <ul class="rating inline-ul">
-                                            <li><i class="fa fa-star amber-text"></i></li>
-                                            <li><i class="fa fa-star amber-text"></i></li>
-                                            <li><i class="fa fa-star amber-text"></i></li>
-                                            <li><i class="fa fa-star amber-text"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!--Influencer Stats-->
-                                <div class="row">
-                                    <div class="col"><p class="card-text">1<br /><small>posts</small></p></div>
-                                    <div class="col"><p class="card-text">2.4k<br /><small>views</small></p></div>
-                                    <div class="col"><p class="card-text">324<br /><small>likes</small></p></div>
-                                    <div class="col"><p class="card-text">12<br /><small>comments</small></p></div>
-                                    <div class="col"><p class="card-text">291<br /><small>clicks</small></p></div>
-                                    <div class="col"><p class="card-text">16<br /><small>sales</small></p></div>
-                                </div>
-                            </div>
-
-                        </div>    
-                        
-                    </li>
-
-                    <li class="list-group-item hoverable">
-                        
-                        <div class="row">
-                            <!--Influencer Profile Pic-->
-                            <div class="col-2">
-                                <img class="img-fluid rounded-circle" src="https://scontent-cdt1-1.cdninstagram.com/t51.2885-19/s320x320/19932976_327605547690183_5593401918933172224_a.jpg">
-                            </div>
-
-                            <!--Influencer Content-->
-                            <div class="col-10">
-                                <div class="row">
-                                    <!--Influencer Name-->
-                                    <div class="col-sm-8">
-                                        <h2 class="h2.responsive">Audrey Lombard</h2>
-                                    </div>
-                                    <!--Influencer Rating-->
-                                    <div class="col-sm-4">
-                                        <ul class="rating inline-ul">
-                                            <li><i class="fa fa-star amber-text"></i></li>
-                                            <li><i class="fa fa-star amber-text"></i></li>
-                                            <li><i class="fa fa-star amber-text"></i></li>
-                                            <li><i class="fa fa-star amber-text"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!--Influencer Stats-->
-                                <div class="row">
-                                    <div class="col"><p class="card-text">1<br /><small>posts</small></p></div>
-                                    <div class="col"><p class="card-text">140k<br /><small>views</small></p></div>
-                                    <div class="col"><p class="card-text">6.2k<br /><small>likes</small></p></div>
-                                    <div class="col"><p class="card-text">51<br /><small>comments</small></p></div>
-                                    <div class="col"><p class="card-text">1.1k<br /><small>clicks</small></p></div>
-                                    <div class="col"><p class="card-text">44<br /><small>sales</small></p></div>
-                                </div>
-                            </div>
-
-                        </div>    
-                        
-                    </li>
-
-                    <li class="list-group-item hoverable">
-                        
-                        <div class="row">
-                            <!--Influencer Profile Pic-->
-                            <div class="col-2">
-                                <img class="img-fluid rounded-circle" src="https://scontent-cdt1-1.cdninstagram.com/t51.2885-19/s320x320/13643689_280170579041870_807103403_a.jpg">
-                            </div>
-
-                            <!--Influencer Content-->
-                            <div class="col-10">
-                                <div class="row">
-                                    <!--Influencer Name-->
-                                    <div class="col-sm-8">
-                                        <h2 class="h2.responsive">Valerie Tribes</h2>
-                                    </div>
-                                    <!--Influencer Rating-->
-                                    <div class="col-sm-4">
-                                        <ul class="rating inline-ul">
-                                            <li><i class="fa fa-star amber-text"></i></li>
-                                            <li><i class="fa fa-star amber-text"></i></li>
-                                            <li><i class="fa fa-star amber-text"></i></li>
-                                            <li><i class="fa fa-star amber-text"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!--Influencer Stats-->
-                                <div class="row">
-                                    <div class="col"><p class="card-text">1<br /><small>posts</small></p></div>
-                                    <div class="col"><p class="card-text">26k<br /><small>views</small></p></div>
-                                    <div class="col"><p class="card-text">913<br /><small>likes</small></p></div>
-                                    <div class="col"><p class="card-text">21<br /><small>comments</small></p></div>
-                                    <div class="col"><p class="card-text">363<br /><small>clicks</small></p></div>
-                                    <div class="col"><p class="card-text">11<br /><small>sales</small></p></div>
-                                </div>
-                            </div>
-
-                        </div>    
-                        
-                    </li>
+                    </a>
 
                 </div>
 
@@ -434,7 +399,7 @@
                     <!--Posts Dropdown-->
                     <div class="dropdown"> 
                         <div class="btn-group">
-                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter by</button>
+                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter by</button>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="#">Views</a>
                                 <a class="dropdown-item" href="#">Likes</a>
@@ -454,9 +419,9 @@
                         <!--Post card-->
                         <div class="card">
                             <!--Post image-->
-                            <div class="view overlay hm-white-slight">
+                            <div class="post-image view overlay hm-white-slight">
                                 <img class="img-fluid" src="http://i.imgur.com/JvMWeO8.jpg" class="img-fluid" alt="">
-                                <a href="https://www.instagram.com/p/BQLIjl9jLQU/?tagged=ericbompard">
+                                <a href="https://www.instagram.com/p/BQLIjl9jLQU/?tagged=ericbompard" target="_blank">
                                     <div class="mask waves-effect waves-light"></div>
                                 </a>
                             </div>
@@ -480,9 +445,9 @@
                         <!--Post card-->
                         <div class="card">
                             <!--Post image-->
-                            <div class="view overlay hm-white-slight">
+                            <div class="post-image view overlay hm-white-slight">
                                 <img class="img-fluid" src="http://i.imgur.com/A3yxeUl.jpg" class="img-fluid" alt="">
-                                <a href="https://www.instagram.com/p/BTlKMKLAmx-/?tagged=ericbompard">
+                                <a href="https://www.instagram.com/p/BTlKMKLAmx-/?tagged=ericbompard" target="_blank">
                                     <div class="mask waves-effect waves-light"></div>
                                 </a>
                             </div>
@@ -506,9 +471,9 @@
                         <!--Post card-->
                         <div class="card">
                             <!--Post image-->
-                            <div class="view overlay hm-white-slight">
+                            <div class="post-image view overlay hm-white-slight">
                                 <img class="img-fluid" src="http://i.imgur.com/QZ6HYpc.jpg" class="img-fluid" alt="">
-                                <a href="https://www.instagram.com/p/BTUdEmLAJoX/?tagged=ericbompard">
+                                <a href="https://www.instagram.com/p/BTUdEmLAJoX/?tagged=ericbompard" target="_blank">
                                     <div class="mask waves-effect waves-light"></div>
                                 </a>
                             </div>
@@ -532,9 +497,9 @@
                         <!--Post card-->
                         <div class="card">
                             <!--Post image-->
-                            <div class="view overlay hm-white-slight">
+                            <div class="post-image view overlay hm-white-slight">
                                 <img class="img-fluid" src="http://i.imgur.com/rRdO8Uf.jpg" class="img-fluid" alt="">
-                                <a href="https://www.instagram.com/p/BRIN7JvBbCH/?tagged=ericbompard">
+                                <a href="https://www.instagram.com/p/BRIN7JvBbCH/?tagged=ericbompard" target="_blank">
                                     <div class="mask waves-effect waves-light"></div>
                                 </a>
                             </div>
@@ -558,9 +523,9 @@
                         <!--Post card-->
                         <div class="card">
                             <!--Post image-->
-                            <div class="view overlay hm-white-slight">
+                            <div class="post-image view overlay hm-white-slight">
                                 <img class="img-fluid" src="http://i.imgur.com/grUEQHc.jpg" class="img-fluid" alt="">
-                                <a href="https://www.instagram.com/p/BT1MeDZBLhn/?tagged=ericbompard">
+                                <a href="https://www.instagram.com/p/BT1MeDZBLhn/?tagged=ericbompard" target="_blank">
                                     <div class="mask waves-effect waves-light"></div>
                                 </a>
                             </div>
@@ -582,6 +547,7 @@
 
                     
                 </div>
+
             </section>
 
         </div>
@@ -599,6 +565,8 @@
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="js/mdb.min.js"></script>
+    <!-- Personal scripts-->
+    <script type="text/javascript" src="js/scripts.js"></script>
 
 </body>
 
