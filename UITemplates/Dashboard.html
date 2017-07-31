@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Material Design Bootstrap</title>
+    <title>Dashboard - LikeWallet</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
     <!-- Bootstrap core CSS -->
@@ -23,27 +23,29 @@
         <!--Navbar-->
         <nav class="navbar navbar-toggleable navbar-dark danger-color fixed-top">
             <div class="container">
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav1" aria-controls="navbarNav1" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav1" aria-controls="#navbarNav1" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="dashboard.html">
                     <strong>LikeWallet</strong>
                 </a>
-                <div class="collapse navbar-collapse" id="navbarNav1">
+                <div class="collapse navbar-collapse dual-collapse" id="navbarNav1">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
+                        <li class="nav-item active">
                             <a class="nav-link">Dashboard <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link">Activity</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="influencers.html">Influencers</a>
                         </li>
-                        <li class="nav-item navbar-toggler-right">
-                            <a class="nav-link">Account</a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="activity.html">Activity</a>
                         </li>
                     </ul>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link">Account</a>
+                        </li>
+                    </ul>                   
                 </div>
             </div>
         </nav>
@@ -232,158 +234,170 @@
                 <div class="list-group">
                     
                     <!--Influencer-->
-                    <a href="https://www.instagram.com/ruerodier/" class="list-group-item list-group-item-action d-flex justify-content-start" target="_blank">
+                    <a href="https://www.instagram.com/ruerodier/" class="list-group-item list-group-item-action d-flex justify-content-start flex-nowrap" target="_blank">
 
                         <!--Profile Pic-->
-                        <img class="img-fluid rounded-circle align-self-center" src="https://scontent-cdt1-1.cdninstagram.com/t51.2885-19/s320x320/19985367_1604318926253628_6975478607594389504_a.jpg">
+                        <img class="img-fluid rounded-circle align-self-start" src="https://scontent-cdt1-1.cdninstagram.com/t51.2885-19/s320x320/19985367_1604318926253628_6975478607594389504_a.jpg">
 
-                        <div class="extra-margin-right-2x align-self-center">
-                             <!--Influencer Name-->
-                            <strong>Marissa Cox</strong>
-                            <!--Influencer Rating-->
-                            <ul class="rating inline-ul margins-reset">
-                                <li><i class="fa fa-star amber-text"></i></li>
-                                <li><i class="fa fa-star amber-text"></i></li>
-                                <li><i class="fa fa-star amber-text"></i></li>
-                                <li><i class="fa fa-star amber-text"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                            </ul>
+                        <div class="d-flex flex-wrap align-self-center">
+
+                            <div class="influencer-name align-self-center">
+                                 <!--Influencer Name-->
+                                <strong>Marissa Cox</strong>
+                                <!--Influencer Rating-->
+                                <ul class="rating inline-ul margins-reset">
+                                    <li><i class="fa fa-star amber-text"></i></li>
+                                    <li><i class="fa fa-star amber-text"></i></li>
+                                    <li><i class="fa fa-star amber-text"></i></li>
+                                    <li><i class="fa fa-star amber-text"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                </ul>
+                            </div>
+
+                            <!--Influencer Stats-->
+                            <div class="row align-self-center">
+                                <div class="col-2">1<br /><small>posts</small></div>
+                                <div class="col-2">62k<br /><small>views</small></div>
+                                <div class="col-2">2.2k<br /><small>likes</small></div>
+                                <div class="col-2">304<br /><small>coms</small></div>
+                                <div class="col-2">1.3k<br /><small>clicks</small></div>
+                                <div class="col-2">153<br /><small>sales</small></div>
+                            </div> 
+
                         </div>
-
-                        <!--Influencer Stats-->
-                        <div class="row align-self-center">
-                            <div class="col-2">1<br /><small>posts</small></div>
-                            <div class="col-2">62k<br /><small>views</small></div>
-                            <div class="col-2">2.2k<br /><small>likes</small></div>
-                            <div class="col-2">304<br /><small>coms</small></div>
-                            <div class="col-2">1.3k<br /><small>clicks</small></div>
-                            <div class="col-2">153<br /><small>sales</small></div>
-                        </div> 
                         
                     </a>
 
                     <!--Influencer-->
-                    <a href="https://www.instagram.com/milkywaysblueyes/" class="list-group-item list-group-item-action d-flex justify-content-start" target="_blank">
+                    <a href="https://www.instagram.com/milkywaysblueyes/" class="list-group-item list-group-item-action d-flex justify-content-start flex-nowrap" target="_blank">
 
                         <!--Profile Pic-->
-                        <img class="img-fluid rounded-circle align-self-center" src="https://scontent-cdt1-1.cdninstagram.com/t51.2885-19/s320x320/20065292_393261667742977_8836248891956396032_a.jpg">
+                        <img class="img-fluid rounded-circle align-self-start" src="https://scontent-cdt1-1.cdninstagram.com/t51.2885-19/s320x320/20065292_393261667742977_8836248891956396032_a.jpg">
 
-                        <div class="extra-margin-right-2x align-self-center">
-                             <!--Influencer Name-->
-                            <strong>Claire Marnette</strong>
-                            <!--Influencer Rating-->
-                            <ul class="rating inline-ul margins-reset">
-                                <li><i class="fa fa-star amber-text"></i></li>
-                                <li><i class="fa fa-star amber-text"></i></li>
-                                <li><i class="fa fa-star amber-text"></i></li>
-                                <li><i class="fa fa-star amber-text"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                            </ul>
+                        <div class="d-flex flex-wrap align-self-center">
+
+                            <div class="influencer-name  align-self-center">
+                                 <!--Influencer Name-->
+                                <strong>Claire Marnette</strong>
+                                <!--Influencer Rating-->
+                                <ul class="rating inline-ul margins-reset">
+                                    <li><i class="fa fa-star amber-text"></i></li>
+                                    <li><i class="fa fa-star amber-text"></i></li>
+                                    <li><i class="fa fa-star amber-text"></i></li>
+                                    <li><i class="fa fa-star amber-text"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                </ul>
+                            </div>
+
+                            <!--Influencer Stats-->
+                            <div class="row align-self-center">
+                                <div class="col-2">1<br /><small>posts</small></div>
+                                <div class="col-2">57k<br /><small>views</small></div>
+                                <div class="col-2">4.4k<br /><small>likes</small></div>
+                                <div class="col-2">74<br /><small>coms</small></div>
+                                <div class="col-2">1.9k<br /><small>clicks</small></div>
+                                <div class="col-2">192<br /><small>sales</small></div>
+                            </div> 
                         </div>
-
-                        <!--Influencer Stats-->
-                        <div class="row align-self-center">
-                            <div class="col-2">1<br /><small>posts</small></div>
-                            <div class="col-2">57k<br /><small>views</small></div>
-                            <div class="col-2">4.4k<br /><small>likes</small></div>
-                            <div class="col-2">74<br /><small>coms</small></div>
-                            <div class="col-2">1.9k<br /><small>clicks</small></div>
-                            <div class="col-2">192<br /><small>sales</small></div>
-                        </div> 
-                        
                     </a>
 
                     <!--Influencer-->
-                    <a href="https://www.instagram.com/satyaoblette/" class="list-group-item list-group-item-action d-flex justify-content-start" target="_blank">
+                    <a href="https://www.instagram.com/satyaoblette/" class="list-group-item list-group-item-action d-flex justify-content-start flex-nowrap" target="_blank">
 
                         <!--Profile Pic-->
-                        <img class="img-fluid rounded-circle align-self-center" src="https://scontent-cdt1-1.cdninstagram.com/t51.2885-19/s320x320/17882389_1094629587309725_4576407663864184832_a.jpg">
+                        <img class="img-fluid rounded-circle align-self-start" src="https://scontent-cdt1-1.cdninstagram.com/t51.2885-19/s320x320/17882389_1094629587309725_4576407663864184832_a.jpg">
 
-                        <div class="extra-margin-right-2x align-self-center">
-                             <!--Influencer Name-->
-                            <strong>Satya Oblette</strong>
-                            <!--Influencer Rating-->
-                            <ul class="rating inline-ul margins-reset">
-                                <li><i class="fa fa-star amber-text"></i></li>
-                                <li><i class="fa fa-star amber-text"></i></li>
-                                <li><i class="fa fa-star amber-text"></i></li>
-                                <li><i class="fa fa-star amber-text"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                            </ul>
+                        <div class="d-flex justify-content-start flex-wrap align-self-center">
+
+                            <div class="influencer-name  align-self-center">
+                                 <!--Influencer Name-->
+                                <strong>Satya Oblette</strong>
+                                <!--Influencer Rating-->
+                                <ul class="rating inline-ul margins-reset">
+                                    <li><i class="fa fa-star amber-text"></i></li>
+                                    <li><i class="fa fa-star amber-text"></i></li>
+                                    <li><i class="fa fa-star amber-text"></i></li>
+                                    <li><i class="fa fa-star amber-text"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                </ul>
+                            </div>
+
+                            <!--Influencer Stats-->
+                            <div class="row align-self-center">
+                                <div class="col-2">1<br /><small>posts</small></div>
+                                <div class="col-2">2.4k<br /><small>views</small></div>
+                                <div class="col-2">324<br /><small>likes</small></div>
+                                <div class="col-2">12<br /><small>coms</small></div>
+                                <div class="col-2">291<br /><small>clicks</small></div>
+                                <div class="col-2">16<br /><small>sales</small></div>
+                            </div> 
                         </div>
-
-                        <!--Influencer Stats-->
-                        <div class="row align-self-center">
-                            <div class="col-2">1<br /><small>posts</small></div>
-                            <div class="col-2">2.4k<br /><small>views</small></div>
-                            <div class="col-2">324<br /><small>likes</small></div>
-                            <div class="col-2">12<br /><small>coms</small></div>
-                            <div class="col-2">291<br /><small>clicks</small></div>
-                            <div class="col-2">16<br /><small>sales</small></div>
-                        </div> 
-                        
                     </a>
 
                     <!--Influencer-->
-                    <a href="https://www.instagram.com/audreylombard/" class="list-group-item list-group-item-action d-flex justify-content-start" target="_blank">
+                    <a href="https://www.instagram.com/audreylombard/" class="list-group-item list-group-item-action d-flex justify-content-start flex-nowrap" target="_blank">
 
                         <!--Profile Pic-->
-                        <img class="img-fluid rounded-circle align-self-center" src="https://scontent-cdt1-1.cdninstagram.com/t51.2885-19/s320x320/19932976_327605547690183_5593401918933172224_a.jpg">
+                        <img class="img-fluid rounded-circle align-self-start" src="https://scontent-cdt1-1.cdninstagram.com/t51.2885-19/s320x320/19932976_327605547690183_5593401918933172224_a.jpg">
 
-                        <div class="extra-margin-right-2x align-self-center">
-                             <!--Influencer Name-->
-                            <strong>Audrey Lombard</strong>
-                            <!--Influencer Rating-->
-                            <ul class="rating inline-ul margins-reset">
-                                <li><i class="fa fa-star amber-text"></i></li>
-                                <li><i class="fa fa-star amber-text"></i></li>
-                                <li><i class="fa fa-star amber-text"></i></li>
-                                <li><i class="fa fa-star amber-text"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                            </ul>
+                        <div class="d-flex flex-wrap align-self-center">
+
+                            <div class="influencer-name  align-self-center">
+                                 <!--Influencer Name-->
+                                <strong>Audrey Lombard</strong>
+                                <!--Influencer Rating-->
+                                <ul class="rating inline-ul margins-reset">
+                                    <li><i class="fa fa-star amber-text"></i></li>
+                                    <li><i class="fa fa-star amber-text"></i></li>
+                                    <li><i class="fa fa-star amber-text"></i></li>
+                                    <li><i class="fa fa-star amber-text"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                </ul>
+                            </div>
+
+                            <!--Influencer Stats-->
+                            <div class="row align-self-center">
+                                <div class="col-2">1<br /><small>posts</small></div>
+                                <div class="col-2">140k<br /><small>views</small></div>
+                                <div class="col-2">6.2k<br /><small>likes</small></div>
+                                <div class="col-2">51<br /><small>coms</small></div>
+                                <div class="col-2">1.1k<br /><small>clicks</small></div>
+                                <div class="col-2">44<br /><small>sales</small></div>
+                            </div> 
                         </div>
-
-                        <!--Influencer Stats-->
-                        <div class="row align-self-center">
-                            <div class="col-2">1<br /><small>posts</small></div>
-                            <div class="col-2">140k<br /><small>views</small></div>
-                            <div class="col-2">6.2k<br /><small>likes</small></div>
-                            <div class="col-2">51<br /><small>coms</small></div>
-                            <div class="col-2">1.1k<br /><small>clicks</small></div>
-                            <div class="col-2">44<br /><small>sales</small></div>
-                        </div> 
-                        
                     </a>
 
                     <!--Influencer-->
-                    <a href="https://www.instagram.com/valerietribes/" class="list-group-item list-group-item-action d-flex justify-content-start" target="_blank">
+                    <a href="https://www.instagram.com/valerietribes/" class="list-group-item list-group-item-action d-flex justify-content-start flex-nowrap" target="_blank">
 
                         <!--Profile Pic-->
-                        <img class="img-fluid rounded-circle align-self-center" src="https://scontent-cdt1-1.cdninstagram.com/t51.2885-19/s320x320/13643689_280170579041870_807103403_a.jpg">
+                        <img class="img-fluid rounded-circle align-self-start" src="https://scontent-cdt1-1.cdninstagram.com/t51.2885-19/s320x320/13643689_280170579041870_807103403_a.jpg">
 
-                        <div class="extra-margin-right-2x align-self-center">
-                             <!--Influencer Name-->
-                            <strong>Valerie Tribes</strong>
-                            <!--Influencer Rating-->
-                            <ul class="rating inline-ul margins-reset">
-                                <li><i class="fa fa-star amber-text"></i></li>
-                                <li><i class="fa fa-star amber-text"></i></li>
-                                <li><i class="fa fa-star amber-text"></i></li>
-                                <li><i class="fa fa-star amber-text"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                            </ul>
+                        <div class="d-flex flex-wrap align-self-center">
+
+                            <div class="influencer-name  align-self-center">
+                                 <!--Influencer Name-->
+                                <strong>Valerie Tribes</strong>
+                                <!--Influencer Rating-->
+                                <ul class="rating inline-ul margins-reset">
+                                    <li><i class="fa fa-star amber-text"></i></li>
+                                    <li><i class="fa fa-star amber-text"></i></li>
+                                    <li><i class="fa fa-star amber-text"></i></li>
+                                    <li><i class="fa fa-star amber-text"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                </ul>
+                            </div>
+
+                            <!--Influencer Stats-->
+                            <div class="row align-self-center">
+                                <div class="col-2">1<br /><small>posts</small></div>
+                                <div class="col-2">26k<br /><small>views</small></div>
+                                <div class="col-2">913<br /><small>likes</small></div>
+                                <div class="col-2">21<br /><small>coms</small></div>
+                                <div class="col-2">363<br /><small>clicks</small></div>
+                                <div class="col-2">11<br /><small>sales</small></div>
+                            </div> 
                         </div>
-
-                        <!--Influencer Stats-->
-                        <div class="row align-self-center">
-                            <div class="col-2">1<br /><small>posts</small></div>
-                            <div class="col-2">26k<br /><small>views</small></div>
-                            <div class="col-2">913<br /><small>likes</small></div>
-                            <div class="col-2">21<br /><small>coms</small></div>
-                            <div class="col-2">363<br /><small>clicks</small></div>
-                            <div class="col-2">11<br /><small>sales</small></div>
-                        </div> 
-                        
                     </a>
 
                 </div>
