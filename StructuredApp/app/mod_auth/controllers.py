@@ -73,6 +73,9 @@ def register():
 def remove():
     if request.method == 'GET':
         return render_template('auth/remove.html', username=current_user.email)
+    if not(current_user.email == request.form['email']):
+        flash("Please enter the email address associated with this account.")
+        return render_template('auth/remove.html', username=current_user.email)
     if not(request.form['password'] == request.form['passwordRepeat']):
         flash("Error: Passwords do not match.")
         return render_template('auth/remove.html', username=current_user.email)
