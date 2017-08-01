@@ -74,7 +74,10 @@ def remove():
     if request.method == 'GET':
         return render_template('auth/remove.html', username=current_user.email)
     if not(current_user.email == request.form['email']):
-        flash("Please enter the email address associated with this account.")
+        flash("Error: Please enter the email address associated with this account.")
+        return render_template('auth/remove.html', username=current_user.email)
+    if not(request.form['password'] == current_user.password):
+        flash("Error: Incorrect password.")
         return render_template('auth/remove.html', username=current_user.email)
     if not(request.form['password'] == request.form['passwordRepeat']):
         flash("Error: Passwords do not match.")
