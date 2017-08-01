@@ -1,0 +1,6 @@
+Flask_Login==0.4.0
+WTForms==2.1
+Flask_WTF==0.14.2
+Flask==0.11.1
+flask_script==2.0.5
+Werkzeug==0.12.2
