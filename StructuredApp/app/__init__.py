@@ -3,6 +3,8 @@ from flask import Flask, render_template
 
 # Import SQLAlchemy
 from flask_sqlalchemy import SQLAlchemy
+from flask_script import Manager
+from flask_migrate import Migrate, MigrateCommand
 
 # Define the WSGI application object
 app = Flask(__name__)
@@ -13,6 +15,10 @@ app.config.from_object('config')
 # Define the database object which is imported
 # by modules and controllers
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+
+manager = Manager(app)
+manager.add_command('db', MigrateCommand)
 
 # Sample HTTP error handling
 @app.errorhandler(404)
@@ -29,3 +35,6 @@ app.register_blueprint(auth_module)
 # Build the database:
 # This will create the database file using SQLAlchemy
 db.create_all()
+
+if __name__ == '__main__':
+	manager.run()
