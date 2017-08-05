@@ -1,3 +1,5 @@
+import os
+
 # Import flask dependencies
 from flask import Blueprint, request, render_template, \
                   flash, g, session, redirect, url_for
@@ -7,6 +9,7 @@ from werkzeug import check_password_hash, generate_password_hash
 
 # Import the database object from the main app module
 from app import db
+from app import app
 
 # Import module forms
 from app.mod_auth.forms import LoginForm, RegistrationForm, RemoveForm
@@ -18,12 +21,31 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 
 from run import login_manager
 
-# Define the blueprint: 'auth', set its url prefix: app.url/auth
+from instagram.client import InstagramAPI
+
+
+
 mod_auth = Blueprint('auth', __name__, url_prefix='/auth')
 
+instaConfig = {
+
+    'client_id': 'f47411163bd6493bae1667a70e793fb5',
+    'client_secret': '76b892dd1f054d9fba7afcdc2c5d7f18',
+    'redirect_uri' : 'https://damp-cliffs-30092.herokuapp.com/auth/instagram_callback'
+}
+api = InstagramAPI(**instaConfig)
 
 
-# Set the route and accepted methods
+
+@mod_auth.route('/connect')
+@login_required
+def user_photos():
+    url = api.get_authorize_url(scope=["likes","comments"])
+    return redirect(url)
+
+
+
+
 @mod_auth.route('/login/', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -95,14 +117,28 @@ def remove():
 @mod_auth.route("/<user>/dashboard", methods=['GET','POST'])
 @login_required
 def dashboard(user):
-    flash("Welcome to " + user + "'s Dashboard.")
-    return render_template('auth/dashboard.html', username=user)
+    if 'instagram_access_token' in session and 'instagram_user' in session:
+        userAPI = InstagramAPI(access_token=session['instagram_access_token'])
+        recent_media, next = userAPI.user_recent_media(user_id=session['instagram_user'].get('id'),count=25)
+
+        templateData = {
+            'size' : request.args.get('size','thumb'),
+            'media' : recent_media
+        }
+
+        return render_template('auth/instagram.html', **templateData)
+        
+
+    else:
+
+        return redirect(url_for('auth.user_photos'))
 
 
 
 @mod_auth.route("/logout", methods=['GET','POST'])
 @login_required
 def logout():
+    session.clear()
     name = current_user.email
     logout_user()
     flash(name + " has been logged out.")
@@ -121,3 +157,31 @@ def removeSuccess(email):
 def http_error_handler(error):
     flash("You must log in to access this page.")
     return redirect(url_for('auth.login'))
+
+
+
+
+
+@mod_auth.route('/instagram_callback')
+@login_required
+def instagram_callback():
+
+    code = request.args.get('code')
+
+    if code:
+
+        access_token, user = api.exchange_code_for_access_token(code)
+        if not access_token:
+            return 'Could not get access token'
+
+        app.logger.debug('got an access token')
+        app.logger.debug(access_token)
+
+        # Sessions are used to keep this data 
+        session['instagram_access_token'] = access_token
+        session['instagram_user'] = user
+
+        return redirect(url_for('auth.dashboard', user=current_user.email)) 
+        
+    else:
+        return "No code provided"

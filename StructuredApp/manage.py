@@ -1,4 +1,4 @@
-
+import os
 
 from app import app
 from app.__init__ import db
@@ -12,5 +12,6 @@ manager.add_command('db', MigrateCommand)
 
 
 if __name__ == '__main__':
+  
     manager.run()
 

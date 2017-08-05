@@ -6,6 +6,7 @@ import os
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))  
 
 
+
 SQLALCHEMY_DATABASE_URI = 'postgres://jwdttrrbsocftv:0aada51eb879675cf59fd34a5d9c9c603b77d91156a3b91ab2d5fce1a0debfd1@ec2-54-243-252-232.compute-1.amazonaws.com:5432/d32dubg7aafg44'
 DATABASE_CONNECT_OPTIONS = {}
 

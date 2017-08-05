@@ -1,0 +1,50 @@
+{% extends "auth/parent.html" %}
+{% block leftNav %}
+<li class="active"><a href="{{ url_for("auth.register") }}">Home</a></li>
+{% endblock %}
+{% block rightNav %}
+<li><a href="{{ url_for("auth.logout") }}">Logout</a></li>
+<li><a href="{{ url_for("auth.remove") }}">Delete Account</a></li>
+{% endblock %}
+{% block title %}
+<div class= "col-md-6 col-md-offset-3">
+<h2>Welcome!</h2>
+</div>
+
+{% endblock %}
+{% block content %}
+<div class="row">
+	<div class="col-md-12">
+
+		
+
+
+		{% for m in media %}
+			
+			{% if size == 'big'%}
+			<p>
+				<img src="{{m.images['standard_resolution'].url}}" alt="{{m.caption.text}}">
+				<br>
+				{{m.caption.text}}
+				<br>
+				<small><a href="{{m.link}}">view on instagram</a></small>
+			</p>
+
+			{% else %}
+
+				<div class="col-sm-6 col-md-2">
+					<a href="{{m.link}}" class="thumbnail">
+						<img src="{{m.images['thumbnail'].url}}" alt="{{m.caption.text}}">
+					</a>
+				</div>
+			{% endif %}
+
+		{% endfor %}
+	</div>
+	
+
+</div>
+
+
+
+{% endblock %}
