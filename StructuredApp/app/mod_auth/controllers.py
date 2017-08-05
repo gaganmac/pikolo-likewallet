@@ -117,7 +117,7 @@ def remove():
 @mod_auth.route("/<user>/dashboard", methods=['GET','POST'])
 @login_required
 def dashboard(user):
-    if 'instagram_access_token' in session and 'instagram_user' in session:
+    if session.get('instagram_access_token') and session.get('instagram_user'):
         userAPI = InstagramAPI(access_token=session['instagram_access_token'])
         recent_media, next = userAPI.user_recent_media(user_id=session['instagram_user'].get('id'),count=25)
 
@@ -138,7 +138,8 @@ def dashboard(user):
 @mod_auth.route("/logout", methods=['GET','POST'])
 @login_required
 def logout():
-    session.clear()
+    session['instagram_user'] = None
+    session['instagram_access_token'] = None
     name = current_user.email
     logout_user()
     flash(name + " has been logged out.")
