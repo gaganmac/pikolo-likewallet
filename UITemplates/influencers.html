@@ -56,60 +56,66 @@
 
             <section id="influencers">
 
-                <div class="d-flex justify-content-end flex-wrap">
-                    <!--Section Title-->
-                    <div class="mr-auto align-self-end"><h1 class="h1.responsive">Influencers</h1></div>
+                <div class="d-flex justify-content-between">
+                    <h1 class="h1.responsive">Influencers</h1>
+                </div>
 
-                    <!--Add Influencers button-->
-                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#add-influencers"><i class="fa fa-plus"></i> Add Influencers</button>
+                <div class="influencer-filters">
+                    <div class="d-flex justify-content-between align-items-end flex-nowrap">
 
-                    <!--Add Influencers Modal-->
-                    <div class="modal fade right" id="add-influencers" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-side modal-top-right" role="document">
-                            <!--Content-->
-                            <div class="modal-content">
-                                <!--Header-->
-                                <div class="modal-header">
-                                    <h4 class="modal-title w-100" id="myModalLabel">Add influencers</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <!--Body-->
-                                <div class="modal-body">
-                                    <div class="md-form">
-                                        <input type="search" class="form-control" placeholder="Enter IG handles">
-                                    </div>
-                                    <button type="button" class="btn btn-default ml-auto">Add</button>
-                                </div>
-                            </div>
-                            <!--/.Content-->
+                        <!--Search box-->
+                        <div class="md-form form-sm form-group influencer-search-box">
+                            <i class="fa fa-search prefix"></i>
+                            <input type="search" class="form-control" placeholder="Search for influencers">
                         </div>
-                    </div>
 
-                    
-                    <!--Groups button-->
-                    <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Groups</button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">All Influencers</a>
-                                <a class="dropdown-item" href="#">West Coast</a>
-                                <a class="dropdown-item" href="#">East Coast</a>
-                                <a class="dropdown-item" href="#">Spring Campaign</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Create New Group</a>
+                        
+                        <!--Groups button-->
+                        <div class="dropdown align-self-start">
+                            <div class="btn-group">
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Groups</button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="#">All Influencers</a>
+                                    <a class="dropdown-item" href="#">West Coast</a>
+                                    <a class="dropdown-item" href="#">East Coast</a>
+                                    <a class="dropdown-item" href="#">Spring Campaign</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item create-group-btn" href="#">Create New Group</a>
+                                </div>
                             </div>
+                        </div>
+                        
                     </div>
-
                 </div>
 
-                <!--Search box-->
-                <div class="md-form">
-                    <input type="search" class="form-control" placeholder="Search for influencers">
-                </div>
 
                 <!--Influencer List-->
-                <div class="list-group">
+                <div class="list-group influencer-list">
+
+                    <!--Menu for creating groups-->
+                    <div class="add-group-menu">
+                        <div href="#" class="list-group-item d-flex flex-wrap justify-content-between">
+
+                            <div>
+                                <i class="fa fa-angle-down extra-margin-right"></i>
+                                Select influencers
+                            </div>
+
+                            <!--Group Name Form-->
+                            <form class="form-inline" id=formGroupName>
+
+                                <div class="md-form form-sm form-group form-group-name">
+                                    <i class="fa fa-users prefix"></i>
+                                    <input required type="text" class="form-control" placeholder="Add a group name">
+                                </div>
+
+                                <button type="submit" class=" btn-group-create btn btn-primary  btn-narrow" disabled>Create</button>
+
+                                <button type="button" class="btn-group-cancel btn btn-default btn-narrow">Cancel</button>
+                                
+                            </form>
+                        </div>
+                    </div>
 
                     <!--Influencer Item-->
                     <div href="#" class="list-group-item list-group-item-action d-flex justify-content-start flex-nowrap">
@@ -121,7 +127,7 @@
                         </div>
                         <div class="ml-auto d-flex flex-nowrap">
                             <a href="https://www.instagram.com/audreylombard/" target="_blank" class="btn btn-default btn-sm"><i class="fa fa-instagram"></i></a>
-                            <a class="btn btn-blue-grey btn-sm"><i class="fa fa-trash-o"></i></a>
+                            <a class="remove-influencer-btn btn btn-blue-grey btn-sm"><i class="fa fa-trash-o"></i></a>
                         </div>
                     </div>
 
@@ -135,7 +141,7 @@
                         </div>
                         <div class="ml-auto d-flex flex-nowrap">
                             <a href="https://www.instagram.com/milkywaysblueyes/" target="_blank" class="btn btn-default btn-sm"><i class="fa fa-instagram"></i></a>
-                            <a class="btn btn-blue-grey btn-sm"><i class="fa fa-trash-o"></i></a>
+                            <a class="remove-influencer-btn btn btn-blue-grey btn-sm"><i class="fa fa-trash-o"></i></a>
                         </div>
                     </div>
 
@@ -149,7 +155,7 @@
                         </div>
                         <div class="ml-auto d-flex flex-nowrap">
                             <a href="https://www.instagram.com/ruerodier/" target="_blank" class="btn btn-default btn-sm"><i class="fa fa-instagram"></i></a>
-                            <a class="btn btn-blue-grey btn-sm"><i class="fa fa-trash-o"></i></a>
+                            <a class="remove-influencer-btn btn btn-blue-grey btn-sm"><i class="fa fa-trash-o"></i></a>
                         </div>
                     </div>
 
@@ -163,7 +169,7 @@
                         </div>
                         <div class="ml-auto d-flex flex-nowrap">
                             <a href="https://www.instagram.com/satyaoblette/" target="_blank" class="btn btn-default btn-sm"><i class="fa fa-instagram"></i></a>
-                            <a class="btn btn-blue-grey btn-sm"><i class="fa fa-trash-o"></i></a>
+                            <a class="remove-influencer-btn btn btn-blue-grey btn-sm"><i class="fa fa-trash-o"></i></a>
                         </div>
                     </div>
 
@@ -177,16 +183,48 @@
                         </div>
                         <div class="ml-auto d-flex flex-nowrap">
                             <a href="https://www.instagram.com/valerietribes/" target="_blank" class="btn btn-default btn-sm"><i class="fa fa-instagram"></i></a>
-                            <a class="btn btn-blue-grey btn-sm"><i class="fa fa-trash-o"></i></a>
+                            <a class="remove-influencer-btn btn btn-blue-grey btn-sm"><i class="fa fa-trash-o"></i></a>
                         </div>
                     </div>
 
+                </div>
 
+                <br>
+
+                <!--Add Influencers button-->
+                <button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#add-influencers"><i class="fa fa-plus"></i> Add Influencers</button>
+
+                <!--Add Influencers Modal-->
+                <div class="modal fade right" id="add-influencers" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-side modal-top-right" role="document">
+                        <!--Content-->
+                        <div class="modal-content">
+                            <!--Header-->
+                            <div class="modal-header">
+                                <h4 class="modal-title w-100" id="myModalLabel">Add influencers</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <!--Body-->
+                            <div class="modal-body">
+                                <div class="md-form">
+                                    <input type="search" class="form-control" placeholder="Enter IG handles">
+                                </div>
+                                <button type="button" class="add-influencer-btn btn btn-default ml-auto" data-dismiss="modal">Add</button>
+                            </div>
+                        </div>
+                        <!--/.Content-->
+                    </div>
                 </div>
 
             </section>
 
          </div>  
+
+         <div class="alerts-container">
+        </div>
+
     </main>
 
     <!-- SCRIPTS -->
@@ -198,6 +236,8 @@
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="js/mdb.min.js"></script>
+    <!-- Custom scripts-->
+    <script type="text/javascript" src="js/scripts.js"></script>
 
 </body>
 

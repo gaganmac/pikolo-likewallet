@@ -115,7 +115,7 @@
                     <!--Statistics Card-->
                     <div class="col hidden-xs-down">
                         <!--Card-->
-                        <div class=" card card-block hoverable">
+                        <div class=" card card-block">
                             <!--Title-->
                             <h4 class="card-title">Statistics</h4>
                             <!--Text-->
@@ -137,7 +137,7 @@
                 <!--Statistics Card Mobile-->
                     <div class="col-sm-12">
                         <!--Card-->
-                        <div class=" card card-block hoverable">
+                        <div class=" card card-block">
                             <!--Title-->
                             <h4 class="card-title">Statistics</h4>
                             <!--Text-->
@@ -167,7 +167,7 @@
 
                         <!--ROI Card-->
                         <div class="col">
-                            <div class=" card card-block hoverable">
+                            <div class=" card card-block">
                                 <!--Title-->
                                 <h4 class="card-title">ROI</h4>
                                 <!--Text-->
@@ -184,7 +184,7 @@
 
                         <!--Gender Card-->
                         <div class="col">
-                            <div class=" card card-block hoverable">
+                            <div class=" card card-block">
                                 <!--Title-->
                                 <h4 class="card-title">Audience Gender</h4>
                                 <!--Text-->
@@ -200,7 +200,7 @@
                 <!--Location Card-->
                 <div class="col-sm-8">
                     <!--Card-->
-                    <div class=" card card-block hoverable">
+                    <div class=" card card-block">
                         <!--Title-->
                         <h4 class="card-title">Audience Location</h4>
                         <div class="row">
@@ -228,7 +228,27 @@
 
             <section id="dashboard-influencers">
 
-                <h1 class="h1.responsive">Influencers</h1>
+                <div class="d-flex justify-content-between flex-wrap">
+                        
+                    <h1 class="h1.responsive">Influencers</h1>
+                    <!--Rank By Dropdown-->
+                    <div class="dropdown"> 
+                        <div class="btn-group">
+                            <button class="btn btn-default btn-narrow dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Rank ROI by</button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="#"><i class="fa fa-check"></i>Overall Performance</a>
+                                <a class="dropdown-item" href="#">Views</a>
+                                <a class="dropdown-item" href="#">Likes</a>
+                                <a class="dropdown-item" href="#">Comments</a>
+                                <a class="dropdown-item" href="#">Clicks</a>
+                                <a class="dropdown-item" href="#">Sales</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <br>
 
                 <!--Influencers Card-->
                 <div class="list-group">
@@ -239,9 +259,9 @@
                         <!--Profile Pic-->
                         <img class="img-fluid rounded-circle align-self-start" src="https://scontent-cdt1-1.cdninstagram.com/t51.2885-19/s320x320/19985367_1604318926253628_6975478607594389504_a.jpg">
 
-                        <div class="d-flex flex-wrap align-self-center">
+                        <div class="d-flex flex-wrap align-items-center">
 
-                            <div class="influencer-name align-self-center">
+                            <div class="influencer-name">
                                  <!--Influencer Name-->
                                 <strong>Marissa Cox</strong>
                                 <!--Influencer Rating-->
@@ -250,22 +270,27 @@
                                     <li><i class="fa fa-star amber-text"></i></li>
                                     <li><i class="fa fa-star amber-text"></i></li>
                                     <li><i class="fa fa-star amber-text"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star amber-text"></i></li>
                                 </ul>
                             </div>
 
                             <!--Influencer Stats-->
-                            <div class="row align-self-center">
-                                <div class="col-2">1<br /><small>posts</small></div>
-                                <div class="col-2">62k<br /><small>views</small></div>
-                                <div class="col-2">2.2k<br /><small>likes</small></div>
-                                <div class="col-2">304<br /><small>coms</small></div>
-                                <div class="col-2">1.3k<br /><small>clicks</small></div>
-                                <div class="col-2">153<br /><small>sales</small></div>
-                            </div> 
+                            <div class="d-flex flex-sm-nowrap flex-wrap">
+                                <div class="row extra-margin-right">
+                                    <div class="col-4">1<br /><small>posts</small></div>
+                                    <div class="col-4">62k<br /><small>views</small></div>
+                                    <div class="col-4">2.2k<br /><small>likes</small></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">304<br /><small>coms</small></div>
+                                    <div class="col-4">1.3k<br /><small>clicks</small></div>
+                                    <div class="col-4">153<br /><small>sales</small></div>
+                                </div>
+                            </div>
 
                         </div>
-                        
+
+                        <div class="text-center ml-auto extra-margin-right">$1,000<br /><small>cost</small></div>
                     </a>
 
                     <!--Influencer-->
@@ -276,7 +301,7 @@
 
                         <div class="d-flex flex-wrap align-self-center">
 
-                            <div class="influencer-name  align-self-center">
+                            <div class="influencer-name">
                                  <!--Influencer Name-->
                                 <strong>Claire Marnette</strong>
                                 <!--Influencer Rating-->
@@ -285,20 +310,25 @@
                                     <li><i class="fa fa-star amber-text"></i></li>
                                     <li><i class="fa fa-star amber-text"></i></li>
                                     <li><i class="fa fa-star amber-text"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star amber-text"></i></li>
                                 </ul>
                             </div>
 
                             <!--Influencer Stats-->
-                            <div class="row align-self-center">
-                                <div class="col-2">1<br /><small>posts</small></div>
-                                <div class="col-2">57k<br /><small>views</small></div>
-                                <div class="col-2">4.4k<br /><small>likes</small></div>
-                                <div class="col-2">74<br /><small>coms</small></div>
-                                <div class="col-2">1.9k<br /><small>clicks</small></div>
-                                <div class="col-2">192<br /><small>sales</small></div>
-                            </div> 
+                            <div class="d-flex flex-sm-nowrap flex-wrap">
+                                <div class="row extra-margin-right">
+                                    <div class="col-4">1<br /><small>posts</small></div>
+                                    <div class="col-4">57k<br /><small>views</small></div>
+                                    <div class="col-4">4.4k<br /><small>likes</small></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">74<br /><small>coms</small></div>
+                                    <div class="col-4">1.9k<br /><small>clicks</small></div>
+                                    <div class="col-4">192<br /><small>sales</small></div>
+                                </div> 
+                            </div>
                         </div>
+                        <div class=" text-center ml-auto extra-margin-right">$1,000<br /><small>cost</small></div>
                     </a>
 
                     <!--Influencer-->
@@ -309,7 +339,7 @@
 
                         <div class="d-flex justify-content-start flex-wrap align-self-center">
 
-                            <div class="influencer-name  align-self-center">
+                            <div class="influencer-name">
                                  <!--Influencer Name-->
                                 <strong>Satya Oblette</strong>
                                 <!--Influencer Rating-->
@@ -323,15 +353,22 @@
                             </div>
 
                             <!--Influencer Stats-->
-                            <div class="row align-self-center">
-                                <div class="col-2">1<br /><small>posts</small></div>
-                                <div class="col-2">2.4k<br /><small>views</small></div>
-                                <div class="col-2">324<br /><small>likes</small></div>
-                                <div class="col-2">12<br /><small>coms</small></div>
-                                <div class="col-2">291<br /><small>clicks</small></div>
-                                <div class="col-2">16<br /><small>sales</small></div>
-                            </div> 
+                            <div class="d-flex flex-sm-nowrap flex-wrap">
+                                <div class="row extra-margin-right">
+                                    <div class="col-4">1<br /><small>posts</small></div>
+                                    <div class="col-4">2.4k<br /><small>views</small></div>
+                                    <div class="col-4">324<br /><small>likes</small></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">12<br /><small>coms</small></div>
+                                    <div class="col-4">291<br /><small>clicks</small></div>
+                                    <div class="col-4">16<br /><small>sales</small></div>
+                                </div> 
+                            </div>
                         </div>
+
+                        <div class="text-center ml-auto extra-margin-right">$250<br /><small>cost</small></div>
+
                     </a>
 
                     <!--Influencer-->
@@ -342,7 +379,7 @@
 
                         <div class="d-flex flex-wrap align-self-center">
 
-                            <div class="influencer-name  align-self-center">
+                            <div class="influencer-name">
                                  <!--Influencer Name-->
                                 <strong>Audrey Lombard</strong>
                                 <!--Influencer Rating-->
@@ -350,21 +387,28 @@
                                     <li><i class="fa fa-star amber-text"></i></li>
                                     <li><i class="fa fa-star amber-text"></i></li>
                                     <li><i class="fa fa-star amber-text"></i></li>
-                                    <li><i class="fa fa-star amber-text"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
                                     <li><i class="fa fa-star"></i></li>
                                 </ul>
                             </div>
 
                             <!--Influencer Stats-->
-                            <div class="row align-self-center">
-                                <div class="col-2">1<br /><small>posts</small></div>
-                                <div class="col-2">140k<br /><small>views</small></div>
-                                <div class="col-2">6.2k<br /><small>likes</small></div>
-                                <div class="col-2">51<br /><small>coms</small></div>
-                                <div class="col-2">1.1k<br /><small>clicks</small></div>
-                                <div class="col-2">44<br /><small>sales</small></div>
-                            </div> 
+                            <div class="d-flex flex-sm-nowrap flex-wrap">
+                                <div class="row extra-margin-right">
+                                    <div class="col-4">1<br /><small>posts</small></div>
+                                    <div class="col-4">140k<br /><small>views</small></div>
+                                    <div class="col-4">6.2k<br /><small>likes</small></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">51<br /><small>coms</small></div>
+                                    <div class="col-4">1.1k<br /><small>clicks</small></div>
+                                    <div class="col-4">44<br /><small>sales</small></div>
+                                </div> 
+                            </div>
                         </div>
+
+                        <div class="text-center ml-auto extra-margin-right">$2,250<br /><small>cost</small></div>
+
                     </a>
 
                     <!--Influencer-->
@@ -375,29 +419,36 @@
 
                         <div class="d-flex flex-wrap align-self-center">
 
-                            <div class="influencer-name  align-self-center">
+                            <div class="influencer-name">
                                  <!--Influencer Name-->
                                 <strong>Valerie Tribes</strong>
                                 <!--Influencer Rating-->
                                 <ul class="rating inline-ul margins-reset">
                                     <li><i class="fa fa-star amber-text"></i></li>
                                     <li><i class="fa fa-star amber-text"></i></li>
-                                    <li><i class="fa fa-star amber-text"></i></li>
-                                    <li><i class="fa fa-star amber-text"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
                                     <li><i class="fa fa-star"></i></li>
                                 </ul>
                             </div>
 
                             <!--Influencer Stats-->
-                            <div class="row align-self-center">
-                                <div class="col-2">1<br /><small>posts</small></div>
-                                <div class="col-2">26k<br /><small>views</small></div>
-                                <div class="col-2">913<br /><small>likes</small></div>
-                                <div class="col-2">21<br /><small>coms</small></div>
-                                <div class="col-2">363<br /><small>clicks</small></div>
-                                <div class="col-2">11<br /><small>sales</small></div>
+                            <div class="d-flex flex-sm-nowrap flex-wrap">
+                                <div class="row extra-margin-right">
+                                    <div class="col-4">1<br /><small>posts</small></div>
+                                    <div class="col-4">26k<br /><small>views</small></div>
+                                    <div class="col-4">913<br /><small>likes</small></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">21<br /><small>coms</small></div>
+                                    <div class="col-4">363<br /><small>clicks</small></div>
+                                    <div class="col-4">11<br /><small>sales</small></div>
+                                </div>
                             </div> 
                         </div>
+
+                        <div class="text-center ml-auto extra-margin-right">$1,000<br /><small>cost</small></div>
+
                     </a>
 
                 </div>
@@ -408,18 +459,18 @@
 
             <section id="posts">
 
-                <div class="d-flex w-100 justify-content-between">
+                <div class="d-flex justify-content-between">
                     <h1 class="h1.responsive">Posts</h1>
                     <!--Posts Dropdown-->
                     <div class="dropdown"> 
                         <div class="btn-group">
-                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter by</button>
-                            <div class="dropdown-menu">
+                            <button class="btn btn-default btn-narrow dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter by</button>
+                            <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" href="#">Views</a>
                                 <a class="dropdown-item" href="#">Likes</a>
                                 <a class="dropdown-item" href="#">Comments</a>
                                 <a class="dropdown-item" href="#">Clicks</a>
-                                <a class="dropdown-item" href="#">ROI</a>
+                                <a class="dropdown-item" href="#"><i class="fa fa-check"></i>ROI</a>
                             </div>
                         </div>
                     </div>
@@ -579,7 +630,7 @@
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="js/mdb.min.js"></script>
-    <!-- Personal scripts-->
+    <!-- Custom scripts-->
     <script type="text/javascript" src="js/scripts.js"></script>
 
 </body>
