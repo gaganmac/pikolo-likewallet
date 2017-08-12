@@ -15,7 +15,7 @@ from app import app
 from app.mod_auth.forms import LoginForm, RegistrationForm, RemoveForm
 
 # Import module models (i.e. User)
-from app.mod_auth.models import User
+from app.mod_auth.models import User, Influencer
 
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user, user_logged_in, current_user
 
@@ -125,7 +125,7 @@ def dashboard(user):
             'size' : request.args.get('size','thumb'),
             'media' : recent_media
         }
-
+        flash(current_user.influencers.first().handle);
         return render_template('auth/instagram.html', **templateData)
         
 
@@ -181,6 +181,11 @@ def instagram_callback():
         # Sessions are used to keep this data 
         session['instagram_access_token'] = access_token
         session['instagram_user'] = user
+
+        influencer = Influencer(user.get('id'), access_token)
+        influencer.user = current_user
+        db.session.add(influencer)
+        db.session.commit()
 
         return redirect(url_for('auth.dashboard', user=current_user.email)) 
         
