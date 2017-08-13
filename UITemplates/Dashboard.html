@@ -16,9 +16,9 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 
-<body>
+<body data-spy="scroll" data-target="#dashboard-navigation" data-offset="200">
 
-    <header>
+    <header id="dashboard-navigation">
 
         <!--Navbar-->
         <nav class="navbar navbar-toggleable navbar-dark danger-color fixed-top">
@@ -50,8 +50,8 @@
             </div>
         </nav>
 
-        <div class="secondary-navbar">
-            <div class="d-flex flex-wrap w-100 justify-content-start">
+        <div id="secondary-navbar">
+            <div class="d-flex flex-wrap w-100 justify-content-between">
                 <ul class="list-inline">
                     <!--Influencers dropdown-->
                     <li class="list-inline-item">
@@ -84,17 +84,20 @@
                             </div>
                         </div>
                     </li>
+                    <li class="list-inline-item">
+                        <div class="btn-group">
+                            <button class="btn btn-blue-grey btn-narrow"><i class="fa fa-cloud-download mr-1"></i> Export</button>
+                        </div>
+                    </li>
+        
                 </ul>
 
-                <nav class='align-self-center ml-auto hidden-xs-down'>
-                    <ul class="pagination">
-                        <li class="page-item active">
-                            <a class="page-link" href="#goals">Goals<span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#dashboard-influencers">Influencers</a></li>
-                        <li class="page-item"><a class="page-link" href="#posts">Posts</a></li>
-                    </ul>
-                </nav>
+               
+                <ul class="nav nav-pills hidden-sm-down" id="nav-dashboard">
+                    <li class="nav-item"><a class="nav-link active" href="#anchor-goals">Goals</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#anchor-dashboard-influencers">Influencers</a></li>
+                    <li class="nav-item" id="tab-posts"><a class="nav-link" href="#anchor-posts">Posts</a></li>
+                </ul>
 
             </div>
  
@@ -107,6 +110,8 @@
         <div class="container">
 
             <section id="goals">
+
+                <a class="anchor" id="anchor-goals"></a>
 
                 <h1 class=h1.responsive>Goals</h1>
 
@@ -227,7 +232,7 @@
             <hr class="extra-margins">
 
             <section id="dashboard-influencers">
-
+                <a class="anchor" id="anchor-dashboard-influencers"></a>
                 <div class="d-flex justify-content-between flex-wrap">
                         
                     <h1 class="h1.responsive">Influencers</h1>
@@ -459,13 +464,18 @@
 
             <section id="posts">
 
+                <a class="anchor" id="anchor-posts"></a>
+
                 <div class="d-flex justify-content-between">
+
                     <h1 class="h1.responsive">Posts</h1>
+                    
                     <!--Posts Dropdown-->
                     <div class="dropdown"> 
                         <div class="btn-group">
                             <button class="btn btn-default btn-narrow dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter by</button>
                             <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="#">Date</a>
                                 <a class="dropdown-item" href="#">Views</a>
                                 <a class="dropdown-item" href="#">Likes</a>
                                 <a class="dropdown-item" href="#">Comments</a>
@@ -482,7 +492,8 @@
 
                     <div class="col-sm-6 col-lg-4">
                         <!--Post card-->
-                        <div class="card">
+                        
+                        <div class="card post" id="001">
                             <!--Post image-->
                             <div class="post-image view overlay hm-white-slight">
                                 <img class="img-fluid" src="http://i.imgur.com/JvMWeO8.jpg" class="img-fluid" alt="">
@@ -502,13 +513,35 @@
                                     <div class="col-3"><p class="card-text">1.3k<br /><small>clicks</small></p></div>
                                 </div>
                             </div>
+
+                            <!-- New Post Modal -->
+                            <div class="modal fade" id="modal-new-post" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-sm" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title w-100" id="myModalLabel">New Post</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!-- New Post Form -->
+                                            <form id="form-cost">
+                                                <div class="md-form">
+                                                    <input required type="number" class="form-control">
+                                                    <label for="form-cost">Enter cost of post</label>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                         <br>
                     </div>
 
                     <div class="col-sm-6 col-lg-4">
                         <!--Post card-->
-                        <div class="card">
+                        <div class="card post" id="002">
                             <!--Post image-->
                             <div class="post-image view overlay hm-white-slight">
                                 <img class="img-fluid" src="http://i.imgur.com/A3yxeUl.jpg" class="img-fluid" alt="">
@@ -528,6 +561,7 @@
                                     <div class="col-3"><p class="card-text">1.9k<br /><small>clicks</small></p></div>
                                 </div>
                             </div>
+
                         </div>
                         <br>
                     </div>

@@ -17,6 +17,20 @@ main {
 	margin-right: 1rem;
 }
 
+#secondary-navbar {
+	width:100%;
+	height: 75px;
+	background-color: hsla(360, 100%, 100%, 0.96) ;
+	margin-top:50px;
+	padding-top:18px;
+	padding-bottom: 1rem;
+	padding-left:2rem;
+	padding-right:2rem;
+	position:fixed;
+	z-index: 1000;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 .add-group-menu {
 }
 
@@ -28,9 +42,21 @@ main {
 	z-index: 9999;
 }
 
+.anchor {
+	display: block;
+	position: relative;
+	top: -150px;
+	visibility: hidden;
+}
+
 .btn-narrow{
 	padding-left: 1rem;
 	padding-right: 1rem;
+}
+
+.btn-influencer{
+	margin-left: 0.5rem;
+	margin-right: 0.5rem;
 }
 
 .extra-margins {
@@ -77,6 +103,39 @@ main {
 	margin-right:0;
 }
 
+.mask-add-cost {
+	z-index: 500;
+}
+
+.modal, .modal-backdrop {
+    position: absolute !important;
+}
+
+.nav-pills .nav-link {
+  border-radius: 0.25rem;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .nav-item.show .nav-link {
+  color: #fff;
+  cursor: default;
+  background-color: #4285F4;
+}
+
+.nav-pills .nav-item.open .nav-link,
+.nav-pills .nav-item.open .nav-link:focus,
+.nav-pills .nav-item.open .nav-link:hover,
+.nav-pills .nav-link.active,
+.nav-pills .nav-link.active:focus,
+.nav-pills .nav-link.active:hover {
+  background-color: #4285F4;
+  color: #fff; }
+
+.post {
+	position: relative;
+	z-index: 500;
+}
+
 .post-image {
 	position:relative;
 	overflow:hidden;
@@ -86,17 +145,6 @@ main {
 .post-image img {
 	position:absolute;
 }
-
-.secondary-navbar {
-	width:100%;
-	height: 75px;
-	background-color: hsla(360, 100%, 100%, 0.96) ;
-	margin-top:50px;
-	padding-top:18px;
-	padding-bottom: 1rem;
-	padding-left:2rem;
-	padding-right:2rem;
-	position:fixed;
-	z-index: 1000;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+.remove-influencer-btn{
+	margin-left: 2rem;
 }
