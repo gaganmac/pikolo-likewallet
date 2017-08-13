@@ -2,6 +2,8 @@ from flask import Flask
 from flask_login import UserMixin
 from app import db
 import hashlib
+from sqlalchemy.orm import relationship
+
 
 
 class User(UserMixin, db.Model):
@@ -15,6 +17,8 @@ class User(UserMixin, db.Model):
 	email = db.Column(db.String(128), unique=True)
 	phone = db.Column(db.String(12))
 	password = db.Column(db.String(128))
+	influencers = db.relationship("Influencer", backref="user", lazy='dynamic')
+
 	
     
 	def __init__(self, first, last, company, website, email, phone, password):
@@ -28,5 +32,26 @@ class User(UserMixin, db.Model):
 		hashed = hashlib.sha1()
 		hashed.update(email.encode('utf-8'))
 		self.id = str(hashed)
+
 		
+
+
+class Influencer(db.Model):
+	__tablename__ = 'auth_influencer'
+
+	id = db.Column(db.String(64), primary_key=True)
+	handle = db.Column(db.String(128))
+	token = db.Column(db.String(128))
+	user_id = db.Column(db.String(64), db.ForeignKey('auth_user.id'))
+
+	
+	def __init__(self, handle, token):
+		self.handle = handle
+		self.token = token
+		hashed = hashlib.sha1()
+		hashed.update(handle.encode('utf-8'))
+		self.id = str(hashed)
+
+
+	
        
