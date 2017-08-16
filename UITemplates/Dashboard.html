@@ -16,9 +16,9 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 
-<body>
+<body data-spy="scroll" data-target="#dashboard-navigation" data-offset="200">
 
-    <header>
+    <header id="dashboard-navigation">
 
         <!--Navbar-->
         <nav class="navbar navbar-toggleable navbar-dark danger-color fixed-top">
@@ -50,8 +50,8 @@
             </div>
         </nav>
 
-        <div class="secondary-navbar">
-            <div class="d-flex flex-wrap w-100 justify-content-start">
+        <div id="secondary-navbar">
+            <div class="d-flex flex-wrap w-100 justify-content-between">
                 <ul class="list-inline">
                     <!--Influencers dropdown-->
                     <li class="list-inline-item">
@@ -84,17 +84,20 @@
                             </div>
                         </div>
                     </li>
+                    <li class="list-inline-item">
+                        <div class="btn-group">
+                            <button class="btn btn-blue-grey btn-narrow"><i class="fa fa-cloud-download mr-1"></i> Export</button>
+                        </div>
+                    </li>
+        
                 </ul>
 
-                <nav class='align-self-center ml-auto hidden-xs-down'>
-                    <ul class="pagination">
-                        <li class="page-item active">
-                            <a class="page-link" href="#goals">Goals<span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#dashboard-influencers">Influencers</a></li>
-                        <li class="page-item"><a class="page-link" href="#posts">Posts</a></li>
-                    </ul>
-                </nav>
+               
+                <ul class="nav nav-pills hidden-sm-down" id="nav-dashboard">
+                    <li class="nav-item"><a class="nav-link active" href="#anchor-goals">Goals</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#anchor-dashboard-influencers">Influencers</a></li>
+                    <li class="nav-item" id="tab-posts"><a class="nav-link" href="#anchor-posts">Posts</a></li>
+                </ul>
 
             </div>
  
@@ -108,6 +111,8 @@
 
             <section id="goals">
 
+                <a class="anchor" id="anchor-goals"></a>
+
                 <h1 class=h1.responsive>Goals</h1>
 
                 <div class="row">
@@ -115,7 +120,7 @@
                     <!--Statistics Card-->
                     <div class="col hidden-xs-down">
                         <!--Card-->
-                        <div class=" card card-block hoverable">
+                        <div class=" card card-block">
                             <!--Title-->
                             <h4 class="card-title">Statistics</h4>
                             <!--Text-->
@@ -137,7 +142,7 @@
                 <!--Statistics Card Mobile-->
                     <div class="col-sm-12">
                         <!--Card-->
-                        <div class=" card card-block hoverable">
+                        <div class=" card card-block">
                             <!--Title-->
                             <h4 class="card-title">Statistics</h4>
                             <!--Text-->
@@ -167,7 +172,7 @@
 
                         <!--ROI Card-->
                         <div class="col">
-                            <div class=" card card-block hoverable">
+                            <div class=" card card-block">
                                 <!--Title-->
                                 <h4 class="card-title">ROI</h4>
                                 <!--Text-->
@@ -184,7 +189,7 @@
 
                         <!--Gender Card-->
                         <div class="col">
-                            <div class=" card card-block hoverable">
+                            <div class=" card card-block">
                                 <!--Title-->
                                 <h4 class="card-title">Audience Gender</h4>
                                 <!--Text-->
@@ -200,7 +205,7 @@
                 <!--Location Card-->
                 <div class="col-sm-8">
                     <!--Card-->
-                    <div class=" card card-block hoverable">
+                    <div class=" card card-block">
                         <!--Title-->
                         <h4 class="card-title">Audience Location</h4>
                         <div class="row">
@@ -227,8 +232,28 @@
             <hr class="extra-margins">
 
             <section id="dashboard-influencers">
+                <a class="anchor" id="anchor-dashboard-influencers"></a>
+                <div class="d-flex justify-content-between flex-wrap">
+                        
+                    <h1 class="h1.responsive">Influencers</h1>
+                    <!--Rank By Dropdown-->
+                    <div class="dropdown"> 
+                        <div class="btn-group">
+                            <button class="btn btn-default btn-narrow dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Rank ROI by</button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="#"><i class="fa fa-check"></i>Overall Performance</a>
+                                <a class="dropdown-item" href="#">Views</a>
+                                <a class="dropdown-item" href="#">Likes</a>
+                                <a class="dropdown-item" href="#">Comments</a>
+                                <a class="dropdown-item" href="#">Clicks</a>
+                                <a class="dropdown-item" href="#">Sales</a>
+                            </div>
+                        </div>
+                    </div>
 
-                <h1 class="h1.responsive">Influencers</h1>
+                </div>
+
+                <br>
 
                 <!--Influencers Card-->
                 <div class="list-group">
@@ -239,9 +264,9 @@
                         <!--Profile Pic-->
                         <img class="img-fluid rounded-circle align-self-start" src="https://scontent-cdt1-1.cdninstagram.com/t51.2885-19/s320x320/19985367_1604318926253628_6975478607594389504_a.jpg">
 
-                        <div class="d-flex flex-wrap align-self-center">
+                        <div class="d-flex flex-wrap align-items-center">
 
-                            <div class="influencer-name align-self-center">
+                            <div class="influencer-name">
                                  <!--Influencer Name-->
                                 <strong>Marissa Cox</strong>
                                 <!--Influencer Rating-->
@@ -250,22 +275,27 @@
                                     <li><i class="fa fa-star amber-text"></i></li>
                                     <li><i class="fa fa-star amber-text"></i></li>
                                     <li><i class="fa fa-star amber-text"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star amber-text"></i></li>
                                 </ul>
                             </div>
 
                             <!--Influencer Stats-->
-                            <div class="row align-self-center">
-                                <div class="col-2">1<br /><small>posts</small></div>
-                                <div class="col-2">62k<br /><small>views</small></div>
-                                <div class="col-2">2.2k<br /><small>likes</small></div>
-                                <div class="col-2">304<br /><small>coms</small></div>
-                                <div class="col-2">1.3k<br /><small>clicks</small></div>
-                                <div class="col-2">153<br /><small>sales</small></div>
-                            </div> 
+                            <div class="d-flex flex-sm-nowrap flex-wrap">
+                                <div class="row extra-margin-right">
+                                    <div class="col-4">1<br /><small>posts</small></div>
+                                    <div class="col-4">62k<br /><small>views</small></div>
+                                    <div class="col-4">2.2k<br /><small>likes</small></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">304<br /><small>coms</small></div>
+                                    <div class="col-4">1.3k<br /><small>clicks</small></div>
+                                    <div class="col-4">153<br /><small>sales</small></div>
+                                </div>
+                            </div>
 
                         </div>
-                        
+
+                        <div class="text-center ml-auto extra-margin-right">$1,000<br /><small>cost</small></div>
                     </a>
 
                     <!--Influencer-->
@@ -276,7 +306,7 @@
 
                         <div class="d-flex flex-wrap align-self-center">
 
-                            <div class="influencer-name  align-self-center">
+                            <div class="influencer-name">
                                  <!--Influencer Name-->
                                 <strong>Claire Marnette</strong>
                                 <!--Influencer Rating-->
@@ -285,20 +315,25 @@
                                     <li><i class="fa fa-star amber-text"></i></li>
                                     <li><i class="fa fa-star amber-text"></i></li>
                                     <li><i class="fa fa-star amber-text"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star amber-text"></i></li>
                                 </ul>
                             </div>
 
                             <!--Influencer Stats-->
-                            <div class="row align-self-center">
-                                <div class="col-2">1<br /><small>posts</small></div>
-                                <div class="col-2">57k<br /><small>views</small></div>
-                                <div class="col-2">4.4k<br /><small>likes</small></div>
-                                <div class="col-2">74<br /><small>coms</small></div>
-                                <div class="col-2">1.9k<br /><small>clicks</small></div>
-                                <div class="col-2">192<br /><small>sales</small></div>
-                            </div> 
+                            <div class="d-flex flex-sm-nowrap flex-wrap">
+                                <div class="row extra-margin-right">
+                                    <div class="col-4">1<br /><small>posts</small></div>
+                                    <div class="col-4">57k<br /><small>views</small></div>
+                                    <div class="col-4">4.4k<br /><small>likes</small></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">74<br /><small>coms</small></div>
+                                    <div class="col-4">1.9k<br /><small>clicks</small></div>
+                                    <div class="col-4">192<br /><small>sales</small></div>
+                                </div> 
+                            </div>
                         </div>
+                        <div class=" text-center ml-auto extra-margin-right">$1,000<br /><small>cost</small></div>
                     </a>
 
                     <!--Influencer-->
@@ -309,7 +344,7 @@
 
                         <div class="d-flex justify-content-start flex-wrap align-self-center">
 
-                            <div class="influencer-name  align-self-center">
+                            <div class="influencer-name">
                                  <!--Influencer Name-->
                                 <strong>Satya Oblette</strong>
                                 <!--Influencer Rating-->
@@ -323,15 +358,22 @@
                             </div>
 
                             <!--Influencer Stats-->
-                            <div class="row align-self-center">
-                                <div class="col-2">1<br /><small>posts</small></div>
-                                <div class="col-2">2.4k<br /><small>views</small></div>
-                                <div class="col-2">324<br /><small>likes</small></div>
-                                <div class="col-2">12<br /><small>coms</small></div>
-                                <div class="col-2">291<br /><small>clicks</small></div>
-                                <div class="col-2">16<br /><small>sales</small></div>
-                            </div> 
+                            <div class="d-flex flex-sm-nowrap flex-wrap">
+                                <div class="row extra-margin-right">
+                                    <div class="col-4">1<br /><small>posts</small></div>
+                                    <div class="col-4">2.4k<br /><small>views</small></div>
+                                    <div class="col-4">324<br /><small>likes</small></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">12<br /><small>coms</small></div>
+                                    <div class="col-4">291<br /><small>clicks</small></div>
+                                    <div class="col-4">16<br /><small>sales</small></div>
+                                </div> 
+                            </div>
                         </div>
+
+                        <div class="text-center ml-auto extra-margin-right">$250<br /><small>cost</small></div>
+
                     </a>
 
                     <!--Influencer-->
@@ -342,7 +384,7 @@
 
                         <div class="d-flex flex-wrap align-self-center">
 
-                            <div class="influencer-name  align-self-center">
+                            <div class="influencer-name">
                                  <!--Influencer Name-->
                                 <strong>Audrey Lombard</strong>
                                 <!--Influencer Rating-->
@@ -350,21 +392,28 @@
                                     <li><i class="fa fa-star amber-text"></i></li>
                                     <li><i class="fa fa-star amber-text"></i></li>
                                     <li><i class="fa fa-star amber-text"></i></li>
-                                    <li><i class="fa fa-star amber-text"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
                                     <li><i class="fa fa-star"></i></li>
                                 </ul>
                             </div>
 
                             <!--Influencer Stats-->
-                            <div class="row align-self-center">
-                                <div class="col-2">1<br /><small>posts</small></div>
-                                <div class="col-2">140k<br /><small>views</small></div>
-                                <div class="col-2">6.2k<br /><small>likes</small></div>
-                                <div class="col-2">51<br /><small>coms</small></div>
-                                <div class="col-2">1.1k<br /><small>clicks</small></div>
-                                <div class="col-2">44<br /><small>sales</small></div>
-                            </div> 
+                            <div class="d-flex flex-sm-nowrap flex-wrap">
+                                <div class="row extra-margin-right">
+                                    <div class="col-4">1<br /><small>posts</small></div>
+                                    <div class="col-4">140k<br /><small>views</small></div>
+                                    <div class="col-4">6.2k<br /><small>likes</small></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">51<br /><small>coms</small></div>
+                                    <div class="col-4">1.1k<br /><small>clicks</small></div>
+                                    <div class="col-4">44<br /><small>sales</small></div>
+                                </div> 
+                            </div>
                         </div>
+
+                        <div class="text-center ml-auto extra-margin-right">$2,250<br /><small>cost</small></div>
+
                     </a>
 
                     <!--Influencer-->
@@ -375,29 +424,36 @@
 
                         <div class="d-flex flex-wrap align-self-center">
 
-                            <div class="influencer-name  align-self-center">
+                            <div class="influencer-name">
                                  <!--Influencer Name-->
                                 <strong>Valerie Tribes</strong>
                                 <!--Influencer Rating-->
                                 <ul class="rating inline-ul margins-reset">
                                     <li><i class="fa fa-star amber-text"></i></li>
                                     <li><i class="fa fa-star amber-text"></i></li>
-                                    <li><i class="fa fa-star amber-text"></i></li>
-                                    <li><i class="fa fa-star amber-text"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
                                     <li><i class="fa fa-star"></i></li>
                                 </ul>
                             </div>
 
                             <!--Influencer Stats-->
-                            <div class="row align-self-center">
-                                <div class="col-2">1<br /><small>posts</small></div>
-                                <div class="col-2">26k<br /><small>views</small></div>
-                                <div class="col-2">913<br /><small>likes</small></div>
-                                <div class="col-2">21<br /><small>coms</small></div>
-                                <div class="col-2">363<br /><small>clicks</small></div>
-                                <div class="col-2">11<br /><small>sales</small></div>
+                            <div class="d-flex flex-sm-nowrap flex-wrap">
+                                <div class="row extra-margin-right">
+                                    <div class="col-4">1<br /><small>posts</small></div>
+                                    <div class="col-4">26k<br /><small>views</small></div>
+                                    <div class="col-4">913<br /><small>likes</small></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">21<br /><small>coms</small></div>
+                                    <div class="col-4">363<br /><small>clicks</small></div>
+                                    <div class="col-4">11<br /><small>sales</small></div>
+                                </div>
                             </div> 
                         </div>
+
+                        <div class="text-center ml-auto extra-margin-right">$1,000<br /><small>cost</small></div>
+
                     </a>
 
                 </div>
@@ -408,18 +464,23 @@
 
             <section id="posts">
 
-                <div class="d-flex w-100 justify-content-between">
+                <a class="anchor" id="anchor-posts"></a>
+
+                <div class="d-flex justify-content-between">
+
                     <h1 class="h1.responsive">Posts</h1>
+                    
                     <!--Posts Dropdown-->
                     <div class="dropdown"> 
                         <div class="btn-group">
-                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter by</button>
-                            <div class="dropdown-menu">
+                            <button class="btn btn-default btn-narrow dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter by</button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="#">Date</a>
                                 <a class="dropdown-item" href="#">Views</a>
                                 <a class="dropdown-item" href="#">Likes</a>
                                 <a class="dropdown-item" href="#">Comments</a>
                                 <a class="dropdown-item" href="#">Clicks</a>
-                                <a class="dropdown-item" href="#">ROI</a>
+                                <a class="dropdown-item" href="#"><i class="fa fa-check"></i>ROI</a>
                             </div>
                         </div>
                     </div>
@@ -431,7 +492,8 @@
 
                     <div class="col-sm-6 col-lg-4">
                         <!--Post card-->
-                        <div class="card">
+                        
+                        <div class="card post" id="001">
                             <!--Post image-->
                             <div class="post-image view overlay hm-white-slight">
                                 <img class="img-fluid" src="http://i.imgur.com/JvMWeO8.jpg" class="img-fluid" alt="">
@@ -451,13 +513,35 @@
                                     <div class="col-3"><p class="card-text">1.3k<br /><small>clicks</small></p></div>
                                 </div>
                             </div>
+
+                            <!-- New Post Modal -->
+                            <div class="modal fade" id="modal-new-post" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-sm" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title w-100" id="myModalLabel">New Post</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!-- New Post Form -->
+                                            <form id="form-cost">
+                                                <div class="md-form">
+                                                    <input required type="number" class="form-control">
+                                                    <label for="form-cost">Enter cost of post</label>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                         <br>
                     </div>
 
                     <div class="col-sm-6 col-lg-4">
                         <!--Post card-->
-                        <div class="card">
+                        <div class="card post" id="002">
                             <!--Post image-->
                             <div class="post-image view overlay hm-white-slight">
                                 <img class="img-fluid" src="http://i.imgur.com/A3yxeUl.jpg" class="img-fluid" alt="">
@@ -477,6 +561,7 @@
                                     <div class="col-3"><p class="card-text">1.9k<br /><small>clicks</small></p></div>
                                 </div>
                             </div>
+
                         </div>
                         <br>
                     </div>
@@ -579,7 +664,7 @@
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="js/mdb.min.js"></script>
-    <!-- Personal scripts-->
+    <!-- Custom scripts-->
     <script type="text/javascript" src="js/scripts.js"></script>
 
 </body>
