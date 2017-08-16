@@ -1,4 +1,5 @@
 import os
+import urllib.request, json 
 
 # Import flask dependencies
 from flask import Blueprint, request, render_template, \
@@ -22,6 +23,7 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 from run import login_manager
 
 from instagram.client import InstagramAPI
+
 
 
 
@@ -117,21 +119,29 @@ def remove():
 @mod_auth.route("/<user>/dashboard", methods=['GET','POST'])
 @login_required
 def dashboard(user):
-    if session.get('instagram_access_token') and session.get('instagram_user'):
-        userAPI = InstagramAPI(access_token=session['instagram_access_token'])
-        recent_media, next = userAPI.user_recent_media(user_id=session['instagram_user'].get('id'),count=25)
+    likes = 0
+    comments = 0
+    # if session.get('instagram_access_token') and session.get('instagram_user'):
+    # userAPI = InstagramAPI(access_token=session['instagram_access_token'])
+    # recent_media, next = userAPI.user_recent_media(user_id=session['instagram_user'].get('id'),count=25)
+    for influencer in current_user.influencers:
+        url = urllib.request.urlopen('https://www.instagram.com/' +  influencer.handle + '/media/')
+        data = json.loads(url.read().decode())
+        for item in data['items']:
+            likes += item['likes']['count']
+            comments += item['comments']['count']
 
-        templateData = {
-            'size' : request.args.get('size','thumb'),
-            'media' : recent_media
-        }
-        flash(current_user.influencers.first().handle);
-        return render_template('auth/instagram.html', **templateData)
+    templateData = {
+        # 'size' : request.args.get('size','thumb'),
+        # 'media' : recent_media,
+        'influencers' : current_user.influencers,
+        'likes' : likes,
+        'comments' : comments
+    }
         
-
-    else:
-
-        return redirect(url_for('auth.user_photos'))
+    return render_template('auth/instagram.html', **templateData)
+    # else:
+    #     return redirect(url_for('auth.user_photos'))
 
 
 
@@ -178,11 +188,10 @@ def instagram_callback():
         app.logger.debug('got an access token')
         app.logger.debug(access_token)
 
-        # Sessions are used to keep this data 
         session['instagram_access_token'] = access_token
         session['instagram_user'] = user
 
-        influencer = Influencer(user.get('id'), access_token)
+        influencer = Influencer(user.get('username'), access_token)
         influencer.user = current_user
         db.session.add(influencer)
         db.session.commit()
@@ -191,3 +200,19 @@ def instagram_callback():
         
     else:
         return "No code provided"
+
+
+@mod_auth.route("/add", methods=['GET','POST'])
+@login_required
+def add():
+
+    if request.method == 'POST':
+    
+        influencer = Influencer(request.form['handle'], None)
+        influencer.user = current_user
+        db.session.add(influencer)
+        db.session.commit()
+
+        flash("Influencer has been added")
+        return redirect(url_for('auth.dashboard', user=current_user.email))
+
