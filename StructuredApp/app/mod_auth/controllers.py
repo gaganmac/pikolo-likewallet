@@ -121,6 +121,7 @@ def remove():
 def dashboard(user):
     likes = 0
     comments = 0
+    media = []
     # if session.get('instagram_access_token') and session.get('instagram_user'):
     # userAPI = InstagramAPI(access_token=session['instagram_access_token'])
     # recent_media, next = userAPI.user_recent_media(user_id=session['instagram_user'].get('id'),count=25)
@@ -130,10 +131,15 @@ def dashboard(user):
         for item in data['items']:
             likes += item['likes']['count']
             comments += item['comments']['count']
+        media += [data['items'][0]]
+
+
+
 
     templateData = {
-        # 'size' : request.args.get('size','thumb'),
+        'size' : request.args.get('size','thumb'),
         # 'media' : recent_media,
+        'media' : media,
         'influencers' : current_user.influencers,
         'likes' : likes,
         'comments' : comments
@@ -202,17 +208,35 @@ def instagram_callback():
         return "No code provided"
 
 
-@mod_auth.route("/add", methods=['GET','POST'])
+@mod_auth.route("/addinfluencer", methods=['GET','POST'])
 @login_required
 def add():
+    influencer = Influencer(request.form['handle'], None)
+    influencer.user = current_user
+    db.session.add(influencer)
+    db.session.commit()
+    flash("Influencer has been added")
+    return redirect(url_for('auth.manage'))
 
-    if request.method == 'POST':
+@mod_auth.route("/removeinfluencer", methods=['GET','POST'])
+@login_required
+def removeInfluencer():
+    influencer = Influencer.query.filter_by(handle=request.form['handle']).first()
+    db.session.delete(influencer)
+    db.session.commit()
+    flash("Influencer has been removed")
+    return redirect(url_for('auth.manage'))
+
+@mod_auth.route("/manage", methods=['GET','POST'])
+@login_required
+def manage():
     
-        influencer = Influencer(request.form['handle'], None)
-        influencer.user = current_user
-        db.session.add(influencer)
-        db.session.commit()
+    templateData = {
+        # 'size' : request.args.get('size','thumb'),
+        # 'media' : recent_media,
+        'influencers' : current_user.influencers,
+        'userDash' : url_for("auth.dashboard", user=current_user.email)
+    }
+    return render_template('auth/influencerManage.html', **templateData)
 
-        flash("Influencer has been added")
-        return redirect(url_for('auth.dashboard', user=current_user.email))
 

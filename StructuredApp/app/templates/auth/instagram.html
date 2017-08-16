@@ -5,6 +5,7 @@
 {% block rightNav %}
 <li><a href="{{ url_for("auth.logout") }}">Logout</a></li>
 <li><a href="{{ url_for("auth.remove") }}">Delete Account</a></li>
+<li><a href="{{ url_for("auth.manage") }}">Manage Influencers</a></li>
 {% endblock %}
 {% block title %}
 <div class= "col-md-6 col-md-offset-3">
@@ -13,8 +14,18 @@
 
 {% endblock %}
 {% block content %}
+
+<div class= "col-md-6 col-md-offset-3">
+<h4>Total Likes: {{likes}}</h4>
+<h4>Total Comments: {{comments}}</h4>
+</div>
+
+</br>
+</br>
+
+
 <div class="row">
-	<!-- <div class="col-md-12">
+	<div class="col-md-12">
 
 		
 
@@ -36,112 +47,19 @@
 					<a href="{{m.link}}" class="thumbnail">
 						<img src="{{m.images['thumbnail'].url}}" alt="{{m.caption.text}}">
 					</a>
+					<small><a href="{{m.link}}">view on instagram</a></small>
 				</div>
 			{% endif %}
 
 		{% endfor %}
-	</div> -->
+	</div>
 
-<div class= "col-md-6 col-md-offset-3">
-<h4>Likes: {{likes}}</h4>
-<h4>Comments: {{comments}}</h4>
+
+
+
 </div>
 
 
-<style>
-
-#example table
-{
-    counter-reset: rowNumber;
-}
-
-#example table tr > td:first-child
-{
-    counter-increment: rowNumber;
-}
-                
-#example table tr td:first-child::before
-{
-    content: counter(rowNumber);
-    min-width: 1em;
-    margin-right: 0.5em;
-}
-
-</style>
-	
-
-</div>
-
-<div class="container">
-	<div class="row">
-		<h2>Manage Influencers</h2>
-	</div>
-	
-	<div class="row">
-	    <div class="col-lg-2">
-	        <label>Instagram Handle:</label>
-	    </div>
-	    <div class="col-lg-4">
-	        <div class="form-group">
-	            <input id="addr" type="text" class="form-control" />
-	        </div>
-	    </div>
-	</div>
-	<div class="row">
-	    <div class="col-lg-2 col-lg-offset-2">
-	        <button id="addBtn" class="addBtn form-control btn btn-primary">
-	            Add Influencer
-	        </button>
-	    </div>
-	</div>
-	<br>
-	<div class="row">
-	    <div class="col-lg-12">
-	        <table id="example" class="table table-bordered">
-	            <thead>
-	                <tr>
-	                    
-	                    <th class="col-lg-11 text-center">Influencer</th>
-	                    <th class="col-lg-1 text-center">Actions</th>
-	                </tr>
-	            </thead>
-	            <tbody>
-
-	            	{% for i in influencers %}
-	            		<tr><td>{{i.handle}}</td><td><button class='btn btn-small delBtn'>Delete</button></td></tr>
-	            	{% endfor %}
-
-	                
-	            </tbody>
-	        </table>
-
-
-<script>
-
-$(document).ready(function(){
-        
-        
-        $(".addBtn").click(function(){
-          
-            var addr = $("#addr").val();
-            var markup = "<tr><td>" + addr + "</td><td><button class='btn btn-small delBtn'>Delete</button></td></tr>";
-            $("table tbody").append(markup);
-
-            $.post("{{ url_for("auth.add") }}", {"handle" : addr});
-            $.get("{{ url_for("auth.add") }}");
-
-            
-        });
-        
-        $(function () {
-            $("table").on("click", ".delBtn", function () {
-                $(this).closest('tr').remove();
-            });
-        });
-    });
-
-
-</script>
 
 
 
