@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Influencers - LikeWallet</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="{{ url_for('static', filename='css/mdb.min.css') }}" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+
+<body>
+
+    <header>
+        <!--Navbar-->
+        <nav class="navbar navbar-toggleable navbar-dark danger-color fixed-top">
+            <div class="container">
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav1" aria-controls="#navbarNav1" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="navbar-brand" href="{{ url_for('auth.dashboard') }}">
+                    <strong>LikeWallet</strong>
+                </a>
+                <div class="collapse navbar-collapse dual-collapse" id="navbarNav1">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('auth.dashboard') }}">Dashboard</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link">Influencers<span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="activity.html">Activity</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link">Account</a>
+                        </li>
+                    </ul>                   
+                </div>
+            </div>
+        </nav>
+    
+    </header>
+
+    <main>
+         <div class="container">
+
+            <section id="influencers">
+
+                <div class="d-flex justify-content-between">
+                    <h1 class="h1.responsive">Influencers</h1>
+                </div>
+
+                <div class="influencer-filters">
+                    <div class="d-flex justify-content-between align-items-end flex-nowrap">
+
+                        <!--Search box-->
+                        <div class="md-form form-sm form-group influencer-search-box">
+                            <i class="fa fa-search prefix"></i>
+                            <input type="search" class="form-control" placeholder="Search for influencers">
+                        </div>
+
+                        
+                        <!--Groups button-->
+                        <div class="dropdown align-self-start">
+                            <div class="btn-group">
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Groups</button>
+                                <div class="dropdown-menu dropdown-menu-right"=>
+                                    <div class = "influencer-groups">
+                                        <a class="dropdown-item" href="#">All Influencers</a>
+                                        <a class="dropdown-item" href="#">West Coast</a>
+                                        <a class="dropdown-item" href="#">East Coast</a>
+                                        <a class="dropdown-item" href="#">Spring Campaign</a>
+                                    </div>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item create-group-btn" href="#">Create New Group</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+
+                <!--Influencer List-->
+                <div class="list-group influencer-list">
+
+                    <!--Menu for creating groups-->
+                    <div class="add-group-menu">
+                        <div href="#" class="list-group-item d-flex flex-wrap justify-content-between">
+
+                            <div>
+                                <i class="fa fa-angle-down extra-margin-right"></i>
+                                Select influencers
+                            </div>
+
+                            <!--Group Name Form-->
+                            <form class="form-inline formGroupName">
+
+                                <div class="md-form form-sm form-group form-group-name">
+                                    <i class="fa fa-users prefix"></i>
+                                    <input required type="text" class="form-control" id="groupInput" placeholder="Add a group name">
+                                </div>
+
+                                <button type="submit" class=" btn-group-create btn btn-primary  btn-narrow" disabled>Create</button>
+
+                                <button type="button" class="btn-group-cancel btn btn-default btn-narrow">Cancel</button>
+                                
+                            </form>
+                        </div>
+                    </div>
+
+                    
+
+                    {% for i in influencers %}
+
+
+    
+                        <div href="#" class="list-group-item list-group-item-action d-flex justify-content-start flex-nowrap">
+                        <img class="img-fluid rounded-circle" src={{ pictures[loop.index0] }}>
+                        <div class="d-flex justify-content-start flex-wrap">
+                            <div class="influencer-name"><strong>{{ names[loop.index0] }}</strong></div>
+                            <div class="extra-margin-right"><small>385k followers</small></div>
+                            <div class="extra-margin-right"><small>3,954 posts</small></div>
+                        </div>
+                        <div class="ml-auto d-flex flex- align-items-center">
+                            <a href="https://www.instagram.com/{{i.handle}}/" target="_blank"><i class="fa fa-instagram btn-influencer"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-facebook btn-influencer"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-twitter btn-influencer"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-snapchat btn-influencer"></i></a>
+                            <a class="remove-influencer-btn btn-influencer"><i class="fa fa-trash-o"></i></a>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+
+                    
+
+                <br>
+
+                <!--Add Influencers button-->
+                <button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#add-influencers"><i class="fa fa-plus"></i> Add Influencers</button>
+
+                <!--Add Influencers Modal-->
+                <div class="modal fade" id="add-influencers" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <!--Content-->
+                        <div class="modal-content">
+                            <!--Header-->
+                            <div class="modal-header">
+                                <h4 class="modal-title w-100" id="myModalLabel">Add influencers</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <!--Body-->
+                            <div class="modal-body">
+                                <div class="md-form">
+                                    <input id="profileUrl" type="search" class="form-control" placeholder="Enter Influencer Profile URL">
+                                </div>
+                                <button type="button" class="add-influencer-btn btn btn-default ml-auto" data-dismiss="modal">Add</button>
+                            </div>
+                        </div>
+                        <!--/.Content-->
+                    </div>
+                </div>
+
+            </section>
+
+         </div>  
+
+         <div class="alerts-container">
+        </div>
+
+    </main>
+
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.1.1.min.js') }}"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/tether.min.js') }}"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/mdb.min.js') }}"></script>
+    <!-- Custom scripts-->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+
+    <script type=text/javascript>
+        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
+
+</body>
+
+</html>
