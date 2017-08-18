@@ -1,16 +1,393 @@
 {% extends "auth/parent.html" %}
-{% block leftNav %}
-<li class="active"><a href="{{ url_for("auth.register") }}">Home</a></li>
-{% endblock %}
-{% block rightNav %}
-<li><a href="{{ url_for("auth.logout") }}">Logout</a></li>
-<li><a href="{{ url_for("auth.remove") }}">Delete Account</a></li>
-{% endblock %}
-{% block title %}
-<div class= "col-md-6 col-md-offset-3">
-<h2>Welcome!</h2>
-</div>
+
+{% block secondary %}
+
+<div id="secondary-navbar">
+            <div class="d-flex flex-wrap w-100 justify-content-between">
+                <ul class="list-inline">
+                    <!--Influencers dropdown-->
+                    <li class="list-inline-item">
+                        <div class="dropdown"> 
+                            <div class="btn-group">
+                                <button class="btn btn-default dropdown-toggle btn-narrow" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Influencers</button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">All Influencers</a>
+                                    <a class="dropdown-item" href="#">West Coast</a>
+                                    <a class="dropdown-item" href="#">East Coast</a>
+                                    <a class="dropdown-item" href="#">Spring Campaign</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-inline-item">
+                        <!--Timerange dropdown-->
+                        <div class="dropdown"> 
+                            <div class="btn-group">
+                                <button class="btn btn-default dropdown-toggle btn-narrow" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Week to Date</button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Week to Date</a>
+                                    <a class="dropdown-item" href="#">Last Week</a>
+                                    <a class="dropdown-item" href="#">Month to Date</a>
+                                    <a class="dropdown-item" href="#">Last Month</a>
+                                    <a class="dropdown-item" href="#">Year to Date</a>
+                                    <a class="dropdown-item" href="#">Last Year</a>
+                                    <a class="dropdown-item" href="#">Custom</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-inline-item">
+                        <div class="btn-group">
+                            <button class="btn btn-blue-grey btn-narrow"><i class="fa fa-cloud-download mr-1"></i> Export</button>
+                        </div>
+                    </li>
+        
+                </ul>
+
+               
+                <ul class="nav nav-pills hidden-sm-down" id="nav-dashboard">
+                    <li class="nav-item"><a class="nav-link active" href="#anchor-goals">Goals</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#anchor-dashboard-influencers">Influencers</a></li>
+                    <li class="nav-item" id="tab-posts"><a class="nav-link" href="#anchor-posts">Posts</a></li>
+                </ul>
+
+            </div>
+ 
+        </div>
+
+
 
 {% endblock %}
-{% block content %}{% endblock %}
 
+
+
+{% block main %}
+
+
+    <main>
+
+        <div class="container">
+
+            <section id="goals">
+
+                <a class="anchor" id="anchor-goals"></a>
+
+                <h1 class=h1.responsive>Goals</h1>
+
+                <div class="row">
+
+                    <!--Statistics Card-->
+                    <div class="col hidden-xs-down">
+                        <!--Card-->
+                        <div class=" card card-block">
+                            <!--Title-->
+                            <h4 class="card-title">Statistics</h4>
+                            <!--Text-->
+                            <div class="row">
+                                <div class="col-sm-2"><p class="card-text">{{posts}}<br /><small>posts</small></p></div>
+                                <div class="col-sm-2"><p class="card-text">287k<br /><small>views</small></p></div>
+                                <div class="col-sm-2"><p class="card-text">{{likes}}<br /><small>likes</small></p></div>
+                                <div class="col-sm-2"><p class="card-text">{{comments}}<br /><small>comments</small></p></div>
+                                <div class="col-sm-2"><p class="card-text">5k<br /><small>clicks</small></p></div>
+                                <div class="col-sm-2"><p class="card-text">416<br /><small>sales</small></p></div>
+                            </div>
+                        </div>  
+                    </div>
+
+                </div>
+
+                <div class="row hidden-sm-up">
+
+                <!--Statistics Card Mobile-->
+                    <div class="col-sm-12">
+                        <!--Card-->
+                        <div class=" card card-block">
+                            <!--Title-->
+                            <h4 class="card-title">Statistics</h4>
+                            <!--Text-->
+                            <div class="row">
+                                <div class="col"><p class="card-text">28<br />posts</p></div>
+                                <div class="col"><p class="card-text">140k<br />views</p></div>
+                                <div class="col"><p class="card-text">13k<br />likes</p></div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col"><p class="card-text">781<br />comments</p></div>
+                                 <div class="col"><p class="card-text">2.1k<br />clicks</p></div>
+                                <div class="col"><p class="card-text">416<br />sales</p></div>
+                            </div>
+                            <br>
+                        </div>
+                        <!--/.Card-->   
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="row">
+
+                <div class="col-sm-4">
+                    <div class="row">
+
+                        <!--ROI Card-->
+                        <div class="col">
+                            <div class=" card card-block">
+                                <!--Title-->
+                                <h4 class="card-title">ROI</h4>
+                                <!--Text-->
+                                <p class="card-text">Sales: $37k</p>
+                                <p class="card-text">Investment: 6k</p>
+                                <strong class="card-text">ROI: 6.2x</strong>
+                            </div>
+                        </div>
+
+                    </div>
+                    <br>
+
+                    <div class="row">
+
+                        <!--Gender Card-->
+                        <div class="col">
+                            <div class=" card card-block">
+                                <!--Title-->
+                                <h4 class="card-title">Audience Gender</h4>
+                                <!--Text-->
+                                <p class="card-text">Female: 62%
+                                <p class="card-text">Male: 38%</p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <br>
+                </div>
+
+                <!--Location Card-->
+                <div class="col-sm-8">
+                    <!--Card-->
+                    <div class=" card card-block">
+                        <!--Title-->
+                        <h4 class="card-title">Audience Location</h4>
+                        <div class="row">
+                            <!--Graph-->
+                            <div class="col">
+                                <img class="img-fluid" src="http://i.imgur.com/9TNF3ST.png" alt="Location Distribution">
+                                <br>
+                            </div>
+                        </div>
+                        <h5>Top Cities</h5>
+                        <div class="row">
+                            <div class="col"><p class="card-text">San Francisco (16%)</p></div>
+                            <div class="col"><p class="card-text">Los Angeles (9%)</p></div>
+                            <div class="col"><p class="card-text">New York City (6%)</p></div>
+                        </div>
+                    </div>
+                    <!--/.Card--> 
+                </div>
+                
+                <hr>
+
+            </section>
+
+            <hr class="extra-margins">
+
+            <section id="dashboard-influencers">
+                <a class="anchor" id="anchor-dashboard-influencers"></a>
+                <div class="d-flex justify-content-between flex-wrap">
+                        
+                    <h1 class="h1.responsive">Influencers</h1>
+                    <!--Rank By Dropdown-->
+                    <div class="dropdown"> 
+                        <div class="btn-group">
+                            <button class="btn btn-default btn-narrow dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Rank ROI by</button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="#"><i class="fa fa-check"></i>Overall Performance</a>
+                                <a class="dropdown-item" href="#">Views</a>
+                                <a class="dropdown-item" href="#">Likes</a>
+                                <a class="dropdown-item" href="#">Comments</a>
+                                <a class="dropdown-item" href="#">Clicks</a>
+                                <a class="dropdown-item" href="#">Sales</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <br>
+
+                <!--Influencers Card-->
+                <div class="list-group">
+                    
+                    {% for i in influencers %}
+
+						<!--Influencer-->
+                    <a href="https://www.instagram.com/{{i.handle}}/" class="list-group-item list-group-item-action d-flex justify-content-start flex-nowrap" target="_blank">
+
+                        <!--Profile Pic-->
+                        <img class="img-fluid rounded-circle align-self-start" src={{ pictures[loop.index0] }}>
+
+                        <div class="d-flex flex-wrap align-self-center">
+
+                            <div class="influencer-name">
+                                 <!--Influencer Name-->
+                                <strong>{{ names[loop.index0] }}</strong>
+                                <!--Influencer Rating-->
+                                <ul class="rating inline-ul margins-reset">
+                                    <li><i class="fa fa-star amber-text"></i></li>
+                                    <li><i class="fa fa-star amber-text"></i></li>
+                                    <li><i class="fa fa-star amber-text"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                </ul>
+                            </div>
+
+                            <!--Influencer Stats-->
+                            <div class="d-flex flex-sm-nowrap flex-wrap">
+                                <div class="row extra-margin-right">
+                                    <div class="col-4">{{ numPostsArray[loop.index0]}}<br /><small>posts</small></div>
+                                    <div class="col-4">140k<br /><small>views</small></div>
+                                    <div class="col-4">{{ likesArray[loop.index0] }}<br /><small>likes</small></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">{{ commentsArray[loop.index0] }}<br /><small>coms</small></div>
+                                    <div class="col-4">1.1k<br /><small>clicks</small></div>
+                                    <div class="col-4">44<br /><small>sales</small></div>
+                                </div> 
+                            </div>
+                        </div>
+
+                        <div class="text-center ml-auto extra-margin-right">$2,250<br /><small>cost</small></div>
+
+                    </a>
+
+                    {% endfor %}
+
+
+
+
+
+
+
+
+
+
+                </div>
+
+            </section>
+
+            <hr class="extra-margins">
+
+            <section id="posts">
+
+                <a class="anchor" id="anchor-posts"></a>
+
+                <div class="d-flex justify-content-between">
+
+                    <h1 class="h1.responsive">Posts</h1>
+                    
+                    <!--Posts Dropdown-->
+                    <div class="dropdown"> 
+                        <div class="btn-group">
+                            <button class="btn btn-default btn-narrow dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter by</button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="#">Date</a>
+                                <a class="dropdown-item" href="#">Views</a>
+                                <a class="dropdown-item" href="#">Likes</a>
+                                <a class="dropdown-item" href="#">Comments</a>
+                                <a class="dropdown-item" href="#">Clicks</a>
+                                <a class="dropdown-item" href="#"><i class="fa fa-check"></i>ROI</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="row">
+
+                   
+                        
+                        <div class="card post" id="001">
+                            
+
+                            <!-- New Post Modal -->
+                            <div class="modal fade" id="modal-new-post" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-sm" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title w-100" id="myModalLabel">New Post</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!-- New Post Form -->
+                                            <form id="form-cost">
+                                                <div class="md-form">
+                                                    <input required type="number" class="form-control">
+                                                    <label for="form-cost">Enter cost of post</label>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <br>
+                    
+
+                   
+
+                    
+
+                
+
+                    
+
+                    {% for m in media %}
+                    	<div class="col-sm-6 col-lg-4">
+                        <!--Post card-->
+                        <div class="card">
+                            <!--Post image-->
+                            <div class="post-image view overlay hm-white-slight">
+                                <img class="img-fluid" src="{{m.images['standard_resolution'].url}}" class="img-fluid" alt="{{m.caption.text}}">
+                                <a href="{{m.link}}" target="_blank">
+                                    <div class="mask waves-effect waves-light"></div>
+                                </a>
+                            </div>
+                            <!--Post stats-->
+                            <div class="card-block">
+                                <!--Title-->
+                                <h4 class="card-title">{{m.user.full_name}}</h4>
+                                <!--Text-->
+                                <div class="row">
+                                    <div class="col-3"><p class="card-text">26k<br /><small>views</small></p></div>
+                                    <div class="col-3"><p class="card-text">{{'{:,}'.format(m.likes.count)}}<br /><small>likes</small></p></div>
+                                    <div class="col-3"><p class="card-text">{{'{:,}'.format(m.comments.count)}}<br /><small>coms</small></p></div>
+                                    <div class="col-3"><p class="card-text">363<br /><small>clicks</small></p></div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+
+                    {% endfor %}
+
+
+
+
+
+                    
+                </div>
+
+            </section>
+
+        </div>
+        
+
+   
+    </main>
+
+
+
+
+
+{% endblock %}

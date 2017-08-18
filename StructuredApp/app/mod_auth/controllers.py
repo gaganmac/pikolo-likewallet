@@ -24,6 +24,8 @@ from run import login_manager
 
 from instagram.client import InstagramAPI
 
+from app.mod_auth.helpers import truncate
+
 
 
 
@@ -119,18 +121,37 @@ def remove():
 @mod_auth.route("/dashboard", methods=['GET','POST'])
 @login_required
 def dashboard():
-    likes = 0
-    comments = 0
+    likes = 0   #total likes
+    comments = 0 #total comments
+    posts = 0 #total posts
     media = []
+    names = []
+    pictures = []  
+    numPostsArray = []  #posts per influencer
+    likesArray = []     #likes per influencer
+    commentsArray = [] #comments per influencer
+
     # if session.get('instagram_access_token') and session.get('instagram_user'):
     # userAPI = InstagramAPI(access_token=session['instagram_access_token'])
     # recent_media, next = userAPI.user_recent_media(user_id=session['instagram_user'].get('id'),count=25)
     for influencer in current_user.influencers:
         url = urllib.request.urlopen('https://www.instagram.com/' +  influencer.handle + '/media/')
         data = json.loads(url.read().decode())
+        numPosts = 0  #number of posts influencer has available
+        numLikes = 0
+        numComments = 0
         for item in data['items']:
+            numPosts += 1
+            posts += 1
             likes += item['likes']['count']
             comments += item['comments']['count']
+            numLikes += item['likes']['count']
+            numComments += item['comments']['count']
+        numPostsArray += [numPosts]
+        likesArray += [truncate(numLikes)]
+        commentsArray += [truncate(numComments)]
+        pictures += [data['items'][0]['user']['profile_picture']]
+        names += [data['items'][0]['user']['full_name']]
         media += [data['items'][0]]
 
 
@@ -141,11 +162,18 @@ def dashboard():
         # 'media' : recent_media,
         'media' : media,
         'influencers' : current_user.influencers,
-        'likes' : likes,
-        'comments' : comments
+        'likes' : '{:,}'.format(likes),
+        'comments' : '{:,}'.format(comments),
+        'posts' : '{:,}'.format(posts),
+        'pictures' : pictures,
+        'names' : names,
+        'commentsArray' : commentsArray,
+        'likesArray' : likesArray,
+        'numPostsArray' : numPostsArray
+
     }
         
-    return render_template('auth/instagram.html', **templateData)
+    return render_template('auth/dashboard.html', **templateData)
     # else:
     #     return redirect(url_for('auth.user_photos'))
 
