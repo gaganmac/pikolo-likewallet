@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <link rel="shortcut icon" type="image/x-icon" href="img/iconLogo.png" />
     <title>Influencers - LikeWallet</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
@@ -20,7 +21,7 @@
 
     <header>
         <!--Navbar-->
-        <nav class="navbar navbar-toggleable navbar-dark danger-color fixed-top">
+        <nav class="navbar navbar-toggleable navbar-dark fixed-top">
             <div class="container">
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav1" aria-controls="#navbarNav1" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -73,7 +74,7 @@
                         <!--Groups button-->
                         <div class="dropdown align-self-start">
                             <div class="btn-group">
-                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Groups</button>
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="btn-groups" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Groups</button>
                                 <div class="dropdown-menu dropdown-menu-right"=>
                                     <div class = "influencer-groups">
                                         <a class="dropdown-item" href="#">All Influencers</a>
@@ -90,9 +91,8 @@
                     </div>
                 </div>
 
-
                 <!--Influencer List-->
-                <div class="list-group influencer-list">
+                <div class="list-group" id="influencer-list">
 
                     <!--Menu for creating groups-->
                     <div class="add-group-menu">
@@ -119,7 +119,24 @@
                         </div>
                     </div>
 
-                    <!--Influencer Item-->
+                    <!--Influencer: Anna Dawson-->
+                    <div href="#" class="list-group-item list-group-item-action d-flex justify-content-start flex-nowrap">
+                        <img class="img-fluid rounded-circle" src="https://scontent-lax3-2.cdninstagram.com/t51.2885-19/s320x320/18879014_645325038994734_2272849448402944000_a.jpg">
+                        <div class="d-flex justify-content-start flex-wrap">
+                            <div class="influencer-name"><strong>Anna Dawson</strong></div>
+                            <div class="extra-margin-right"><small>137k followers</small></div>
+                            <div class="extra-margin-right"><small>933 posts</small></div>
+                        </div>
+                        <div class="ml-auto d-flex flex- align-items-center">
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-instagram btn-influencer"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-facebook btn-influencer"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-twitter btn-influencer"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-snapchat btn-influencer"></i></a>
+                            <a class="remove-influencer-btn btn-influencer"><i class="fa fa-trash-o"></i></a>
+                        </div>
+                    </div>
+
+                    <!--Influencer: Audrey Lombard-->
                     <div href="#" class="list-group-item list-group-item-action d-flex justify-content-start flex-nowrap">
                         <img class="img-fluid rounded-circle" src="https://scontent-cdt1-1.cdninstagram.com/t51.2885-19/s320x320/19932976_327605547690183_5593401918933172224_a.jpg">
                         <div class="d-flex justify-content-start flex-wrap">
@@ -136,7 +153,41 @@
                         </div>
                     </div>
 
-                    <!--Influencer Item-->
+                    <!--Influencer: Caitlin Claire-->
+                    <div href="#" class="list-group-item list-group-item-action d-flex justify-content-start flex-nowrap">
+                        <img class="img-fluid rounded-circle" src="https://scontent-lax3-2.cdninstagram.com/t51.2885-19/s320x320/13573614_206575186409950_759810492_a.jpg">
+                        <div class="d-flex justify-content-start flex-wrap">
+                            <div class="influencer-name"><strong>Caitlin Claire</strong></div>
+                            <div class="extra-margin-right"><small>99.9k followers</small></div>
+                            <div class="extra-margin-right"><small>3,448 posts</small></div>
+                        </div>
+                        <div class="ml-auto d-flex flex- align-items-center">
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-instagram btn-influencer"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-facebook btn-influencer"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-twitter btn-influencer"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-snapchat btn-influencer"></i></a>
+                            <a class="remove-influencer-btn btn-influencer"><i class="fa fa-trash-o"></i></a>
+                        </div>
+                    </div>
+
+                    <!--Influencer: Chris Lin-->
+                    <div href="#" class="list-group-item list-group-item-action d-flex justify-content-start flex-nowrap">
+                        <img class="img-fluid rounded-circle" src="https://scontent-lax3-2.cdninstagram.com/t51.2885-19/s320x320/17931984_276802899412198_7960484032142114816_a.jpg">
+                        <div class="d-flex justify-content-start flex-wrap">
+                            <div class="influencer-name"><strong>Chris Lin</strong></div>
+                            <div class="extra-margin-right"><small>116k followers</small></div>
+                            <div class="extra-margin-right"><small>1,520 posts</small></div>
+                        </div>
+                        <div class="ml-auto d-flex flex- align-items-center">
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-instagram btn-influencer"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-facebook btn-influencer"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-twitter btn-influencer"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-snapchat btn-influencer"></i></a>
+                            <a class="remove-influencer-btn btn-influencer"><i class="fa fa-trash-o"></i></a>
+                        </div>
+                    </div>
+
+                    <!--Influencer: Claire Marnette-->
                     <div href="#" class="list-group-item list-group-item-action d-flex justify-content-start flex-nowrap">
                         <img class="img-fluid rounded-circle" src="https://scontent-cdt1-1.cdninstagram.com/t51.2885-19/s320x320/20065292_393261667742977_8836248891956396032_a.jpg">
                         <div class="d-flex justify-content-start flex-wrap">
@@ -153,7 +204,41 @@
                         </div>
                     </div>
 
-                    <!--Influencer Item-->
+                    <!--Influencer: Emily Higle-->
+                    <div href="#" class="list-group-item list-group-item-action d-flex justify-content-start flex-nowrap">
+                        <img class="img-fluid rounded-circle" src="https://scontent-lax3-2.cdninstagram.com/t51.2885-19/s320x320/18646446_1668417003465883_6890115922132992000_a.jpg">
+                        <div class="d-flex justify-content-start flex-wrap">
+                            <div class="influencer-name"><strong>Emily HIgle</strong></div>
+                            <div class="extra-margin-right"><small>108k followers</small></div>
+                            <div class="extra-margin-right"><small>6,586 posts</small></div>
+                        </div>
+                        <div class="ml-auto d-flex flex- align-items-center">
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-instagram btn-influencer"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-facebook btn-influencer"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-twitter btn-influencer"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-snapchat btn-influencer"></i></a>
+                            <a class="remove-influencer-btn btn-influencer"><i class="fa fa-trash-o"></i></a>
+                        </div>
+                    </div>
+
+                    <!--Influencer: Marion Gruber-->
+                    <div href="#" class="list-group-item list-group-item-action d-flex justify-content-start flex-nowrap">
+                        <img class="img-fluid rounded-circle" src="https://scontent-lax3-2.cdninstagram.com/t51.2885-19/s320x320/13266891_1747310592149899_939725910_a.jpg">
+                        <div class="d-flex justify-content-start flex-wrap">
+                            <div class="influencer-name"><strong>Marion Gruber</strong></div>
+                            <div class="extra-margin-right"><small>91.3k followers</small></div>
+                            <div class="extra-margin-right"><small>5,641 posts</small></div>
+                        </div>
+                        <div class="ml-auto d-flex flex- align-items-center">
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-instagram btn-influencer"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-facebook btn-influencer"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-twitter btn-influencer"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-snapchat btn-influencer"></i></a>
+                            <a class="remove-influencer-btn btn-influencer"><i class="fa fa-trash-o"></i></a>
+                        </div>
+                    </div>
+
+                    <!--Influencer: Marissa Cox-->
                     <div href="#" class="list-group-item list-group-item-action d-flex justify-content-start flex-nowrap">
                         <img class="img-fluid rounded-circle" src="https://scontent-cdt1-1.cdninstagram.com/t51.2885-19/s320x320/19985367_1604318926253628_6975478607594389504_a.jpg">
                         <div class="d-flex justify-content-start flex-wrap">
@@ -170,7 +255,41 @@
                         </div>
                     </div>
 
-                    <!--Influencer Item-->
+                    <!--Influencer: Olivia Jeanette-->
+                    <div href="#" class="list-group-item list-group-item-action d-flex justify-content-start flex-nowrap">
+                        <img class="img-fluid rounded-circle" src="https://scontent-lax3-2.cdninstagram.com/t51.2885-19/s320x320/20346904_113550139299829_5350532487690846208_a.jpg">
+                        <div class="d-flex justify-content-start flex-wrap">
+                            <div class="influencer-name"><strong>Olivia Jeanette</strong></div>
+                            <div class="extra-margin-right"><small>154k followers</small></div>
+                            <div class="extra-margin-right"><small>2,134 posts</small></div>
+                        </div>
+                        <div class="ml-auto d-flex flex-nowrap">
+                            <a href="https://www.instagram.com/ruerodier/" target="_blank" class="btn-influencer"><i class="fa fa-instagram"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-facebook btn-influencer"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-twitter btn-influencer"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-snapchat btn-influencer"></i></a>
+                            <a class="remove-influencer-btn btn-influencer"><i class="fa fa-trash-o"></i></a>
+                        </div>
+                    </div>
+
+                    <!--Influencer: Romain Costa-->
+                    <div href="#" class="list-group-item list-group-item-action d-flex justify-content-start flex-nowrap">
+                        <img class="img-fluid rounded-circle" src="https://scontent-lax3-2.cdninstagram.com/t51.2885-19/s320x320/16585322_394976027532211_4188725047935893504_a.jpg">
+                        <div class="d-flex justify-content-start flex-wrap">
+                            <div class="influencer-name"><strong>Romain Costa</strong></div>
+                            <div class="extra-margin-right"><small>107k followers</small></div>
+                            <div class="extra-margin-right"><small>1,434 posts</small></div>
+                        </div>
+                        <div class="ml-auto d-flex flex-nowrap">
+                            <a href="https://www.instagram.com/ruerodier/" target="_blank" class="btn-influencer"><i class="fa fa-instagram"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-facebook btn-influencer"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-twitter btn-influencer"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-snapchat btn-influencer"></i></a>
+                            <a class="remove-influencer-btn btn-influencer"><i class="fa fa-trash-o"></i></a>
+                        </div>
+                    </div>
+
+                    <!--Influencer: Satya Oblette-->
                     <div href="#" class="list-group-item list-group-item-action d-flex justify-content-start flex-nowrap">
                         <img class="img-fluid rounded-circle" src="https://scontent-cdt1-1.cdninstagram.com/t51.2885-19/s320x320/17882389_1094629587309725_4576407663864184832_a.jpg">
                         <div class="d-flex justify-content-start flex-wrap">
@@ -187,11 +306,45 @@
                         </div>
                     </div>
 
-                    <!--Influencer Item-->
+                    <!--Influencer: Tania Sarin-->
+                    <div href="#" class="list-group-item list-group-item-action d-flex justify-content-start flex-nowrap">
+                        <img class="img-fluid rounded-circle" src="https://scontent-lax3-2.cdninstagram.com/t51.2885-19/s320x320/19437100_104722546831857_6989482567506329600_a.jpg">
+                        <div class="d-flex justify-content-start flex-wrap">
+                            <div class="influencer-name"><strong>Tania Sarin</strong></div>
+                            <div class="extra-margin-right"><small>281k followers</small></div>
+                            <div class="extra-margin-right"><small>2,181 posts</small></div>
+                        </div>
+                        <div class="ml-auto d-flex flex-nowrap">
+                            <a href="https://www.instagram.com/ruerodier/" target="_blank" class="btn-influencer"><i class="fa fa-instagram"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-facebook btn-influencer"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-twitter btn-influencer"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-snapchat btn-influencer"></i></a>
+                            <a class="remove-influencer-btn btn-influencer"><i class="fa fa-trash-o"></i></a>
+                        </div>
+                    </div>
+
+                    <!--Influencer: Timothy Goodman-->
+                    <div href="#" class="list-group-item list-group-item-action d-flex justify-content-start flex-nowrap">
+                        <img class="img-fluid rounded-circle" src="https://scontent-lax3-2.cdninstagram.com/t51.2885-19/s320x320/17437779_273587546398896_8109255042076246016_a.jpg">
+                        <div class="d-flex justify-content-start flex-wrap">
+                            <div class="influencer-name"><strong>Timothy Goodman</strong></div>
+                            <div class="extra-margin-right"><small>111k followers</small></div>
+                            <div class="extra-margin-right"><small>1,739 posts</small></div>
+                        </div>
+                        <div class="ml-auto d-flex flex-nowrap">
+                            <a href="https://www.instagram.com/ruerodier/" target="_blank" class="btn-influencer"><i class="fa fa-instagram"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-facebook btn-influencer"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-twitter btn-influencer"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-snapchat btn-influencer"></i></a>
+                            <a class="remove-influencer-btn btn-influencer"><i class="fa fa-trash-o"></i></a>
+                        </div>
+                    </div>
+
+                    <!--Influencer Valerie Tribes-->
                     <div href="#" class="list-group-item list-group-item-action d-flex justify-content-start flex-nowrap">
                         <img class="img-fluid rounded-circle" src="https://scontent-cdt1-1.cdninstagram.com/t51.2885-19/s320x320/13643689_280170579041870_807103403_a.jpg">
                         <div class="d-flex justify-content-start flex-wrap">
-                            <div class="influencer-name"><strong>Valeria Tribes</strong></div>
+                            <div class="influencer-name"><strong>Valerie Tribes</strong></div>
                             <div class="extra-margin-right"><small>40.3k followers</small></div>
                             <div class="extra-margin-right"><small>4,820 posts</small></div>
                         </div>
@@ -204,18 +357,54 @@
                         </div>
                     </div>
 
+                    <!--Influencer: TValery Escande-->
+                    <div href="#" class="list-group-item list-group-item-action d-flex justify-content-start flex-nowrap">
+                        <img class="img-fluid rounded-circle" src="https://scontent-lax3-2.cdninstagram.com/t51.2885-19/s320x320/16123485_1228338037234544_7703788723216842752_n.jpg">
+                        <div class="d-flex justify-content-start flex-wrap">
+                            <div class="influencer-name"><strong>Valery Escande</strong></div>
+                            <div class="extra-margin-right"><small>68.5k followers</small></div>
+                            <div class="extra-margin-right"><small>950 posts</small></div>
+                        </div>
+                        <div class="ml-auto d-flex flex-nowrap">
+                            <a href="https://www.instagram.com/ruerodier/" target="_blank" class="btn-influencer"><i class="fa fa-instagram"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-facebook btn-influencer"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-twitter btn-influencer"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-snapchat btn-influencer"></i></a>
+                            <a class="remove-influencer-btn btn-influencer"><i class="fa fa-trash-o"></i></a>
+                        </div>
+                    </div>
+
                 </div>
+
+                <!-- Dropzone for when user has zero influencers -->
+                <div id="container-dz-zero-influencers">
+
+                    <br>
+
+                    <form action="/file-upload" class="dropzone" id="dropzone-zero-influencers">
+                        <div class="dz-message d-flex flex-column justify-content-center align-items-center">
+                            <br><br><br>
+                            <h4><i class="fa fa-magic"></i> Let's add your first influencers</h4>
+                            <p>Click the button below or drag and drop your list of influencers here</p>
+                        </div>    
+                    </form>
+
+                    <p><small>File must be an excel file containing usernames and emails of influencers</small></p>
+
+                </div>
+
 
                 <br>
 
                 <!--Add Influencers button-->
-                <button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#add-influencers"><i class="fa fa-plus"></i> Add Influencers</button>
+                <button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#modal-add-influencers"><i class="fa fa-plus"></i> Add Influencers</button>
 
                 <!--Add Influencers Modal-->
-                <div class="modal fade" id="add-influencers" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <!--Content-->
+                <div class="modal fade" id="modal-add-influencers" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-fluid" role="document">
+                        
                         <div class="modal-content">
+                            
                             <!--Header-->
                             <div class="modal-header">
                                 <h4 class="modal-title w-100" id="myModalLabel">Add influencers</h4>
@@ -223,13 +412,36 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
+                            
                             <!--Body-->
                             <div class="modal-body">
-                                <div class="md-form">
-                                    <input type="search" class="form-control" placeholder="Enter Influencer Profile URL">
-                                </div>
-                                <button type="button" class="add-influencer-btn btn btn-default ml-auto" data-dismiss="modal">Add</button>
+
+                                <!-- URL Search bar -->
+                                <form class="form-inline">
+
+                                        <div class="md-form form-group">
+                                            <input type="text" id="form-add-influencer" class="form-control" placeholder="Enter Influencer Profile URL">
+                                        </div>
+
+                                        <div class="md-form form-group">
+                                            <button type="submit" class="add-influencer-btn btn btn-default" data-dismiss="modal">Add</button>
+                                        </div>
+
+                                </form>
+
+                                <!-- Dropzone box -->
+                                <form action="/file-upload" class="dropzone" id="dropzone-add-influencer">
+                                    <div class="dz-message">
+                                        <br><br><br><br>
+                                        <i class="fa fa-magic"></i>
+                                         Or upload list of influencers
+                                    </div>    
+                                </form>
+
+                                <small>File must be an excel file containing usernames and emails of influencers</small>
+
                             </div>
+
                         </div>
                         <!--/.Content-->
                     </div>
@@ -251,6 +463,8 @@
     <script type="text/javascript" src="js/tether.min.js"></script>
     <!-- Bootstrap core JavaScript -->
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <!-- Dropzone JS -->
+    <script type="text/javascript" src="js/dropzone.js"></script>
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="js/mdb.min.js"></script>
     <!-- Custom scripts-->
