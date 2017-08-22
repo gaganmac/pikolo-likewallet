@@ -51,20 +51,21 @@ function main(){
 	//Add new influencer (e.g.Selena Gomez)
 	$(document).on("click", ".add-influencer-btn", function(){
 
-		var url = $("#profileUrl").val();
-
-		if (url.charAt(url.length - 1) != '/') {
-			url = url + '/';
-		}
+		var username = $("#profileUrl").val();
 
 		$.ajax({
-        url: "https://cors-anywhere.herokuapp.com/" + url + "media/",        //get JSON from specific user
+        url: "https://cors-anywhere.herokuapp.com/" + "http://instagram.com/" + username + "/media/",        //get JSON from specific user
         dataType: "json",
         success: function(data) {
+        	if ($(".influencer-list:contains(data.items[0].user.full_name)")) {
+        		return;
+        	}
         	$(".influencer-list").append('<div href="#" class="list-group-item list-group-item-action d-flex justify-content-start flex-nowrap"><img class="img-fluid rounded-circle" src=' + data.items[0].user.profile_picture + '><div class="d-flex justify-content-start flex-wrap"><div class="influencer-name"><strong>' + data.items[0].user.full_name + '</strong></div><div class="extra-margin-right"><small>124m followers</small></div><div class="extra-margin-right"><small>1,352 posts</small></div></div><div class="ml-auto d-flex flex-nowrap"><a href="https://www.instagram.com/' + data.items[0].user.username + '/"' +  ' target="_blank"><i class="fa fa-instagram btn-influencer"></i></a><a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-facebook btn-influencer"></i></a><a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-twitter btn-influencer"></i></a><a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-snapchat btn-influencer"></i></a><a class="remove-influencer-btn btn-influencer"><i class="fa fa-trash-o"></i></a>');
         	$.post($SCRIPT_ROOT + '/auth/addinfluencer', {"handle" : data.items[0].user.username});
         	
-         },
+         }, error: function(error){      //user does not exist
+        	$.get($SCRIPT_ROOT + '/auth/addinfluencer');
+ },
 
      });
 
