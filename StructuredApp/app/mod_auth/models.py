@@ -18,7 +18,7 @@ class User(UserMixin, db.Model):
 	phone = db.Column(db.String(12))
 	password = db.Column(db.String(128))
 	influencers = db.relationship("Influencer", secondary=association_table, backref="user", lazy='dynamic')
-	
+
 
 	
     
@@ -44,7 +44,6 @@ class Influencer(db.Model):
 	handle = db.Column(db.String(128))
 	token = db.Column(db.String(128))
 	stars = db.Column(db.Integer)
-	user_id = db.Column(db.String(64))
 
 
 	
