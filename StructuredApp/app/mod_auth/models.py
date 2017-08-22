@@ -17,7 +17,8 @@ class User(UserMixin, db.Model):
 	email = db.Column(db.String(128), unique=True)
 	phone = db.Column(db.String(12))
 	password = db.Column(db.String(128))
-	influencers = db.relationship("Influencer", backref="user", lazy='dynamic')
+	influencers = db.relationship("Influencer", secondary=association_table, backref="user", lazy='dynamic')
+
 
 	
     
@@ -42,7 +43,8 @@ class Influencer(db.Model):
 	id = db.Column(db.String(64), primary_key=True)
 	handle = db.Column(db.String(128))
 	token = db.Column(db.String(128))
-	user_id = db.Column(db.String(64), db.ForeignKey('auth_user.id'))
+	stars = db.Column(db.Integer)
+
 
 	
 	def __init__(self, handle, token):
@@ -52,6 +54,11 @@ class Influencer(db.Model):
 		hashed.update(handle.encode('utf-8'))
 		self.id = str(hashed)
 
+
+association_table = db.Table('association', db.Model.metadata,
+    db.Column('user_id', db.String(64), ForeignKey('auth_user.id')),
+    db.Column('influencer_id', db.String(64), ForeignKey('auth_influencer.id'))
+)
 
 	
        

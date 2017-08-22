@@ -1,4 +1,5 @@
 import os
+import urllib.request, json 
 
 # Import flask dependencies
 from flask import Blueprint, request, render_template, \
@@ -22,6 +23,9 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 from run import login_manager
 
 from instagram.client import InstagramAPI
+
+from app.mod_auth.helpers import truncate
+
 
 
 
@@ -49,7 +53,7 @@ def user_photos():
 @mod_auth.route('/login/', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('auth.dashboard', user=current_user.email))
+        return redirect(url_for('auth.dashboard'))
 
     if request.method == 'GET':
         return render_template('auth/login.html')
@@ -64,13 +68,13 @@ def login():
         return redirect(url_for('auth.login'))
     else:
         login_user(user, remember=True)
-        return redirect(url_for('auth.dashboard', user=email))
+        return redirect(url_for('auth.dashboard'))
 
 
 @mod_auth.route('/register/', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('auth.dashboard', user=current_user.email))
+        return redirect(url_for('auth.dashboard'))
     if request.method == 'GET':
         return render_template("auth/register.html")
     if User.query.filter_by(email=request.form['email']).first() is not None:
@@ -114,24 +118,64 @@ def remove():
 
 
 
-@mod_auth.route("/<user>/dashboard", methods=['GET','POST'])
+@mod_auth.route("/dashboard", methods=['GET','POST'])
 @login_required
-def dashboard(user):
-    if session.get('instagram_access_token') and session.get('instagram_user'):
-        userAPI = InstagramAPI(access_token=session['instagram_access_token'])
-        recent_media, next = userAPI.user_recent_media(user_id=session['instagram_user'].get('id'),count=25)
+def dashboard():
+    likes = 0   #total likes
+    comments = 0 #total comments
+    posts = 0 #total posts
+    media = []
+    names = []
+    pictures = []  
+    numPostsArray = []  #posts per influencer
+    likesArray = []     #likes per influencer
+    commentsArray = [] #comments per influencer
 
-        templateData = {
-            'size' : request.args.get('size','thumb'),
-            'media' : recent_media
-        }
-        flash(current_user.influencers.first().handle);
-        return render_template('auth/instagram.html', **templateData)
+    # if session.get('instagram_access_token') and session.get('instagram_user'):
+    # userAPI = InstagramAPI(access_token=session['instagram_access_token'])
+    # recent_media, next = userAPI.user_recent_media(user_id=session['instagram_user'].get('id'),count=25)
+    for influencer in current_user.influencers:
+        url = urllib.request.urlopen('https://www.instagram.com/' +  influencer.handle + '/media/')
+        data = json.loads(url.read().decode())
+        numPosts = 0  #number of posts influencer has available
+        numLikes = 0
+        numComments = 0
+        for item in data['items']:
+            numPosts += 1
+            posts += 1
+            likes += item['likes']['count']
+            comments += item['comments']['count']
+            numLikes += item['likes']['count']
+            numComments += item['comments']['count']
+        numPostsArray += [numPosts]
+        likesArray += [truncate(numLikes)]
+        commentsArray += [truncate(numComments)]
+        pictures += [data['items'][0]['user']['profile_picture']]
+        names += [data['items'][0]['user']['full_name']]
+        media += [data['items'][0]]
+
+
+
+
+    templateData = {
+        'size' : request.args.get('size','thumb'),
+        # 'media' : recent_media,
+        'media' : media,
+        'influencers' : current_user.influencers,
+        'likes' : '{:,}'.format(likes),
+        'comments' : '{:,}'.format(comments),
+        'posts' : '{:,}'.format(posts),
+        'pictures' : pictures,
+        'names' : names,
+        'commentsArray' : commentsArray,
+        'likesArray' : likesArray,
+        'numPostsArray' : numPostsArray
+
+    }
         
-
-    else:
-
-        return redirect(url_for('auth.user_photos'))
+    return render_template('auth/dashboard.html', **templateData)
+    # else:
+    #     return redirect(url_for('auth.user_photos'))
 
 
 
@@ -178,16 +222,57 @@ def instagram_callback():
         app.logger.debug('got an access token')
         app.logger.debug(access_token)
 
-        # Sessions are used to keep this data 
         session['instagram_access_token'] = access_token
         session['instagram_user'] = user
 
-        influencer = Influencer(user.get('id'), access_token)
+        influencer = Influencer(user.get('username'), access_token)
         influencer.user = current_user
         db.session.add(influencer)
         db.session.commit()
 
-        return redirect(url_for('auth.dashboard', user=current_user.email)) 
+        return redirect(url_for('auth.dashboard')) 
         
     else:
         return "No code provided"
+
+
+@mod_auth.route("/addinfluencer", methods=['GET','POST'])
+@login_required
+def add():
+    influencer = Influencer(request.form['handle'], None)
+    influencer.user = current_user
+    db.session.add(influencer)
+    db.session.commit()
+    flash("Influencer has been added")
+    return redirect(url_for('auth.manage'))
+
+@mod_auth.route("/removeinfluencer", methods=['GET','POST'])
+@login_required
+def removeInfluencer():
+    influencer = Influencer.query.filter_by(handle=request.form['handle']).first()
+    db.session.delete(influencer)
+    db.session.commit()
+    flash("Influencer has been removed")
+    return redirect(url_for('auth.manage'))
+
+@mod_auth.route("/manage", methods=['GET','POST'])
+@login_required
+def manage():
+    pictures = []
+    names = []
+    for i in current_user.influencers:
+        url = urllib.request.urlopen('https://www.instagram.com/' +  i.handle + '/media/')
+        data = json.loads(url.read().decode())
+        pictures += [data['items'][0]['user']['profile_picture']]
+        names += [data['items'][0]['user']['full_name']]
+    
+    templateData = {
+        
+        'influencers' : current_user.influencers,
+        'userDash' : url_for("auth.dashboard"),
+        'pictures' : pictures,
+        'names' : names
+    }
+    return render_template('auth/influencers.html', **templateData)
+
+

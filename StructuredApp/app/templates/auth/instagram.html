@@ -5,6 +5,7 @@
 {% block rightNav %}
 <li><a href="{{ url_for("auth.logout") }}">Logout</a></li>
 <li><a href="{{ url_for("auth.remove") }}">Delete Account</a></li>
+<li><a href="{{ url_for("auth.manage") }}">Manage Influencers</a></li>
 {% endblock %}
 {% block title %}
 <div class= "col-md-6 col-md-offset-3">
@@ -13,6 +14,16 @@
 
 {% endblock %}
 {% block content %}
+
+<div class= "col-md-6 col-md-offset-3">
+<h4>Total Likes: {{likes}}</h4>
+<h4>Total Comments: {{comments}}</h4>
+</div>
+
+</br>
+</br>
+
+
 <div class="row">
 	<div class="col-md-12">
 
@@ -36,14 +47,19 @@
 					<a href="{{m.link}}" class="thumbnail">
 						<img src="{{m.images['thumbnail'].url}}" alt="{{m.caption.text}}">
 					</a>
+					<small><a href="{{m.link}}">view on instagram</a></small>
 				</div>
 			{% endif %}
 
 		{% endfor %}
 	</div>
-	
+
+
+
 
 </div>
+
+
 
 
 
