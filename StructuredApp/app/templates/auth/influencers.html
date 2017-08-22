@@ -36,7 +36,7 @@
                                         <a class="dropdown-item" href="#">Spring Campaign</a>
                                     </div>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item create-group-btn" href="#">Create New Group</a>
+                                    <a class="dropdown-item create-group-btn" href="#" style="color:grey;">Create New Group</a>
                                 </div>
                             </div>
                         </div>
@@ -83,14 +83,14 @@
                         <img class="img-fluid rounded-circle" src={{ pictures[loop.index0] }}>
                         <div class="d-flex justify-content-start flex-wrap">
                             <div class="influencer-name"><strong>{{ names[loop.index0] }}</strong></div>
-                            <div class="extra-margin-right"><small>385k followers</small></div>
-                            <div class="extra-margin-right"><small>3,954 posts</small></div>
+                            <div class="extra-margin-right"><small style="color:grey;">385k followers</small></div>
+                            <div class="extra-margin-right"><small style="color:grey;">3,954 posts</small></div>
                         </div>
                         <div class="ml-auto d-flex flex- align-items-center">
                             <a href="https://www.instagram.com/{{i.handle}}/" target="_blank"><i class="fa fa-instagram btn-influencer"></i></a>
-                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-facebook btn-influencer"></i></a>
-                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-twitter btn-influencer"></i></a>
-                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-snapchat btn-influencer"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-facebook btn-influencer" style="color:grey;"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-twitter btn-influencer" style="color:grey;"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-snapchat btn-influencer" style="color:grey;"></i></a>
                             <a class="remove-influencer-btn btn-influencer"><i class="fa fa-trash-o"></i></a>
                         </div>
                     </div>
@@ -123,6 +123,11 @@
                                     <input id="profileUrl" type="search" class="form-control" placeholder="Enter Influencer Instagram Handle">
                                 </div>
                                 <button type="button" class="add-influencer-btn btn btn-default ml-auto" data-dismiss="modal">Add</button>
+
+                                
+                                <div class="alert alert-danger" id="invalid" role="alert">Influencer handle is invalid. Please try again!</div>
+                                <div class="alert alert-danger" id="duplicate" role="alert">You are already following this influencer!</div>
+
                             </div>
                         </div>
                         <!--/.Content-->

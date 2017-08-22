@@ -9,7 +9,7 @@
                     <li class="list-inline-item">
                         <div class="dropdown"> 
                             <div class="btn-group">
-                                <button class="btn btn-default dropdown-toggle btn-narrow" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Influencers</button>
+                                <button style="color:grey;" class="btn btn-default dropdown-toggle btn-narrow" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Influencers</button>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="#">All Influencers</a>
                                     <a class="dropdown-item" href="#">West Coast</a>
@@ -23,7 +23,7 @@
                         <!--Timerange dropdown-->
                         <div class="dropdown"> 
                             <div class="btn-group">
-                                <button class="btn btn-default dropdown-toggle btn-narrow" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Week to Date</button>
+                                <button style="color:grey;" class="btn btn-default dropdown-toggle btn-narrow" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Week to Date</button>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="#">Week to Date</a>
                                     <a class="dropdown-item" href="#">Last Week</a>
@@ -38,7 +38,7 @@
                     </li>
                     <li class="list-inline-item">
                         <div class="btn-group">
-                            <button class="btn btn-blue-grey btn-narrow"><i class="fa fa-cloud-download mr-1"></i> Export</button>
+                            <button style="color:grey;" class="btn btn-blue-grey btn-narrow"><i class="fa fa-cloud-download mr-1"></i> Export</button>
                         </div>
                     </li>
         
@@ -85,11 +85,11 @@
                             <!--Text-->
                             <div class="row">
                                 <div class="col-sm-2"><p class="card-text">{{posts}}<br /><small>posts</small></p></div>
-                                <div class="col-sm-2"><p class="card-text">287k<br /><small>views</small></p></div>
                                 <div class="col-sm-2"><p class="card-text">{{likes}}<br /><small>likes</small></p></div>
                                 <div class="col-sm-2"><p class="card-text">{{comments}}<br /><small>comments</small></p></div>
-                                <div class="col-sm-2"><p class="card-text">5k<br /><small>clicks</small></p></div>
-                                <div class="col-sm-2"><p class="card-text">416<br /><small>sales</small></p></div>
+                                <div class="col-sm-2"><p class="card-text" style="color:grey;">287k<br /><small>views</small></p></div>
+                                <div class="col-sm-2"><p class="card-text" style="color:grey;">5k<br /><small>clicks</small></p></div>
+                                <div class="col-sm-2"><p class="card-text" style="color:grey;">416<br /><small>sales</small></p></div>
                             </div>
                         </div>  
                     </div>
@@ -106,15 +106,15 @@
                             <h4 class="card-title">Statistics</h4>
                             <!--Text-->
                             <div class="row">
-                                <div class="col"><p class="card-text">28<br />posts</p></div>
-                                <div class="col"><p class="card-text">140k<br />views</p></div>
-                                <div class="col"><p class="card-text">13k<br />likes</p></div>
+                                <div class="col"><p class="card-text">{{posts}}<br />posts</p></div>
+                                <div class="col"><p class="card-text">{{likes}}<br />likes</p></div>
+                                <div class="col"><p class="card-text">{{comments}}<br />comments</p></div>
                             </div>
                             <br>
                             <div class="row">
-                                <div class="col"><p class="card-text">781<br />comments</p></div>
-                                 <div class="col"><p class="card-text">2.1k<br />clicks</p></div>
-                                <div class="col"><p class="card-text">416<br />sales</p></div>
+                                <div class="col"><p class="card-text" style="color:grey;">140k<br />views</p></div>
+                                 <div class="col"><p class="card-text" style="color:grey;">2.1k<br />clicks</p></div>
+                                <div class="col"><p class="card-text" style="color:grey;">416<br />sales</p></div>
                             </div>
                             <br>
                         </div>
@@ -133,11 +133,11 @@
                         <div class="col">
                             <div class=" card card-block">
                                 <!--Title-->
-                                <h4 class="card-title">ROI</h4>
+                                <h4 class="card-title" style="color:grey;">ROI</h4>
                                 <!--Text-->
-                                <p class="card-text">Sales: $37k</p>
-                                <p class="card-text">Investment: 6k</p>
-                                <strong class="card-text">ROI: 6.2x</strong>
+                                <p class="card-text" style="color:grey;">Sales: $37k</p>
+                                <p class="card-text" style="color:grey;">Investment: 6k</p>
+                                <strong class="card-text" style="color:grey;">ROI: 6.2x</strong>
                             </div>
                         </div>
 
@@ -150,10 +150,10 @@
                         <div class="col">
                             <div class=" card card-block">
                                 <!--Title-->
-                                <h4 class="card-title">Audience Gender</h4>
+                                <h4 class="card-title" style="color:grey;">Audience Gender</h4>
                                 <!--Text-->
-                                <p class="card-text">Female: 62%
-                                <p class="card-text">Male: 38%</p>
+                                <p class="card-text" style="color:grey;">Female: 62%
+                                <p class="card-text" style="color:grey;">Male: 38%</p>
                             </div>
                         </div>
 
@@ -244,18 +244,18 @@
                             <div class="d-flex flex-sm-nowrap flex-wrap">
                                 <div class="row extra-margin-right">
                                     <div class="col-4">{{ numPostsArray[loop.index0]}}<br /><small>posts</small></div>
-                                    <div class="col-4">140k<br /><small>views</small></div>
                                     <div class="col-4">{{ likesArray[loop.index0] }}<br /><small>likes</small></div>
+                                    <div class="col-4">{{ commentsArray[loop.index0] }}<br /><small>coms</small></div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-4">{{ commentsArray[loop.index0] }}<br /><small>coms</small></div>
-                                    <div class="col-4">1.1k<br /><small>clicks</small></div>
-                                    <div class="col-4">44<br /><small>sales</small></div>
+                                    <div class="col-4" style="color:grey;">140k<br /><small style="color:grey;">views</small></div>
+                                    <div class="col-4" style="color:grey;">1.1k<br /><small style="color:grey;">clicks</small></div>
+                                    <div class="col-4" style="color:grey;">44<br /><small style="color:grey;">sales</small></div>
                                 </div> 
                             </div>
                         </div>
 
-                        <div class="text-center ml-auto extra-margin-right">$2,250<br /><small>cost</small></div>
+                        <div class="text-center ml-auto extra-margin-right" style="color:grey;">$2,250<br /><small style="color:grey;">cost</small></div>
 
                     </a>
 
@@ -287,7 +287,7 @@
                     <!--Posts Dropdown-->
                     <div class="dropdown"> 
                         <div class="btn-group">
-                            <button class="btn btn-default btn-narrow dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter by</button>
+                            <button class="btn btn-default btn-narrow dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:grey;">Filter by</button>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" href="#">Date</a>
                                 <a class="dropdown-item" href="#">Views</a>
@@ -359,10 +359,10 @@
                                 <h4 class="card-title">{{m.user.full_name}}</h4>
                                 <!--Text-->
                                 <div class="row">
-                                    <div class="col-3"><p class="card-text">26k<br /><small>views</small></p></div>
                                     <div class="col-3"><p class="card-text">{{'{:,}'.format(m.likes.count)}}<br /><small>likes</small></p></div>
                                     <div class="col-3"><p class="card-text">{{'{:,}'.format(m.comments.count)}}<br /><small>coms</small></p></div>
-                                    <div class="col-3"><p class="card-text">363<br /><small>clicks</small></p></div>
+                                    <div class="col-3"><p class="card-text" style="color:grey;">26k<br /><small>views</small></p></div>
+                                    <div class="col-3"><p class="card-text" style="color:grey;">363<br /><small>clicks</small></p></div>
                                 </div>
                             </div>
                         </div>
