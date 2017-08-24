@@ -226,7 +226,7 @@ def instagram_callback():
         session['instagram_user'] = user
 
         influencer = Influencer(user.get('username'), access_token)
-        influencer.user = current_user
+        influencer.users.append(current_user)
         db.session.add(influencer)
         db.session.commit()
 
@@ -240,7 +240,7 @@ def instagram_callback():
 @login_required
 def add():
     influencer = Influencer(request.form['handle'], None)
-    influencer.user = current_user
+    influencer.users.append(current_user)
     db.session.add(influencer)
     db.session.commit()
     flash("Influencer has been added")

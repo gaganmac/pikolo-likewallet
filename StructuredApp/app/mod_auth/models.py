@@ -4,7 +4,10 @@ from app import db
 import hashlib
 from sqlalchemy.orm import relationship
 
-
+association_table = db.Table('association', db.Model.metadata,
+    db.Column('user_id', db.String(64), db.ForeignKey('auth_user.id')),
+    db.Column('influencer_id', db.String(64), db.ForeignKey('auth_influencer.id'))
+)
 
 class User(UserMixin, db.Model):
 	__tablename__ = 'auth_user'
@@ -17,7 +20,7 @@ class User(UserMixin, db.Model):
 	email = db.Column(db.String(128), unique=True)
 	phone = db.Column(db.String(12))
 	password = db.Column(db.String(128))
-	influencers = db.relationship("Influencer", secondary=association_table, backref="user", lazy='dynamic')
+	influencers = db.relationship("Influencer", secondary=association_table, backref=db.backref('users', lazy='dynamic'))
 
 
 	
@@ -55,10 +58,7 @@ class Influencer(db.Model):
 		self.id = str(hashed)
 
 
-association_table = db.Table('association', db.Model.metadata,
-    db.Column('user_id', db.String(64), ForeignKey('auth_user.id')),
-    db.Column('influencer_id', db.String(64), ForeignKey('auth_influencer.id'))
-)
+
 
 	
        
