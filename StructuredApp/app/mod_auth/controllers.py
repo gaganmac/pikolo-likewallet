@@ -24,18 +24,20 @@ from run import login_manager
 
 from instagram.client import InstagramAPI
 
-from app.mod_auth.helpers import truncate
+from app.mod_auth.helpers import truncate, analyze
 
 
 
 
 mod_auth = Blueprint('auth', __name__, url_prefix='/auth')
+access_token = '22061997.f474111.9666e524ddb140608d124b554fb8bda0'
 
 instaConfig = {
 
     'client_id': 'f47411163bd6493bae1667a70e793fb5',
     'client_secret': '76b892dd1f054d9fba7afcdc2c5d7f18',
     'redirect_uri' : 'https://damp-cliffs-30092.herokuapp.com/auth/instagram_callback'
+
 }
 api = InstagramAPI(**instaConfig)
 
@@ -140,19 +142,23 @@ def dashboard():
         numPosts = 0  #number of posts influencer has available
         numLikes = 0
         numComments = 0
-        for item in data['items']:
-            numPosts += 1
-            posts += 1
-            likes += item['likes']['count']
-            comments += item['comments']['count']
-            numLikes += item['likes']['count']
-            numComments += item['comments']['count']
+        # for item in data['items']:
+        numPosts += 1
+        posts += 1
+        likes += data['items'][0]['likes']['count']
+        comments += data['items'][0]['comments']['count']
+        numLikes += data['items'][0]['likes']['count']
+        numComments += data['items'][0]['comments']['count']
         numPostsArray += [numPosts]
         likesArray += [truncate(numLikes)]
         commentsArray += [truncate(numComments)]
         pictures += [data['items'][0]['user']['profile_picture']]
         names += [data['items'][0]['user']['full_name']]
         media += [data['items'][0]]
+        mediaId = data['items'][0]['id'].split('_')[0]
+        commentsUrl = urllib.request.urlopen('https://api.instagram.com/v1/media/'+ '1573578979028312544' + '/comments?access_token=' + access_token)
+        commentsData = json.loads(commentsUrl.read().decode())
+        score, magnitude = analyze(commentsData['data'][0]['text'])
 
 
 
