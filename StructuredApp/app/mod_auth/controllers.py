@@ -16,7 +16,7 @@ from app import app
 from app.mod_auth.forms import LoginForm, RegistrationForm, RemoveForm
 
 # Import module models (i.e. User)
-from app.mod_auth.models import User, Influencer
+from app.mod_auth.models import User, Influencer, Lead
 
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user, user_logged_in, current_user
 
@@ -24,18 +24,24 @@ from run import login_manager
 
 from instagram.client import InstagramAPI
 
-from app.mod_auth.helpers import truncate
+from app.mod_auth.helpers import truncate, analyze
+from collections import Counter
 
+import sys
 
 
 
 mod_auth = Blueprint('auth', __name__, url_prefix='/auth')
+instagram_access_token = '22061997.f474111.9666e524ddb140608d124b554fb8bda0'
+facebook_access_token = '1430922756976623|b9CHdj7HQEPluzKIqZosLTnTaJQ'
+google_places_access_token = 'AIzaSyAokrPlw45fd-jNzarVz09OPNVXRB2kdTg'
 
 instaConfig = {
 
     'client_id': 'f47411163bd6493bae1667a70e793fb5',
     'client_secret': '76b892dd1f054d9fba7afcdc2c5d7f18',
     'redirect_uri' : 'https://damp-cliffs-30092.herokuapp.com/auth/instagram_callback'
+
 }
 api = InstagramAPI(**instaConfig)
 
@@ -140,19 +146,70 @@ def dashboard():
         numPosts = 0  #number of posts influencer has available
         numLikes = 0
         numComments = 0
-        for item in data['items']:
-            numPosts += 1
-            posts += 1
-            likes += item['likes']['count']
-            comments += item['comments']['count']
-            numLikes += item['likes']['count']
-            numComments += item['comments']['count']
+        # for item in data['items']:
+        numPosts += 1
+        posts += 1
+        likes += data['items'][0]['likes']['count']
+        comments += data['items'][0]['comments']['count']
+        numLikes += data['items'][0]['likes']['count']
+        numComments += data['items'][0]['comments']['count']
         numPostsArray += [numPosts]
         likesArray += [truncate(numLikes)]
         commentsArray += [truncate(numComments)]
         pictures += [data['items'][0]['user']['profile_picture']]
         names += [data['items'][0]['user']['full_name']]
         media += [data['items'][0]]
+        mediaId = data['items'][0]['id'].split('_')[0]
+        try:
+            commentsUrl = urllib.request.urlopen('https://api.instagram.com/v1/media/'+ mediaId + '/comments?access_token=' + instagram_access_token)
+            commentsData = json.loads(commentsUrl.read().decode())
+            for comment in commentsData['data']:
+                score, magnitude = analyze(comment['text'])
+                name = comment['from']['full_name']
+                id = comment['from']['id']
+                commenterURL = urllib.request.urlopen('https://www.instagram.com/' +  comment['from']['username'] + '/media/')
+                commenterMedia = json.loads(commenterURL.read().decode())
+                locations = []
+                for item in commenterMedia['items']:
+                    if item['location'] is not None:
+                        locations += [item['location']['name']]
+
+                states = []
+                
+                for location in locations:
+                    graphURL = urllib.request.urlopen('https://graph.facebook.com/v2.10/search?type=place&q=' + urllib.parse.quote(location) +'&access_token=' + facebook_access_token)
+                    placeID = json.loads(graphURL.read().decode())['data'][0]['id']
+                    instagramPlaceURL = urllib.request.urlopen('https://api.instagram.com/v1/locations/search?facebook_places_id='+ placeID +'&access_token=' + instagram_access_token)
+                    placeData = json.loads(instagramPlaceURL.read().decode())
+                    latitude = placeData['data'][0]['latitude']
+                    longitude = placeData['data'][0]['longitude']
+                    geocodeURL = urllib.request.urlopen('http://maps.googleapis.com/maps/api/geocode/json?latlng='+ str(latitude) +','+ str(longitude) +'&sensor=false')
+                    place = json.loads(geocodeURL.read().decode())
+                    for component in place['results'][0]['address_components']:
+                        if 'administrative_area_level_1' in component['types']:
+                            states += [component['long_name']]
+                state = Counter(states).most_common(1)[0][0]
+
+                lead =  Lead.query.filter_by(id=id).first()
+
+                if lead is not None:
+                    lead.score = (lead.score + score * magnitude) / 2
+                    db.session.commit()
+
+                else:
+                    newLead = Lead(id, name, state, score * magnitude)
+                    db.session.add(newLead)
+                    db.session.commit()
+        except:
+            print('Cannot access comments', file=sys.stderr)
+       
+
+
+
+                
+
+
+
 
 
 
@@ -222,10 +279,10 @@ def instagram_callback():
         app.logger.debug('got an access token')
         app.logger.debug(access_token)
 
-        session['instagram_access_token'] = access_token
+        session['instagram_access_token'] = instagram_access_token
         session['instagram_user'] = user
 
-        influencer = Influencer(user.get('username'), access_token)
+        influencer = Influencer(user.get('username'), instagram_access_token)
         influencer.users.append(current_user)
         db.session.add(influencer)
         db.session.commit()

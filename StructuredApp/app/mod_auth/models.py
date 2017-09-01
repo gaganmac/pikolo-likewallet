@@ -60,5 +60,24 @@ class Influencer(db.Model):
 
 
 
+class Lead(db.Model):
+	__tablename__ = 'auth_lead'
+
+	id = db.Column(db.String(64), primary_key=True)
+	name = db.Column(db.String(128))
+	location = db.Column(db.String(128))
+	score = db.Column(db.Float)
+
+
+	
+	def __init__(self, id, name, location, score):
+		self.id = id
+		self.name = name
+		self.location = location
+		self.score = score
+
+
+
+
 	
        

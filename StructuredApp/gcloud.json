@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "sacred-armor-174301",
+  "private_key_id": "10119cba226822cd466b950d10918a5b28fcd37b",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDpoKLe13pu2IuT\nR4qjdJ+A9fcvIOHgAQ409YpdVdcq4X9XU2EDRBFzClKz5mD4a6F3JBsu8hGNTwcP\nxJOrr8FvJv3WKhEE2sX5j+KIjoydawcUqs1kAxZDdZAxAkLhb1+FgY9QyZafrNbY\nk7ubUZLClFCtyCqoLN1guPd/JreTeq19ejFf4/QKaNienA1GADdJbvK5RYpBXSnN\nUi3umje2/KOTlNNSE3/I1+f/12lFaGwwHFkaOOkkmLL2gM0V1flM9JFiB/IkeLrj\npnRWaDBgW3JVdfQfVU0egcBHZEfSsxNoTvbD7X1i0GQdKoMCWrR6aMu+vLjO1ECt\njr+czJDBAgMBAAECggEAAZDbTpmMn0YRx2qtFfPf5s4fOkBi6yyuovG7W+1JnCa3\nQwdSyOIRqN76l2yVnUyhYCpMiVfDgNo0/qjPYZDzv7I39NHC2/C4b3gEqWwlKp/v\nQ/byGffAVDLrRLzSZG7p6bvo0T6MpSTUKs7wrLWTAX1bfhKvoIFueWm79Oz2QYWH\ncOQre7mTa8N63McQUnuSnW8MhKfvT1lu+TR/xbmy+aaqsPLKSMILZOdy8oka92o/\n4zWYANsc55wBoTb8bN0x+6RLlTni8kH5nUMCO7z2r+v16VUZPtSHZ/vWP2dI5jpv\nFLil9yF7eHG6wEHruvgTIiIqj1TQtx6byUpVb410vQKBgQD9VtffX+HRSF8xcW2U\nnIBj9zSZhURN+o8b3HAVxRC2c8wde7YZEgmzh+TNhIR3fyu1Rent39Ec4MQq0x9r\njyFIepKvfulVFZ1lLjg2ddCXABvYjcF2GneL2ib+crnuB5zHbvQep5gPwOsAFrTT\nB3rRN5E3aARRdZkqIvKjCQEKfQKBgQDsFMswsgXWy2ujPPXhZTnUxkHz90YsOrci\n/LN7i+c4f5LRyqiJRBJzjPPF1luKKvALTP6SA7L5cvGtvxG+3QmUNpwIVx3uIWgo\njGqaG+yWYg5zShpwXUsvjoV1fO7yMOKJqWBFqYzhzOhWMOeiWRy7XOTfFfSNRO9g\nnhBlfrsulQKBgGb4u3nRsSmtrvOb1RyImC8JtdmIr4C6jRyX9v8CQI7IdnitZhC+\noi7U140pheZETHG73x+Oz6JbQaDee3DulmqtV535icHJrVYI+VQ5gvU9WBQnWjE1\nBM5Vd3AJFcXIVlNBp/wlxsrwcRRyJkF4UtVjLqVEpCywDfdwiQr3h/LJAoGBAJ7m\nNAk3maSEUJOTwW+PIYisVNHvmoTElGVxLyE1/lBR1bFtNVkGv2CU+7MqX3y0/9Kr\nZSFEah9qFW87jqcnwX3H7+fRMy0HwUKhmFLX/rsNjupcc0U0FhoRVJTKnU3YR3Ie\n1dStlUyaDbuNuSrVzffyQ35AGdVIE9K1MRYPYc+tAoGABDXrBqpPcytCI9BbW1Hb\n3QMUp1Y+wm+7m5qb/3Cv7bk8ahsqZXRnEPFlMVWL/IO8tw+ZGbMl3nKxyAIUaUFF\nO9G9Tz/pU1inlnwG18SDvF1qF7d7eIzRZ4hx11RAVlXbh9K+3YNXsM98P1LyYZuS\nrnTQ5eK/ynRRjN+xqSqubrk=\n-----END PRIVATE KEY-----\n",
+  "client_email": "josh-goldman@sacred-armor-174301.iam.gserviceaccount.com",
+  "client_id": "114549948915002762689",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/josh-goldman%40sacred-armor-174301.iam.gserviceaccount.com"
+}
