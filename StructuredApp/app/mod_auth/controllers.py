@@ -24,10 +24,11 @@ from run import login_manager
 
 from instagram.client import InstagramAPI
 
-from app.mod_auth.helpers import truncate, analyze
+from app.mod_auth.helpers import truncate, analyze, influencerLoop
 from collections import Counter
 
 import sys
+import json
 
 
 
@@ -140,95 +141,14 @@ def dashboard():
     # if session.get('instagram_access_token') and session.get('instagram_user'):
     # userAPI = InstagramAPI(access_token=session['instagram_access_token'])
     # recent_media, next = userAPI.user_recent_media(user_id=session['instagram_user'].get('id'),count=25)
-    for influencer in current_user.influencers:
-        url = urllib.request.urlopen('https://www.instagram.com/' +  influencer.handle + '/media/')
-        data = json.loads(url.read().decode())
-        numPosts = 0  #number of posts influencer has available
-        numLikes = 0
-        numComments = 0
-        # for item in data['items']:
-        numPosts += 1
-        posts += 1
-        likes += data['items'][0]['likes']['count']
-        comments += data['items'][0]['comments']['count']
-        numLikes += data['items'][0]['likes']['count']
-        numComments += data['items'][0]['comments']['count']
-        numPostsArray += [numPosts]
-        likesArray += [truncate(numLikes)]
-        commentsArray += [truncate(numComments)]
-        pictures += [data['items'][0]['user']['profile_picture']]
-        names += [data['items'][0]['user']['full_name']]
-        media += [data['items'][0]]
-        mediaId = data['items'][0]['id'].split('_')[0]
-        try:
-            commentsUrl = urllib.request.urlopen('https://api.instagram.com/v1/media/'+ mediaId + '/comments?access_token=' + instagram_access_token)
-            commentsData = json.loads(commentsUrl.read().decode())
-            for comment in commentsData['data']:
-                score, magnitude = analyze(comment['text'])
-                name = comment['from']['full_name']
-                id = comment['from']['id']
-                commenterURL = urllib.request.urlopen('https://www.instagram.com/' +  comment['from']['username'] + '/media/')
-                commenterMedia = json.loads(commenterURL.read().decode())
-                locations = []
-                for item in commenterMedia['items']:
-                    if item['location'] is not None:
-                        locations += [item['location']['name']]
-
-                states = []
-                
-                for location in locations:
-                    graphURL = urllib.request.urlopen('https://graph.facebook.com/v2.10/search?type=place&q=' + urllib.parse.quote(location) +'&access_token=' + facebook_access_token)
-                    placeID = json.loads(graphURL.read().decode())['data'][0]['id']
-                    instagramPlaceURL = urllib.request.urlopen('https://api.instagram.com/v1/locations/search?facebook_places_id='+ placeID +'&access_token=' + instagram_access_token)
-                    placeData = json.loads(instagramPlaceURL.read().decode())
-                    latitude = placeData['data'][0]['latitude']
-                    longitude = placeData['data'][0]['longitude']
-                    geocodeURL = urllib.request.urlopen('http://maps.googleapis.com/maps/api/geocode/json?latlng='+ str(latitude) +','+ str(longitude) +'&sensor=false')
-                    place = json.loads(geocodeURL.read().decode())
-                    for component in place['results'][0]['address_components']:
-                        if 'administrative_area_level_1' in component['types']:
-                            states += [component['long_name']]
-                state = Counter(states).most_common(1)[0][0]
-
-                lead =  Lead.query.filter_by(id=id).first()
-
-                if lead is not None:
-                    lead.score = (lead.score + score * magnitude) / 2
-                    db.session.commit()
-
-                else:
-                    newLead = Lead(id, name, state, score * magnitude)
-                    db.session.add(newLead)
-                    db.session.commit()
-        except:
-            print('Cannot access comments', file=sys.stderr)
-       
+    
+    templateData = influencerLoop(current_user.influencers, likes, comments, posts, media, names, pictures, numPostsArray, likesArray, commentsArray)
 
 
+    
+        
 
-                
-
-
-
-
-
-
-
-    templateData = {
-        'size' : request.args.get('size','thumb'),
-        # 'media' : recent_media,
-        'media' : media,
-        'influencers' : current_user.influencers,
-        'likes' : '{:,}'.format(likes),
-        'comments' : '{:,}'.format(comments),
-        'posts' : '{:,}'.format(posts),
-        'pictures' : pictures,
-        'names' : names,
-        'commentsArray' : commentsArray,
-        'likesArray' : likesArray,
-        'numPostsArray' : numPostsArray
-
-    }
+        
         
     return render_template('auth/dashboard.html', **templateData)
     # else:

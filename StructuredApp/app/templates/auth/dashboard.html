@@ -2,6 +2,12 @@
 
 {% block secondary %}
 
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://code.highcharts.com/maps/highmaps.js"></script>
+<script src="https://code.highcharts.com/maps/modules/data.js"></script>
+<script src="https://code.highcharts.com/mapdata/countries/us/us-all.js"></script>
+
+
 <div id="secondary-navbar">
             <div class="d-flex flex-wrap w-100 justify-content-between">
                 <ul class="list-inline">
@@ -169,16 +175,76 @@
                         <h4 class="card-title">Audience Location</h4>
                         <div class="row">
                             <!--Graph-->
-                            <div class="col">
-                                <img class="img-fluid" src="http://i.imgur.com/9TNF3ST.png" alt="Location Distribution">
+                            <div class="col" id="map" style="height: 475px">
+                                <!-- <img class="img-fluid" src="http://i.imgur.com/9TNF3ST.png" alt="Location Distribution"> -->
+                                <script>
+
+                                var data = {{json|tojson}};
+                                
+
+    // Make codes uppercase to match the map data
+    $.each(data, function () {
+        this.code = this.code.toUpperCase();
+    });
+
+    // Instanciate the map
+    Highcharts.mapChart('map', {
+
+        chart: {
+            borderWidth: 0
+        },
+
+        title: {
+            text: null
+        },
+
+        legend: {
+            layout: 'horizontal',
+            borderWidth: 0,
+            backgroundColor: 'rgba(255,255,255,0.85)',
+            floating: true,
+            verticalAlign: 'bottom',
+            y: 25,
+            enabled: false
+        },
+
+        mapNavigation: {
+            enabled: false
+        },
+
+        colorAxis: {
+            min: 0,
+            type: 'linear',
+            minColor: 'rgba(255, 96, 96, 0.1)',
+            maxColor: 'rgba(255, 96, 96, 1.0)',
+            // stops: [
+            //     [0, '#EFEFFF'],
+            //     [0.67, '#4444FF'],
+            //     [1, '#000022']
+            // ]
+        },
+
+        series: [{
+            animation: {
+                duration: 0
+            },
+            data: data,
+            mapData: Highcharts.maps['countries/us/us-all'],
+            joinBy: ['postal-code', 'code'],
+            dataLabels: {
+                enabled: true,
+                color: '#FFFFFF',
+                format: '{point.code}'
+            },
+            name: 'Percent of Audience',
+            tooltip: {
+                pointFormat: '{point.code}: {point.value}%'
+            }
+        }]
+    });
+ </script>
                                 <br>
                             </div>
-                        </div>
-                        <h5>Top Cities</h5>
-                        <div class="row">
-                            <div class="col"><p class="card-text">San Francisco (16%)</p></div>
-                            <div class="col"><p class="card-text">Los Angeles (9%)</p></div>
-                            <div class="col"><p class="card-text">New York City (6%)</p></div>
                         </div>
                     </div>
                     <!--/.Card--> 
