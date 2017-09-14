@@ -1,5 +1,6 @@
 # Run a test server.
 import os
+
 from app import app
 from flask_login import login_manager, LoginManager
 from flask import url_for, render_template, Flask

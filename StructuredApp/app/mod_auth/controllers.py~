@@ -1,5 +1,5 @@
 import os
-import urllib2, json 
+import urllib2.request, json 
 
 # Import flask dependencies
 from flask import Blueprint, request, render_template, \
@@ -236,7 +236,7 @@ def manage():
     pictures = []
     names = []
     for i in current_user.influencers:
-        url = urllib2.urlopen('https://www.instagram.com/' +  i.handle + '/media/')
+        url = urllib.request.urlopen('https://www.instagram.com/' +  i.handle + '/media/')
         data = json.loads(url.read().decode())
         pictures += [data['items'][0]['user']['profile_picture']]
         names += [data['items'][0]['user']['full_name']]

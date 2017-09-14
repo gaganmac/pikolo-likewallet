@@ -10,6 +10,9 @@ BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 
 
+SQLALCHEMY_DATABASE_URI = 'mysql+mysqldb:///pikolo-likewallet:us-east1:likewallet-db'
+DATABASE_CONNECT_OPTIONS = {}
+
 # Application threads. A common general assumption is
 # using 2 per available processor cores - to handle
 # incoming requests using one and performing background
@@ -27,20 +30,3 @@ CSRF_SESSION_KEY = "secret"
 SECRET_KEY = "secret"
 
 SEND_FILE_MAX_AGE_DEFAULT = 0
-
-DATA_BACKEND = 'datastore'
-
-CLOUDSQL_USER = 'root'
-CLOUDSQL_PASSWORD = 'pik0l0'
-CLOUDSQL_DATABASE = 'users_db'
-# Set this value to the Cloud SQL connection name, e.g.
-#   "project:region:cloudsql-instance".
-# You must also update the value in app.yaml.
-CLOUDSQL_CONNECTION_NAME = 'pikolo-likewallet:us-east1:likewallet-db'
-
-SQLALCHEMY_DATABASE_URI = (
-    'mysql+pymysql://{user}:{password}@localhost/{database}'
-    '?unix_socket=/cloudsql/{connection_name}').format(
-        user=CLOUDSQL_USER, password=CLOUDSQL_PASSWORD,
-        database=CLOUDSQL_DATABASE, connection_name=CLOUDSQL_CONNECTION_NAME)
-DATABASE_CONNECT_OPTIONS = {}

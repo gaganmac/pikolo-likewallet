@@ -1,6 +1,6 @@
+from __future__ import print_function
 import os
-import urllib.request, json 
-
+import urllib2, json 
 # Import flask dependencies
 from flask import Blueprint, request, render_template, \
                   flash, g, session, redirect, url_for
@@ -30,16 +30,17 @@ from collections import Counter
 import sys
 import json
 
-
-
-
 import argparse
 
-from google.cloud import language
+
 from google.cloud.language import enums
 from google.cloud.language import types
 from oauth2client.client import GoogleCredentials
 credentials = GoogleCredentials.get_application_default()
+
+instagram_access_token = '22061997.f474111.9666e524ddb140608d124b554fb8bda0'
+facebook_access_token = '1430922756976623|b9CHdj7HQEPluzKIqZosLTnTaJQ'
+google_places_access_token = 'AIzaSyAokrPlw45fd-jNzarVz09OPNVXRB2kdTg'
 
 
 def analyze(content):
@@ -78,7 +79,7 @@ def truncate(num):
 
 def influencerLoop(influencers, likes, comments, posts, media, names, pictures, numPostsArray, likesArray, commentsArray):
 	for influencer in influencers:
-		url = urllib.request.urlopen('https://www.instagram.com/' +  influencer.handle + '/media/')
+		url = urllib2.urlopen('https://www.instagram.com/' +  influencer.handle + '/media/')
 		data = json.loads(url.read().decode())
 		numPosts = 0  #number of posts influencer has available
 		numLikes = 0
@@ -98,48 +99,48 @@ def influencerLoop(influencers, likes, comments, posts, media, names, pictures, 
 		media += [data['items'][0]]
 		mediaId = data['items'][0]['id'].split('_')[0]
 
-		try:
-			commentsUrl = urllib.request.urlopen('https://api.instagram.com/v1/media/'+ mediaId + '/comments?access_token=' + instagram_access_token)
-			commentsData = json.loads(commentsUrl.read().decode())
-			for comment in commentsData['data']:
-				score, magnitude = analyze(comment['text'])
-				name = comment['from']['full_name']
-				id = comment['from']['id']
-				commenterURL = urllib.request.urlopen('https://www.instagram.com/' +  comment['from']['username'] + '/media/')
-				commenterMedia = json.loads(commenterURL.read().decode())
-				locations = []
-				for item in commenterMedia['items']:
-					if item['location'] is not None:
-						locations += [item['location']['name']]
+	try:
+		commentsUrl = urllib2.urlopen('https://api.instagram.com/v1/media/'+ mediaId + '/comments?access_token=' + instagram_access_token)
+		commentsData = json.loads(commentsUrl.read().decode())
+		for comment in commentsData['data']:
+			score, magnitude = analyze(comment['text'])
+			name = comment['from']['full_name']
+			id = comment['from']['id']
+			commenterURL = urllib2.urlopen('https://www.instagram.com/' +  comment['from']['username'] + '/media/')
+			commenterMedia = json.loads(commenterURL.read().decode())
+			locations = []
+			for item in commenterMedia['items']:
+				if item['location'] is not None:
+					locations += [item['location']['name']]
 
-				states = []
-		        
-				for location in locations:
-					graphURL = urllib.request.urlopen('https://graph.facebook.com/v2.10/search?type=place&q=' + urllib.parse.quote(location) +'&access_token=' + facebook_access_token)
-					placeID = json.loads(graphURL.read().decode())['data'][0]['id']
-					instagramPlaceURL = urllib.request.urlopen('https://api.instagram.com/v1/locations/search?facebook_places_id='+ placeID +'&access_token=' + instagram_access_token)
-					placeData = json.loads(instagramPlaceURL.read().decode())
-					latitude = placeData['data'][0]['latitude']
-					longitude = placeData['data'][0]['longitude']
-					geocodeURL = urllib.request.urlopen('http://maps.googleapis.com/maps/api/geocode/json?latlng='+ str(latitude) +','+ str(longitude) +'&sensor=false')
-					place = json.loads(geocodeURL.read().decode())
-					for component in place['results'][0]['address_components']:
-						if 'administrative_area_level_1' in component['types']:
-							states += [component['short_name']]
-				state = Counter(states).most_common(1)[0][0]
+			states = []
+	        
+			for location in locations:
+				graphURL = urllib2.urlopen('https://graph.facebook.com/v2.10/search?type=place&q=' + urllib2.pathname2url(location) +'&access_token=' + facebook_access_token)
+				placeID = json.loads(graphURL.read().decode())['data'][0]['id']
+				instagramPlaceURL = urllib2.urlopen('https://api.instagram.com/v1/locations/search?facebook_places_id='+ placeID +'&access_token=' + instagram_access_token)
+				placeData = json.loads(instagramPlaceURL.read().decode())
+				latitude = placeData['data'][0]['latitude']
+				longitude = placeData['data'][0]['longitude']
+				geocodeURL = urllib2.urlopen('http://maps.googleapis.com/maps/api/geocode/json?latlng='+ str(latitude) +','+ str(longitude) +'&sensor=false')
+				place = json.loads(geocodeURL.read().decode())
+				for component in place['results'][0]['address_components']:
+					if 'administrative_area_level_1' in component['types']:
+						states += [component['short_name']]
+			state = Counter(states).most_common(1)[0][0]
 
-				lead =  Lead.query.filter_by(id=id).first()
+			lead =  Lead.query.filter_by(id=id).first()
 
-				if lead is not None:
-					lead.score = (lead.score + score * magnitude) / 2
-					db.session.commit()
+			if lead is not None:
+				lead.score = (lead.score + score * magnitude) / 2
+				db.session.commit()
 
-				else:
-					newLead = Lead(id, name, state, score * magnitude)
-					db.session.add(newLead)
-					db.session.commit()
-		except:
-			print('Cannot access comments', file=sys.stderr)
+			else:
+				newLead = Lead(id, name, state, score * magnitude)
+				db.session.add(newLead)
+				db.session.commit()
+	except Exception as e:
+		print('Cannot access comments' + str(e), file=sys.stderr)
 
 
 
