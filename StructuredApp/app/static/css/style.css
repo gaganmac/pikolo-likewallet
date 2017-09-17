@@ -111,6 +111,10 @@ main {
     position: absolute !important;
 }
 
+.navbar{
+	background-color:#E91E63;
+}
+
 .nav-pills .nav-link {
   border-radius: 0.25rem;
 }
