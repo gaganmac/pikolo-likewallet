@@ -18,3 +18,4 @@ MarkupSafe==1.0
 itsdangerous==0.24
 google_cloud_language==0.28.0
 pymysql==0.7.11
+ujson==1.35

@@ -10,3 +10,7 @@ beta_settings:
     #
     cloud_sql_instances: "pikolo-likewallet:us-east1:likewallet-db"
 #[END cloudsql_settings]
+
+# handlers:
+# - url: /static
+#   static_dir: app/static

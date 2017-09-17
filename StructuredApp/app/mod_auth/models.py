@@ -21,6 +21,7 @@ class User(UserMixin, db.Model):
 	phone = db.Column(db.String(12))
 	password = db.Column(db.String(128))
 	influencers = db.relationship("Influencer", secondary=association_table, backref=db.backref('users', lazy='dynamic'))
+	leads = db.relationship("Lead", backref="user", lazy='dynamic')
 
 
 	
@@ -67,6 +68,7 @@ class Lead(db.Model):
 	name = db.Column(db.String(128))
 	location = db.Column(db.String(128))
 	score = db.Column(db.Float)
+	user_id = db.Column(db.String(64), db.ForeignKey('auth_user.id'))
 
 
 	

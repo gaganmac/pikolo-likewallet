@@ -1,5 +1,6 @@
+from __future__ import print_function
 import os
-import urllib2, json 
+import urllib, json 
 
 # Import flask dependencies
 from flask import Blueprint, request, render_template, \
@@ -24,11 +25,23 @@ from run import login_manager
 
 from instagram.client import InstagramAPI
 
-from app.mod_auth.helpers import truncate, analyze, influencerLoop
+
 from collections import Counter
+from helpers import truncate, analyze, influencerLoop
 
 import sys
 import json
+import argparse
+
+from google.cloud import language
+from google.cloud.language import enums
+from google.cloud.language import types
+from oauth2client.client import GoogleCredentials
+credentials = GoogleCredentials.get_application_default()
+
+instagram_access_token = '22061997.f474111.9666e524ddb140608d124b554fb8bda0'
+facebook_access_token = '1430922756976623|b9CHdj7HQEPluzKIqZosLTnTaJQ'
+google_places_access_token = 'AIzaSyAokrPlw45fd-jNzarVz09OPNVXRB2kdTg'
 
 
 
@@ -140,13 +153,8 @@ def dashboard():
     # userAPI = InstagramAPI(access_token=session['instagram_access_token'])
     # recent_media, next = userAPI.user_recent_media(user_id=session['instagram_user'].get('id'),count=25)
     
-    templateData = influencerLoop(current_user.influencers, likes, comments, posts, media, names, pictures, numPostsArray, likesArray, commentsArray)
+    templateData = influencerLoop(current_user.influencers, likes, comments, posts, media, names, pictures, numPostsArray, likesArray, commentsArray, current_user)
 
-
-    
-        
-
-        
         
     return render_template('auth/dashboard.html', **templateData)
     # else:
@@ -236,7 +244,7 @@ def manage():
     pictures = []
     names = []
     for i in current_user.influencers:
-        url = urllib2.urlopen('https://www.instagram.com/' +  i.handle + '/media/')
+        url = urllib.urlopen('https://www.instagram.com/' +  i.handle + '/media/')
         data = json.loads(url.read().decode())
         pictures += [data['items'][0]['user']['profile_picture']]
         names += [data['items'][0]['user']['full_name']]
