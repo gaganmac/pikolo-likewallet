@@ -44,8 +44,8 @@ instagram_access_token = '22061997.f474111.9666e524ddb140608d124b554fb8bda0'
 facebook_access_token = '1430922756976623|b9CHdj7HQEPluzKIqZosLTnTaJQ'
 google_places_access_token = 'AIzaSyAokrPlw45fd-jNzarVz09OPNVXRB2kdTg'
 geocoding_token = 'AIzaSyA3KPOTxkMlp9egIC1Ou_9jL14c1xKyr9g'
-twilio_sid = "AC4e3839298177a775fcbba6a542de1003"
-twilio_token = "c82ade5b3a42b8881d4cac5623658ff3"
+twilio_sid = os.environ['TWILIO_SID']
+twilio_token = os.environ['TWILIO_TOKEN']
 client = Client(twilio_sid, twilio_token)
 
 
