@@ -1,6 +1,7 @@
 from __future__ import print_function
+import sys
 import os
-import urllib, json 
+import urllib
 
 # Import flask dependencies
 from flask import Blueprint, request, render_template, \
@@ -27,10 +28,9 @@ from instagram.client import InstagramAPI
 
 
 from collections import Counter
-from helpers import truncate, analyze, influencerLoop
+from helpers import truncate, analyze, influencerLoop, validateNumber
 
-import sys
-import json
+import ujson as json
 import argparse
 
 from google.cloud import language
@@ -45,7 +45,7 @@ google_places_access_token = 'AIzaSyAokrPlw45fd-jNzarVz09OPNVXRB2kdTg'
 
 
 
-mod_auth = Blueprint('auth', __name__, url_prefix='/auth')
+mod_auth = Blueprint('auth', __name__, url_prefix='')
 
 
 instaConfig = {
@@ -58,6 +58,10 @@ instaConfig = {
 api = InstagramAPI(**instaConfig)
 
 
+
+@mod_auth.route('/', methods=['GET', 'POST'])
+def home():
+    return redirect(url_for('auth.register'))
 
 @mod_auth.route('/connect')
 @login_required
@@ -103,6 +107,8 @@ def register():
         return redirect(url_for("auth.register"))
     user = User(request.form['first'], request.form['last'], request.form['company'], 
         request.form['companyWebsite'], request.form['email'], request.form['phone'], request.form['password'])
+    if not validateNumber(user.phone):
+        user.phone = None
     db.session.add(user)
     db.session.commit()
     flash("Your account has been registered!  Please log in.")
@@ -190,33 +196,33 @@ def http_error_handler(error):
 
 
 
-@mod_auth.route('/instagram_callback')
-@login_required
-def instagram_callback():
+# @mod_auth.route('/instagram_callback')
+# @login_required
+# def instagram_callback():
 
-    code = request.args.get('code')
+#     code = request.args.get('code')
 
-    if code:
+#     if code:
 
-        access_token, user = api.exchange_code_for_access_token(code)
-        if not access_token:
-            return 'Could not get access token'
+#         access_token, user = api.exchange_code_for_access_token(code)
+#         if not access_token:
+#             return 'Could not get access token'
 
-        app.logger.debug('got an access token')
-        app.logger.debug(access_token)
+#         app.logger.debug('got an access token')
+#         app.logger.debug(access_token)
 
-        session['instagram_access_token'] = instagram_access_token
-        session['instagram_user'] = user
+#         session['instagram_access_token'] = instagram_access_token
+#         session['instagram_user'] = user
 
-        influencer = Influencer(user.get('username'), instagram_access_token)
-        influencer.users.append(current_user)
-        db.session.add(influencer)
-        db.session.commit()
+#         influencer = Influencer(user.get('username'), instagram_access_token)
+#         influencer.users.append(current_user)
+#         db.session.add(influencer)
+#         db.session.commit()
 
-        return redirect(url_for('auth.dashboard')) 
+#         return redirect(url_for('auth.dashboard')) 
         
-    else:
-        return "No code provided"
+#     else:
+#         return "No code provided"
 
 
 @mod_auth.route("/addinfluencer", methods=['GET','POST'])

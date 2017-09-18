@@ -1,4 +1,4 @@
-entrypoint: python run.py
+entrypoint: gunicorn -c gunicorn.conf.py -b :$PORT app:app
 env: flex
 runtime: python
 #[START cloudsql_settings]

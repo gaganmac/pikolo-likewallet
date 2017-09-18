@@ -3,6 +3,7 @@ from flask_login import UserMixin
 from app import db
 import hashlib
 from sqlalchemy.orm import relationship
+from random import randint
 
 association_table = db.Table('association', db.Model.metadata,
     db.Column('user_id', db.String(64), db.ForeignKey('auth_user.id')),
@@ -21,7 +22,7 @@ class User(UserMixin, db.Model):
 	phone = db.Column(db.String(12))
 	password = db.Column(db.String(128))
 	influencers = db.relationship("Influencer", secondary=association_table, backref=db.backref('users', lazy='dynamic'))
-	leads = db.relationship("Lead", backref="user", lazy='dynamic')
+	
 
 
 	
@@ -48,6 +49,7 @@ class Influencer(db.Model):
 	handle = db.Column(db.String(128))
 	token = db.Column(db.String(128))
 	stars = db.Column(db.Integer)
+	leads = db.relationship("Lead", backref="influencer", lazy='dynamic')
 
 
 	
@@ -68,15 +70,20 @@ class Lead(db.Model):
 	name = db.Column(db.String(128))
 	location = db.Column(db.String(128))
 	score = db.Column(db.Float)
-	user_id = db.Column(db.String(64), db.ForeignKey('auth_user.id'))
+	createdBy = db.Column(db.String(128))
+	influencer_id = db.Column(db.String(64), db.ForeignKey('auth_influencer.id'))
 
 
 	
-	def __init__(self, id, name, location, score):
-		self.id = id
+	def __init__(self, id, name, location, score, createdBy):
 		self.name = name
 		self.location = location
 		self.score = score
+		hashed = hashlib.sha1()
+		unique = str(createdBy) + str(id)
+		hashed.update(unique.encode('utf-8'))
+		self.id = str(hashed)
+		self.createdBy = createdBy
 
 
 

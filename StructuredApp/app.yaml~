@@ -1,4 +1,4 @@
-entrypoint: python run.py
+entrypoint: gunicorn app:app
 env: flex
 runtime: python
 #[START cloudsql_settings]
@@ -11,18 +11,6 @@ beta_settings:
     cloud_sql_instances: "pikolo-likewallet:us-east1:likewallet-db"
 #[END cloudsql_settings]
 
-handlers:
-- url: /static/js
-  static_dir: app/static/js
-
-- url: /static/bootstrap
-  static_dir: app/static/bootstrap
-
-- url: /static/font
-  static_dir: app/static/font
-
-- url: /static/img
-  static_dir: app/static/img
-
-- url: /static/sass
-  static_dir: app/static/sass
+# handlers:
+# - url: /static
+#   static_dir: app/static

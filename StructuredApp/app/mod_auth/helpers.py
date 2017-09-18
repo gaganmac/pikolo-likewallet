@@ -1,4 +1,5 @@
 from __future__ import print_function
+import sys
 import os
 import urllib
 import ujson as json 
@@ -29,7 +30,6 @@ from instagram.client import InstagramAPI
 
 from collections import Counter
 
-import sys
 import json
 import argparse
 
@@ -37,11 +37,16 @@ from google.cloud import language
 from google.cloud.language import enums
 from google.cloud.language import types
 from oauth2client.client import GoogleCredentials
+from twilio.rest import Client
 credentials = GoogleCredentials.get_application_default()
 
 instagram_access_token = '22061997.f474111.9666e524ddb140608d124b554fb8bda0'
 facebook_access_token = '1430922756976623|b9CHdj7HQEPluzKIqZosLTnTaJQ'
 google_places_access_token = 'AIzaSyAokrPlw45fd-jNzarVz09OPNVXRB2kdTg'
+geocoding_token = 'AIzaSyA3KPOTxkMlp9egIC1Ou_9jL14c1xKyr9g'
+twilio_sid = "AC4e3839298177a775fcbba6a542de1003"
+twilio_token = "c82ade5b3a42b8881d4cac5623658ff3"
+client = Client(twilio_sid, twilio_token)
 
 
 def analyze(content):
@@ -79,6 +84,9 @@ def truncate(num):
 
 
 def influencerLoop(influencers, likes, comments, posts, media, names, pictures, numPostsArray, likesArray, commentsArray, current_user):
+	length = 0
+	mapData = []
+	graph = {}
 	for influencer in influencers:
 		url = urllib.urlopen('https://www.instagram.com/' +  influencer.handle + '/media/')
 		data = json.loads(url.read().decode())
@@ -106,58 +114,59 @@ def influencerLoop(influencers, likes, comments, posts, media, names, pictures, 
 			for comment in commentsData['data']:
 				score, magnitude = analyze(comment['text'])
 				name = comment['from']['full_name']
-				id = comment['from']['id']
-				commenterURL = urllib.urlopen('https://www.instagram.com/' +  comment['from']['username'] + '/media/')
-				commenterMedia = json.loads(commenterURL.read().decode())
-				locations = []
-				for item in commenterMedia['items']:
-					if item['location'] is not None:
-						locations += [item['location']['name']]
+				lead = Lead.query.filter_by(influencer_id=influencer.id).filter_by(name=name).first()
+				if lead is None:
+					id = comment['from']['id']
+					commenterURL = urllib.urlopen('https://www.instagram.com/' +  comment['from']['username'] + '/media/')
+					commenterMedia = json.loads(commenterURL.read().decode())
+					locations = []
+					for item in commenterMedia['items']:
+						if item['location'] is not None:
+							locations += [item['location']['name']]
 
-				states = []
-		        
-				for location in locations:
-					graphURL = urllib.urlopen('https://graph.facebook.com/v2.10/search?type=place&q=' + urllib.quote(location) +'&limit=1&access_token=' + facebook_access_token)
-					placeID = json.loads(graphURL.read().decode())['data'][0]['id']
-					instagramPlaceURL = urllib.urlopen('https://api.instagram.com/v1/locations/search?facebook_places_id='+ placeID +'&access_token=' + instagram_access_token)
-					placeData = json.loads(instagramPlaceURL.read().decode())
-					latitude = placeData['data'][0]['latitude']
-					longitude = placeData['data'][0]['longitude']
-					geocodeURL = urllib.urlopen('http://maps.googleapis.com/maps/api/geocode/json?latlng='+ str(latitude) +','+ str(longitude) +'&sensor=false')
-					place = json.loads(geocodeURL.read().decode())
-					for component in place['results'][0]['address_components']:
-						if 'administrative_area_level_1' in component['types']:
-							states += [component['short_name']]
-				state = Counter(states).most_common(1)[0][0]
-
-				lead =  current_user.leads.filter_by(id=id).first()
-
-				if lead is not None:
-					lead.score = (lead.score + score * magnitude) / 2
-					db.session.commit()
-
-				else:
-					newLead = Lead(id, name, state, score * magnitude)
-					current_user.leads.append(newLead)
+					states = []
+			        
+					for location in locations:
+						graphURL = urllib.urlopen('https://graph.facebook.com/v2.10/search?type=place&q=' + urllib.quote(location) +'&limit=1&access_token=' + facebook_access_token)
+						placeID = json.loads(graphURL.read().decode())['data'][0]['id']
+						instagramPlaceURL = urllib.urlopen('https://api.instagram.com/v1/locations/search?facebook_places_id='+ placeID +'&access_token=' + instagram_access_token)
+						placeData = json.loads(instagramPlaceURL.read().decode())
+						latitude = placeData['data'][0]['latitude']
+						longitude = placeData['data'][0]['longitude']
+						geocodeURL = urllib.urlopen('https://maps.googleapis.com/maps/api/geocode/json?latlng='+ str(latitude) +','+ str(longitude) +'&sensor=false&result_type=administrative_area_level_1&key=' + geocoding_token)
+						place = json.loads(geocodeURL.read().decode())
+						states += [place['results'][0]['address_components'][0]['short_name']]
+					state = Counter(states).most_common(1)[0][0]
+					newLead = Lead(id, name, state, score * magnitude, current_user.id)
+					influencer.leads.append(newLead)
 					db.session.add(newLead)
 					db.session.commit()
+				
+				
+					
+				else:
+					lead.score = (lead.score + score * magnitude) / 2
+					db.session.commit()
+					
+
 		except:
-			print('Cannot access comments', file=sys.stderr)
+			print('Cannot access comments', sys.stderr)
 
 
 
-	mapData = []
-	graph = {}
-	audience = len(current_user.leads.all())
-	for lead in current_user.leads:
-		if lead.location not in graph.keys():
-			graph[lead.location] = 1
-		else:
-			graph[lead.location] += 1
+	
+	
+		for lead in influencer.leads:
+			if lead.location not in graph.keys():
+				graph[lead.location] = 1
+			else:
+				graph[lead.location] += 1
+			length += 1
 
 	for state in graph.keys(): 
-		graph[state] = (float(graph[state]) / audience) * 100
-		mapData.append({'value': graph[state], 'code': state})
+		if length != 0:
+			graph[state] = (float(graph[state]) / length) * 100
+			mapData.append({'value': graph[state], 'code': state})
 
 
 
@@ -181,5 +190,11 @@ def influencerLoop(influencers, likes, comments, posts, media, names, pictures, 
 
 	return templateData
 
+
+def validateNumber(number):
+	number = client.lookups.phone_numbers(number).fetch(type="carrier")
+	if number.country_code == 'US' and number.carrier['type'] == 'mobile':
+		return True
+	return False
 
 
