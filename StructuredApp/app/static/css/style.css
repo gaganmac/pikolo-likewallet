@@ -7,6 +7,10 @@ main {
     padding-bottom: 1rem;
 }
 
+#campaignHandle {
+	width: 300px;
+}
+
 #goals {
 	margin-top: 0px;
 }
@@ -62,7 +66,7 @@ main {
 
 .comingSoon {
 	color: #E0E0E0;
-}
+}n
 
 .extra-margins {
 	margin-top: 2rem;

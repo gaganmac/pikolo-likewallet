@@ -15,16 +15,17 @@
                 </div>
 
                 <div class="influencer-filters">
+                    <!--
                     <div class="d-flex justify-content-between align-items-end flex-nowrap">
 
-                        <!--Search box-->
+                        <!--Search box--
                         <div class="md-form form-sm form-group influencer-search-box">
                             <i class="fa fa-search prefix"></i>
                             <input type="search" class="form-control" placeholder="Search for influencers">
                         </div>
 
                         
-                        <!--Groups button-->
+                        <!--Groups button--
                         <div class="dropdown align-self-start">
                             <div class="btn-group">
                                 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Groups</button>
@@ -41,7 +42,8 @@
                             </div>
                         </div>
                         
-                    </div>
+                    </div> 
+                -->
                 </div>
 
 
@@ -49,6 +51,7 @@
                 <div class="list-group influencer-list">
 
                     <!--Menu for creating groups-->
+                    <!--
                     <div class="add-group-menu">
                         <div href="#" class="list-group-item d-flex flex-wrap justify-content-between">
 
@@ -57,7 +60,7 @@
                                 Select influencers
                             </div>
 
-                            <!--Group Name Form-->
+                            <!--Group Name Form--
                             <form class="form-inline formGroupName">
 
                                 <div class="md-form form-sm form-group form-group-name">
@@ -72,8 +75,7 @@
                             </form>
                         </div>
                     </div>
-
-                    
+                -->
 
                     {% for i in influencers %}
 
@@ -83,14 +85,14 @@
                         <img class="img-fluid rounded-circle" src={{ pictures[loop.index0] }}>
                         <div class="d-flex justify-content-start flex-wrap">
                             <div class="influencer-name"><strong>{{ names[loop.index0] }}</strong></div>
-                            <div class="extra-margin-right"><small style="color:grey;">385k followers</small></div>
-                            <div class="extra-margin-right"><small style="color:grey;">3,954 posts</small></div>
+                            <div class="extra-margin-right"><small style="color:#E0E0E0;">385k followers</small></div>
+                            <div class="extra-margin-right"><small style="color:#E0E0E0;">3,954 posts</small></div>
                         </div>
                         <div class="ml-auto d-flex flex- align-items-center">
                             <a href="https://www.instagram.com/{{i.handle}}/" target="_blank"><i class="fa fa-instagram btn-influencer"></i></a>
-                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-facebook btn-influencer" style="color:grey;"></i></a>
-                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-twitter btn-influencer" style="color:grey;"></i></a>
-                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-snapchat btn-influencer" style="color:grey;"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-facebook btn-influencer" style="color:#E0E0E0;"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-twitter btn-influencer" style="color:#E0E0E0;"></i></a>
+                            <a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-snapchat btn-influencer" style="color:#E0E0E0;"></i></a>
                             <a class="remove-influencer-btn btn-influencer"><i class="fa fa-trash-o"></i></a>
                         </div>
                     </div>
