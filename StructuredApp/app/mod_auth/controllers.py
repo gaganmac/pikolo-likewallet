@@ -37,6 +37,7 @@ from google.cloud import language
 from google.cloud.language import enums
 from google.cloud.language import types
 from oauth2client.client import GoogleCredentials
+from twilio.twiml.voice_response import Reject, VoiceResponse, Say, Dial, Number
 credentials = GoogleCredentials.get_application_default()
 
 instagram_access_token = '22061997.f474111.9666e524ddb140608d124b554fb8bda0'
@@ -264,4 +265,20 @@ def manage():
     }
     return render_template('auth/influencers.html', **templateData)
 
+
+@mod_auth.route("/call", methods=['GET','POST'])
+def call():
+    numbers = ['805-796-3673', '805-813-9308']
+    response = VoiceResponse()
+    caller = request.values['From']
+    if not validateNumber(caller):
+        response.reject()
+    else:
+        response.say('Thank you for calling LikeWallet!  Please remain on the line and the next available representative will assist you.', voice='woman', language='en')
+        dial = Dial()
+        for number in numbers:
+            dial.number(number)
+            response.append(dial)
+
+    return str(response)
 
