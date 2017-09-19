@@ -74,11 +74,26 @@
 
         <div class="container">
 
+            <!--Input for Campaign Handle-->
+            <form class="form-inline">
+
+                <div class="md-form form-group">
+                    <i class="fa fa-instagram prefix"></i>
+                    <input type="text" id="campaignHandle" class="form-control">
+                    <label for="campaignHandle">Your Instagram Handle</label>
+                </div>
+
+                <div class="md-form form-group">
+                    <a class="btn btn-primary btn-lg">Submit</a>
+                </div>
+
+            </form>
+
             <section id="goals">
 
                 <a class="anchor" id="anchor-goals"></a>
 
-                <h1 class=h1.responsive>Goals</h1>
+                <h1 class=h1.responsive>Summary</h1>
 
                 <div class="row">
 
@@ -86,16 +101,14 @@
                     <div class="col hidden-xs-down">
                         <!--Card-->
                         <div class=" card card-block">
-                            <!--Title-->
-                            <h4 class="card-title">Statistics</h4>
                             <!--Text-->
                             <div class="row">
                                 <div class="col-sm-2"><p class="card-text">{{posts}}<br /><small>posts</small></p></div>
                                 <div class="col-sm-2"><p class="card-text">{{likes}}<br /><small>likes</small></p></div>
                                 <div class="col-sm-2"><p class="card-text">{{comments}}<br /><small>comments</small></p></div>
-                                <div class="col-sm-2"><p class="card-text" style="color:grey;">287k<br /><small>views</small></p></div>
-                                <div class="col-sm-2"><p class="card-text" style="color:grey;">5k<br /><small>clicks</small></p></div>
-                                <div class="col-sm-2"><p class="card-text" style="color:grey;">416<br /><small>sales</small></p></div>
+                                <div class="col-sm-2"><p class="card-text comingSoon">N/A<br /><small>views</small></p></div>
+                                <div class="col-sm-2"><p class="card-text comingSoon">N/A<br /><small>clicks</small></p></div>
+                                <div class="col-sm-2"><p class="card-text comingSoon">N/A<br /><small>sales</small></p></div>
                             </div>
                         </div>  
                     </div>
@@ -108,8 +121,6 @@
                     <div class="col-sm-12">
                         <!--Card-->
                         <div class=" card card-block">
-                            <!--Title-->
-                            <h4 class="card-title">Statistics</h4>
                             <!--Text-->
                             <div class="row">
                                 <div class="col"><p class="card-text">{{posts}}<br />posts</p></div>
@@ -118,9 +129,9 @@
                             </div>
                             <br>
                             <div class="row">
-                                <div class="col"><p class="card-text" style="color:grey;">140k<br />views</p></div>
-                                 <div class="col"><p class="card-text" style="color:grey;">2.1k<br />clicks</p></div>
-                                <div class="col"><p class="card-text" style="color:grey;">416<br />sales</p></div>
+                                <div class="col"><p class="card-text comingSoon">N/A<br />views</p></div>
+                                 <div class="col"><p class="card-text comingSoon">N/A<br />clicks</p></div>
+                                <div class="col"><p class="card-text comingSoon">N/A<br />sales</p></div>
                             </div>
                             <br>
                         </div>
@@ -139,11 +150,11 @@
                         <div class="col">
                             <div class=" card card-block">
                                 <!--Title-->
-                                <h4 class="card-title" style="color:grey;">ROI</h4>
+                                <h4 class="card-title comingSoon">ROI</h4>
                                 <!--Text-->
-                                <p class="card-text" style="color:grey;">Sales: $37k</p>
-                                <p class="card-text" style="color:grey;">Investment: 6k</p>
-                                <strong class="card-text" style="color:grey;">ROI: 6.2x</strong>
+                                <p class="card-text comingSoon">Sales: N/A</p>
+                                <p class="card-text comingSoon">Investment: N/A</p>
+                                <strong class="card-text comingSoon">ROI: N/A</strong>
                             </div>
                         </div>
 
@@ -156,10 +167,10 @@
                         <div class="col">
                             <div class=" card card-block">
                                 <!--Title-->
-                                <h4 class="card-title" style="color:grey;">Audience Gender</h4>
+                                <h4 class="card-title comingSoon">Audience Gender</h4>
                                 <!--Text-->
-                                <p class="card-text" style="color:grey;">Female: 62%
-                                <p class="card-text" style="color:grey;">Male: 38%</p>
+                                <p class="card-text comingSoon">Female: N/A
+                                <p class="card-text comingSoon">Male: N/A</p>
                             </div>
                         </div>
 
@@ -307,21 +318,21 @@
                             </div>
 
                             <!--Influencer Stats-->
-                            <div class="d-flex flex-sm-nowrap flex-wrap">
-                                <div class="row extra-margin-right">
-                                    <div class="col-4">{{ numPostsArray[loop.index0]}}<br /><small>posts</small></div>
-                                    <div class="col-4">{{ likesArray[loop.index0] }}<br /><small>likes</small></div>
-                                    <div class="col-4">{{ commentsArray[loop.index0] }}<br /><small>coms</small></div>
+                            <div>
+                                <div class="d-flex flex-wrap">
+                                    <div class="metric"><strong>{{ likesArray[loop.index0] }}</strong> | AVG<br /><small>likes per post</small></div>
+                                    <div class="metric"><strong>{{ commentsArray[loop.index0] }}</strong> | AVG<br /><small>coms per post</small></div>
+                                    <div class="metric comingSoon">N/A<br /><small>views per post</small></div>
+                                    <div class="metric comingSoon">N/A<br /><small>clicks per post</small></div>
+                                    <div class="metric comingSoon">N/A<br /><small>sales per post</small></div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-4" style="color:grey;">140k<br /><small style="color:grey;">views</small></div>
-                                    <div class="col-4" style="color:grey;">1.1k<br /><small style="color:grey;">clicks</small></div>
-                                    <div class="col-4" style="color:grey;">44<br /><small style="color:grey;">sales</small></div>
-                                </div> 
                             </div>
                         </div>
 
-                        <div class="text-center ml-auto extra-margin-right" style="color:grey;">$2,250<br /><small style="color:grey;">cost</small></div>
+                        <div class="d-flex flex-nowrap ml-auto">
+                            <div class="metric">{{ numPostsArray[loop.index0]}}<br /><small>posts</small></div>
+                            <div class="metric comingSoon">N/A<br /><small>cost</small></div>
+                        </div>
 
                     </a>
 
@@ -427,8 +438,8 @@
                                 <div class="row">
                                     <div class="col-3"><p class="card-text">{{'{:,}'.format(m.likes.count)}}<br /><small>likes</small></p></div>
                                     <div class="col-3"><p class="card-text">{{'{:,}'.format(m.comments.count)}}<br /><small>coms</small></p></div>
-                                    <div class="col-3"><p class="card-text" style="color:grey;">26k<br /><small>views</small></p></div>
-                                    <div class="col-3"><p class="card-text" style="color:grey;">363<br /><small>clicks</small></p></div>
+                                    <div class="col-3 comingSoon"><p class="card-text">N/A<br /><small>views</small></p></div>
+                                    <div class="col-3 comingSoon"><p class="card-text">N/A<br /><small>clicks</small></p></div>
                                 </div>
                             </div>
                         </div>
