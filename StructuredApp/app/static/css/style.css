@@ -121,6 +121,10 @@ main {
 	padding-right: 2rem;
 }
 
+.metric p {
+	display: inline;
+}
+
 .minHeight {
 	height: 500px;
 }
