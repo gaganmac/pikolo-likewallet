@@ -80,7 +80,7 @@
                 <div class="md-form form-group">
                     <i class="fa fa-instagram prefix"></i>
                     <input type="text" id="campaignHandle" class="form-control">
-                    <label for="campaignHandle">Enter your company IG handle</label>
+                    <label for="campaignHandle">Enter keyword to track posts</label>
                 </div>
 
                 <a class="btn btn-primary btn-lg">Track</a>
@@ -201,8 +201,8 @@
                             <!--Influencer Stats-->
                             <div>
                                 <div class="d-flex flex-wrap">
-                                    <div class="metric"><strong>{{ likesArray[loop.index0] }}</strong> | 102<br /><small>likes per post</small></div>
-                                    <div class="metric"><strong>{{ commentsArray[loop.index0] }}</strong> | 76<br /><small>coms per post</small></div>
+                                    <div class="metric" data-toggle="tooltip" data-placement="top" title="Your posts vs other posts"><strong>{{ likesArray[loop.index0] }}</strong> | 102<br /><small>likes per post</small></div>
+                                    <div class="metric" data-toggle="tooltip" data-placement="top" title="Your posts vs other posts"><strong>{{ commentsArray[loop.index0] }}</strong> | 76<br /><small>coms per post</small></div>
                                     <div class="metric comingSoon">N/A<br /><small>views per post</small></div>
                                     <div class="metric comingSoon">N/A<br /><small>clicks per post</small></div>
                                     <div class="metric comingSoon">N/A<br /><small>sales per post</small></div>

@@ -121,6 +121,10 @@ main {
 	padding-right: 2rem;
 }
 
+.minHeight {
+	height: 500px;
+}
+
 .modal, .modal-backdrop {
     position: absolute !important;
 }
@@ -148,6 +152,16 @@ main {
 .nav-pills .nav-link.active:hover {
   background-color: #4285F4;
   color: #fff; }
+
+
+.noInfluencers {
+	height: 250px;
+	background-color: #EEEEEE;
+	border-radius: 3px;
+	text-align: center;
+	color:#9E9E9E;
+	padding: 110px;
+}
 
 .post {
 	position: relative;

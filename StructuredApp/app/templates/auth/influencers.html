@@ -6,16 +6,16 @@
 
 {% block main %}
     <main>
-         <div class="container">
+         <div class="container minHeight">
 
             <section id="influencers">
 
                 <div class="d-flex justify-content-between">
                     <h1 class="h1.responsive">Influencers</h1>
                 </div>
-
+                <!--
                 <div class="influencer-filters">
-                    <!--
+                    
                     <div class="d-flex justify-content-between align-items-end flex-nowrap">
 
                         <!--Search box--
@@ -43,9 +43,14 @@
                         </div>
                         
                     </div> 
-                -->
+               
                 </div>
-
+                -->
+                <!--
+                <div class="noInfluencers">
+                    <h5>Add your first influencers by clicking the button below :D</h5>
+                </div>
+                -->                
 
                 <!--Influencer List-->
                 <div class="list-group influencer-list">
@@ -121,7 +126,7 @@
                             </div>
                             <!--Body-->
                             <div class="modal-body">
-                                <div class="md-form">
+                                <div class="md-form" id ="formAddInfluencer">
                                     <input id="profileUrl" type="search" class="form-control" placeholder="Enter Influencer Instagram Handle">
                                 </div>
                                 <button type="button" class="add-influencer-btn btn btn-default ml-auto">Add</button>

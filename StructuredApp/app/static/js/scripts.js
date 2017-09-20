@@ -1,5 +1,10 @@
 function main(){
 
+	//Initialize tooltips
+	$(function () {
+	  $('[data-toggle="tooltip"]').tooltip()
+	})
+
 	//DASHBOARD PAGE
 	$("#posts").on("activate.bs.scrollspy", function () {
 	  	alert("test");
@@ -83,14 +88,18 @@ function main(){
         
 	});
 
+	/*
+	//Hide "add first influencer message" after influencers added
+	$(document).on("submit", "#formAddInfluencer", function(){
+		$(".noInfluencers").hide();
+	}); */
+
 	//Close add influencer modal
 	$('#add-influencers').on('hidden.bs.modal', function() {
         $('#duplicate').hide();
         $('#invalid').hide();
 	});
 
-
-	
 
 	//Remove an influencer
 	$(document).on("click", ".remove-influencer-btn", function(){
