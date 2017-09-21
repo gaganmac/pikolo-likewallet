@@ -1,4 +1,4 @@
-from __future__ import print_function
+ from __future__ import print_function
 import sys
 import os
 import urllib
@@ -87,7 +87,10 @@ def influencerLoop(influencers, likes, comments, posts, media, names, pictures, 
 	length = 0
 	mapData = []
 	graph = {}
+
 	for influencer in influencers:
+
+		#Get influencer data
 		url = urllib.urlopen('https://www.instagram.com/' +  influencer.handle + '/media/')
 		data = json.loads(url.read().decode())
 		numPosts = 0  #number of posts influencer has available
@@ -109,17 +112,28 @@ def influencerLoop(influencers, likes, comments, posts, media, names, pictures, 
 		mediaId = data['items'][0]['id'].split('_')[0]
 
 		try:
+			#Get comments data
 			commentsUrl = urllib.urlopen('https://api.instagram.com/v1/media/'+ mediaId + '/comments?access_token=' + instagram_access_token)
 			commentsData = json.loads(commentsUrl.read().decode())
+			
 			for comment in commentsData['data']:
+				#run sentiment analysis 
 				score, magnitude = analyze(comment['text'])
 				name = comment['from']['full_name']
+
 				leads = [lead.name for lead in influencer.leads]
 				if name not in leads:
+
+				lead = Lead.query.filter_by(influencer_id=influencer.id).filter_by(name=name).first()
+				
+				if lead is None:
+					#Get commenter data
+
 					id = comment['from']['id']
 					commenterURL = urllib.urlopen('https://www.instagram.com/' +  comment['from']['username'] + '/media/')
 					commenterMedia = json.loads(commenterURL.read().decode())
 					locations = []
+					#Add locations of commenter's media
 					for item in commenterMedia['items']:
 						if item['location'] is not None:
 							locations += [item['location']['name']]
@@ -127,6 +141,8 @@ def influencerLoop(influencers, likes, comments, posts, media, names, pictures, 
 					states = []
 			        
 					for location in locations:
+
+						#Get location data
 						graphURL = urllib.urlopen('https://graph.facebook.com/v2.10/search?type=place&q=' + urllib.quote(location) +'&limit=1&access_token=' + facebook_access_token)
 						placeID = json.loads(graphURL.read().decode())['data'][0]['id']
 						instagramPlaceURL = urllib.urlopen('https://api.instagram.com/v1/locations/search?facebook_places_id='+ placeID +'&access_token=' + instagram_access_token)
@@ -136,18 +152,28 @@ def influencerLoop(influencers, likes, comments, posts, media, names, pictures, 
 						geocodeURL = urllib.urlopen('https://maps.googleapis.com/maps/api/geocode/json?latlng='+ str(latitude) +','+ str(longitude) +'&sensor=false&result_type=administrative_area_level_1&key=' + geocoding_token)
 						print('https://maps.googleapis.com/maps/api/geocode/json?latlng='+ str(latitude) +','+ str(longitude) +'&sensor=false&result_type=administrative_area_level_1&key=' + geocoding_token, sys.stderr)
 						place = json.loads(geocodeURL.read().decode())
+
 						if len(place['results']):
 							states += [place['results'][0]['address_components'][0]['short_name']]
+
+						states += [place['results'][0]['address_components'][0]['short_name']]
+
+					#Choose most common state of all locations
+
 					state = Counter(states).most_common(1)[0][0]
+					#Add new lead to database
 					newLead = Lead(id, name, state, score * magnitude, current_user.id)
 					influencer.leads.append(newLead)
 					db.session.add(newLead)
 					db.session.commit()
 				
-				
 					
 				else:
+
 					lead =  Lead.query.filter_by(name=name).filter_by(influencer_id=influencer.id).first()
+
+					#Update score of existing lead
+
 					lead.score = (lead.score + score * magnitude) / 2
 					db.session.commit()
 				
@@ -155,9 +181,6 @@ def influencerLoop(influencers, likes, comments, posts, media, names, pictures, 
 		except:
 			print('Cannot access comments', sys.stderr)
 
-
-
-	
 	
 		for lead in influencer.leads:
 			if lead.location not in graph.keys():
@@ -172,7 +195,7 @@ def influencerLoop(influencers, likes, comments, posts, media, names, pictures, 
 			mapData.append({'value': graph[state], 'code': state})
 
 
-
+	#Structure data
 	templateData = {
 	'size' : request.args.get('size','thumb'),
 	# 'media' : recent_media,

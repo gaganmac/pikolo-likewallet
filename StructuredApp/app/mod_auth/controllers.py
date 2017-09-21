@@ -73,7 +73,7 @@ def user_photos():
 
 
 
-
+#Login controller
 @mod_auth.route('/login/', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -84,29 +84,31 @@ def login():
     email = request.form['email']
     password = request.form['password']
     user =  User.query.filter_by(email=email).first()
-    if user is None:
-        flash("User does not exist")
-        return redirect(url_for('auth.login'))
-    elif password != user.password:
-        flash("Password is incorrect")
+    #Check if username or password are incorrect
+    if user is None or password != user.password:
+        flash("Error: Email or password is incorrect")
         return redirect(url_for('auth.login'))
     else:
         login_user(user, remember=True)
         return redirect(url_for('auth.dashboard'))
 
 
+#Registration controller
 @mod_auth.route('/register/', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('auth.dashboard'))
     if request.method == 'GET':
         return render_template("auth/register.html")
+    #Check that email is not taken
     if User.query.filter_by(email=request.form['email']).first() is not None:
-        flash("User already exists")
+        flash("Error: Email is already taken")
         return redirect(url_for("auth.register"))
+    #Check that passwords match
     if not(request.form['password'] == request.form['passwordRepeat']):
         flash("Error: Passwords do not match.")
         return redirect(url_for("auth.register"))
+    #Add new user to database
     user = User(request.form['first'], request.form['last'], request.form['company'], 
         request.form['companyWebsite'], request.form['email'], request.form['phone'], request.form['password'])
     if not validateNumber(user.phone):
@@ -119,18 +121,21 @@ def register():
 
 
 
-
+#Delete account controller
 @mod_auth.route("/remove/", methods=['GET','POST'])
 @login_required
 def remove():
     if request.method == 'GET':
         return render_template('auth/remove.html', username=current_user.email)
+    #Check that email is correct
     if not(current_user.email == request.form['email']):
-        flash("Error: Please enter the email address associated with this account.")
+        flash("Error: Email or password is incorrect.")
         return render_template('auth/remove.html', username=current_user.email)
+    #Check that password is correct
     if not(request.form['password'] == current_user.password):
-        flash("Error: Incorrect password.")
+        flash("Error: Email or password is incorrect.")
         return render_template('auth/remove.html', username=current_user.email)
+    #Check that passwords match
     if not(request.form['password'] == request.form['passwordRepeat']):
         flash("Error: Passwords do not match.")
         return render_template('auth/remove.html', username=current_user.email)
@@ -140,10 +145,7 @@ def remove():
     db.session.commit()
     return redirect(url_for('auth.removeSuccess', email=user.email))
 
-
-
-
-
+#Dashboard controller
 @mod_auth.route("/dashboard", methods=['GET','POST'])
 @login_required
 def dashboard():
@@ -163,13 +165,12 @@ def dashboard():
     
     templateData = influencerLoop(current_user.influencers, likes, comments, posts, media, names, pictures, numPostsArray, likesArray, commentsArray, current_user)
 
-        
     return render_template('auth/dashboard.html', **templateData)
     # else:
     #     return redirect(url_for('auth.user_photos'))
 
 
-
+#Logout controller
 @mod_auth.route("/logout", methods=['GET','POST'])
 @login_required
 def logout():
@@ -179,8 +180,6 @@ def logout():
     logout_user()
     flash(name + " has been logged out.")
     return redirect(url_for('auth.login'))
-
-
 
 
 @mod_auth.route("/remove/<email>", methods=['GET','POST']) 
@@ -193,9 +192,6 @@ def removeSuccess(email):
 def http_error_handler(error):
     flash("You must log in to access this page.")
     return redirect(url_for('auth.login'))
-
-
-
 
 
 # @mod_auth.route('/instagram_callback')
@@ -227,6 +223,7 @@ def http_error_handler(error):
 #         return "No code provided"
 
 
+#Adding new Influencer
 @mod_auth.route("/addinfluencer", methods=['GET','POST'])
 @login_required
 def add():
@@ -237,6 +234,7 @@ def add():
     flash("Influencer has been added")
     return redirect(url_for('auth.manage'))
 
+#Removing Influencer
 @mod_auth.route("/removeinfluencer", methods=['GET','POST'])
 @login_required
 def removeInfluencer():
@@ -246,6 +244,7 @@ def removeInfluencer():
     flash("Influencer has been removed")
     return redirect(url_for('auth.manage'))
 
+#Influencer manager controller
 @mod_auth.route("/manage", methods=['GET','POST'])
 @login_required
 def manage():
