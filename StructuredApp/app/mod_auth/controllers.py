@@ -25,6 +25,7 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 from run import login_manager
 
 from instagram.client import InstagramAPI
+from BeautifulSoup import BeautifulSoup
 
 
 from collections import Counter
@@ -250,8 +251,15 @@ def removeInfluencer():
 def manage():
     pictures = []
     names = []
+    followers = []
+    posts = []
     for i in current_user.influencers:
         url = urllib.urlopen('https://www.instagram.com/' +  i.handle + '/media/')
+        page = urllib.urlopen('https://www.instagram.com/' +  i.handle).read()
+        soup = BeautifulSoup(page)
+        description = soup.find("meta",  property="og:description")['content'].split(' ')
+        followers += [description[description.index('Followers,') - 1]]
+        posts += [description[description.index('Posts') - 1]]
         data = json.loads(url.read().decode())
         pictures += [data['items'][0]['user']['profile_picture']]
         names += [data['items'][0]['user']['full_name']]
@@ -261,14 +269,16 @@ def manage():
         'influencers' : current_user.influencers,
         'userDash' : url_for("auth.dashboard"),
         'pictures' : pictures,
-        'names' : names
+        'names' : names,
+        'followers' : followers,
+        'posts' : posts
     }
     return render_template('auth/influencers.html', **templateData)
 
 
 @mod_auth.route("/call", methods=['GET','POST'])
 def call():
-    numbers = ['805-796-3673', '805-813-9308']
+    numbers = ['720-938-7168', '774-232-6921', '513-675-5664', '310-502-9285']
     response = VoiceResponse()
     caller = request.values['From']
     if not validateNumber(caller):

@@ -114,8 +114,8 @@ def influencerLoop(influencers, likes, comments, posts, media, names, pictures, 
 			for comment in commentsData['data']:
 				score, magnitude = analyze(comment['text'])
 				name = comment['from']['full_name']
-				lead = Lead.query.filter_by(influencer_id=influencer.id).filter_by(name=name).first()
-				if lead is None:
+				leads = [lead.name for lead in influencer.leads]
+				if name not in leads:
 					id = comment['from']['id']
 					commenterURL = urllib.urlopen('https://www.instagram.com/' +  comment['from']['username'] + '/media/')
 					commenterMedia = json.loads(commenterURL.read().decode())
@@ -134,8 +134,10 @@ def influencerLoop(influencers, likes, comments, posts, media, names, pictures, 
 						latitude = placeData['data'][0]['latitude']
 						longitude = placeData['data'][0]['longitude']
 						geocodeURL = urllib.urlopen('https://maps.googleapis.com/maps/api/geocode/json?latlng='+ str(latitude) +','+ str(longitude) +'&sensor=false&result_type=administrative_area_level_1&key=' + geocoding_token)
+						print('https://maps.googleapis.com/maps/api/geocode/json?latlng='+ str(latitude) +','+ str(longitude) +'&sensor=false&result_type=administrative_area_level_1&key=' + geocoding_token, sys.stderr)
 						place = json.loads(geocodeURL.read().decode())
-						states += [place['results'][0]['address_components'][0]['short_name']]
+						if len(place['results']):
+							states += [place['results'][0]['address_components'][0]['short_name']]
 					state = Counter(states).most_common(1)[0][0]
 					newLead = Lead(id, name, state, score * magnitude, current_user.id)
 					influencer.leads.append(newLead)
@@ -145,9 +147,10 @@ def influencerLoop(influencers, likes, comments, posts, media, names, pictures, 
 				
 					
 				else:
+					lead =  Lead.query.filter_by(name=name).filter_by(influencer_id=influencer.id).first()
 					lead.score = (lead.score + score * magnitude) / 2
 					db.session.commit()
-					
+				
 
 		except:
 			print('Cannot access comments', sys.stderr)
@@ -196,5 +199,9 @@ def validateNumber(number):
 	if number.country_code == 'US' and number.carrier['type'] == 'mobile':
 		return True
 	return False
+
+
+
+
 
 
