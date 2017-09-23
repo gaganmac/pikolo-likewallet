@@ -1,4 +1,4 @@
- from __future__ import print_function
+from __future__ import print_function
 import sys
 import os
 import urllib
@@ -72,10 +72,15 @@ def truncate(num):
 		num = num[:-6]
 		num = num + 'm'
 		return num
-	elif num > 1000:
+	elif num > 100000:
 		num = int(round(num, -3))
 		num = str(num)
 		num = num[:-3]
+		num = num + 'k'
+		return num
+	elif num > 1000:
+		num = round(num, -2) / 1000
+		num = str(num)
 		num = num + 'k'
 		return num
 	else:
@@ -83,7 +88,8 @@ def truncate(num):
 
 
 
-def influencerLoop(influencers, likes, comments, posts, media, names, pictures, numPostsArray, likesArray, commentsArray, current_user):
+def influencerLoop(influencers, likes, comments, posts, media, names, pictures, numPostsArray, likesArray, commentsArray, totalPostsArray, 
+	totalLikesArray, totalCommentsArray, current_user):
 	length = 0
 	mapData = []
 	graph = {}
@@ -96,90 +102,97 @@ def influencerLoop(influencers, likes, comments, posts, media, names, pictures, 
 		numPosts = 0  #number of posts influencer has available
  		numLikes = 0
  		numComments = 0
+ 		totalPosts = 0
+ 		totalLikes = 0
+ 		totalComments = 0
  		# for item in data['items']:
- 		numPosts += 1
-		posts += 1
-		likes += data['items'][0]['likes']['count']
-		comments += data['items'][0]['comments']['count']
-		numLikes += data['items'][0]['likes']['count']
-		numComments += data['items'][0]['comments']['count']
-		numPostsArray += [numPosts]
-		likesArray += [truncate(numLikes)]
-		commentsArray += [truncate(numComments)]
+		
+		
 		pictures += [data['items'][0]['user']['profile_picture']]
 		names += [data['items'][0]['user']['full_name']]
-		media += [data['items'][0]]
-		mediaId = data['items'][0]['id'].split('_')[0]
 
-		try:
-			#Get comments data
-			commentsUrl = urllib.urlopen('https://api.instagram.com/v1/media/'+ mediaId + '/comments?access_token=' + instagram_access_token)
-			commentsData = json.loads(commentsUrl.read().decode())
-			
-			for comment in commentsData['data']:
-				#run sentiment analysis 
-				score, magnitude = analyze(comment['text'])
-				name = comment['from']['full_name']
+		for post in data['items']:
+			totalPosts += 1
+			totalLikes += post['likes']['count']
+			totalComments += post['comments']['count']
+			if post['caption']['text'].lower().find(current_user.keyword.lower()) != -1:
+				mediaId = post['id'].split('_')[0]
+				media += [post]
+				posts += 1
+				comments += post['comments']['count']
+				likes += post['likes']['count']
+				numPosts += 1
+				numLikes += post['likes']['count']
+				numComments += post['comments']['count']
 
-				leads = [lead.name for lead in influencer.leads]
-				if name not in leads:
-
-				lead = Lead.query.filter_by(influencer_id=influencer.id).filter_by(name=name).first()
-				
-				if lead is None:
-					#Get commenter data
-
-					id = comment['from']['id']
-					commenterURL = urllib.urlopen('https://www.instagram.com/' +  comment['from']['username'] + '/media/')
-					commenterMedia = json.loads(commenterURL.read().decode())
-					locations = []
-					#Add locations of commenter's media
-					for item in commenterMedia['items']:
-						if item['location'] is not None:
-							locations += [item['location']['name']]
-
-					states = []
-			        
-					for location in locations:
-
-						#Get location data
-						graphURL = urllib.urlopen('https://graph.facebook.com/v2.10/search?type=place&q=' + urllib.quote(location) +'&limit=1&access_token=' + facebook_access_token)
-						placeID = json.loads(graphURL.read().decode())['data'][0]['id']
-						instagramPlaceURL = urllib.urlopen('https://api.instagram.com/v1/locations/search?facebook_places_id='+ placeID +'&access_token=' + instagram_access_token)
-						placeData = json.loads(instagramPlaceURL.read().decode())
-						latitude = placeData['data'][0]['latitude']
-						longitude = placeData['data'][0]['longitude']
-						geocodeURL = urllib.urlopen('https://maps.googleapis.com/maps/api/geocode/json?latlng='+ str(latitude) +','+ str(longitude) +'&sensor=false&result_type=administrative_area_level_1&key=' + geocoding_token)
-						print('https://maps.googleapis.com/maps/api/geocode/json?latlng='+ str(latitude) +','+ str(longitude) +'&sensor=false&result_type=administrative_area_level_1&key=' + geocoding_token, sys.stderr)
-						place = json.loads(geocodeURL.read().decode())
-
-						if len(place['results']):
-							states += [place['results'][0]['address_components'][0]['short_name']]
-
-						states += [place['results'][0]['address_components'][0]['short_name']]
-
-					#Choose most common state of all locations
-
-					state = Counter(states).most_common(1)[0][0]
-					#Add new lead to database
-					newLead = Lead(id, name, state, score * magnitude, current_user.id)
-					influencer.leads.append(newLead)
-					db.session.add(newLead)
-					db.session.commit()
-				
+				try:
+					#Get comments data
+					commentsUrl = urllib.urlopen('https://api.instagram.com/v1/media/'+ mediaId + '/comments?access_token=' + instagram_access_token)
+					commentsData = json.loads(commentsUrl.read().decode())
 					
-				else:
+					for comment in commentsData['data']:
+						#run sentiment analysis 
+						score, magnitude = analyze(comment['text'])
+						name = comment['from']['full_name']
 
-					lead =  Lead.query.filter_by(name=name).filter_by(influencer_id=influencer.id).first()
+						leads = [lead.name for lead in influencer.leads]
+						if name not in leads:
+							#Get commenter data
 
-					#Update score of existing lead
+							id = comment['from']['id']
+							commenterURL = urllib.urlopen('https://www.instagram.com/' +  comment['from']['username'] + '/media/')
+							commenterMedia = json.loads(commenterURL.read().decode())
+							locations = []
+							#Add locations of commenter's media
+							for item in commenterMedia['items']:
+								if item['location'] is not None:
+									locations += [item['location']['name']]
 
-					lead.score = (lead.score + score * magnitude) / 2
-					db.session.commit()
-				
+							states = []
+					        
+							for location in locations:
 
-		except:
-			print('Cannot access comments', sys.stderr)
+								#Get location data
+								graphURL = urllib.urlopen('https://graph.facebook.com/v2.10/search?type=place&q=' + urllib.quote(location) +'&limit=1&access_token=' + facebook_access_token)
+								placeID = json.loads(graphURL.read().decode())['data'][0]['id']
+								instagramPlaceURL = urllib.urlopen('https://api.instagram.com/v1/locations/search?facebook_places_id='+ placeID +'&access_token=' + instagram_access_token)
+								placeData = json.loads(instagramPlaceURL.read().decode())
+								latitude = placeData['data'][0]['latitude']
+								longitude = placeData['data'][0]['longitude']
+								geocodeURL = urllib.urlopen('https://maps.googleapis.com/maps/api/geocode/json?latlng='+ str(latitude) +','+ str(longitude) +'&sensor=false&result_type=administrative_area_level_1&key=' + geocoding_token)
+								
+								try:
+									place = json.loads(geocodeURL.read().decode())
+									if len(place['results']):
+										states += [place['results'][0]['address_components'][0]['short_name']]
+								except:
+									print('Location does not use English characters', sys.stderr)
+
+								
+
+							#Choose most common state of all locations
+
+							state = Counter(states).most_common(1)[0][0]
+							#Add new lead to database
+							newLead = Lead(id, name, state, score * magnitude, current_user.id)
+							influencer.leads.append(newLead)
+							db.session.add(newLead)
+							db.session.commit()
+						
+							
+						else:
+
+							lead =  Lead.query.filter_by(name=name).filter_by(influencer_id=influencer.id).first()
+
+							#Update score of existing lead
+
+							lead.score = (lead.score + score * magnitude) / 2
+							db.session.commit()
+						
+				except Exception as e:
+					print('Cannot access comments ' + str(e), sys.stderr)
+
+
 
 	
 		for lead in influencer.leads:
@@ -188,6 +201,21 @@ def influencerLoop(influencers, likes, comments, posts, media, names, pictures, 
 			else:
 				graph[lead.location] += 1
 			length += 1
+
+		numPostsArray += [numPosts]
+		totalPostsArray += [totalPosts]
+		if numPosts == 0:
+			likesArray += [0]
+			commentsArray += [0]
+		else:
+			likesArray += [truncate(numLikes/numPosts)]
+			commentsArray += [truncate(numComments/numPosts)]
+		if totalPosts == 0:
+			totalLikesArray += [0]
+			totalCommentsArray += [0]
+		else:
+			totalLikesArray += [truncate(totalLikes/totalPosts)]
+			totalCommentsArray += [truncate(totalComments/totalPosts)]
 
 	for state in graph.keys(): 
 		if length != 0:
@@ -209,6 +237,9 @@ def influencerLoop(influencers, likes, comments, posts, media, names, pictures, 
 	'commentsArray' : commentsArray,
 	'likesArray' : likesArray,
 	'numPostsArray' : numPostsArray,
+	'totalCommentsArray' : totalCommentsArray,
+	'totalLikesArray' : totalLikesArray,
+	'totalPostsArray' : totalPostsArray,
 	'json' : mapData
 
 	}

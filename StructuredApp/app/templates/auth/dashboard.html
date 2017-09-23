@@ -83,7 +83,7 @@
                     <label for="campaignHandle">Enter keyword to track posts</label>
                 </div>
 
-                <a class="btn btn-primary btn-lg">Track</a>
+                <a class="keyword-btn btn btn-primary btn-lg">Track</a>
 
             </form>
 
@@ -201,8 +201,8 @@
                             <!--Influencer Stats-->
                             <div>
                                 <div class="d-flex flex-wrap">
-                                    <div class="metric"><strong data-toggle="tooltip" data-placement="top" title="Avg for your posts">{{ likesArray[loop.index0] }}</strong> | <p data-toggle="tooltip" data-placement="top" title="Avg for regular posts">102<br /></p><small>likes per post</small></div>
-                                    <div class="metric"><strong data-toggle="tooltip" data-placement="top" title="Avg for your posts">{{ commentsArray[loop.index0] }}</strong> | <p data-toggle="tooltip" data-placement="top" title="Avg for regular posts">76<br /></p><small>coms per post</small></div>
+                                    <div class="metric"><strong data-toggle="tooltip" data-placement="top" title="Avg for your posts">{{ likesArray[loop.index0] }}</strong> | <p data-toggle="tooltip" data-placement="top" title="Avg for regular posts">{{ totalLikesArray[loop.index0] }}<br /></p><small>likes per post</small></div>
+                                    <div class="metric"><strong data-toggle="tooltip" data-placement="top" title="Avg for your posts">{{ commentsArray[loop.index0] }}</strong> | <p data-toggle="tooltip" data-placement="top" title="Avg for regular posts">{{ totalCommentsArray[loop.index0] }}<br /></p><small>coms per post</small></div>
                                     <div class="metric comingSoon">N/A<br /><small>views per post</small></div>
                                     <div class="metric comingSoon">N/A<br /><small>clicks per post</small></div>
                                     <div class="metric comingSoon">N/A<br /><small>sales per post</small></div>

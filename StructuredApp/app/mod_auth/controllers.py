@@ -158,12 +158,16 @@ def dashboard():
     numPostsArray = []  #posts per influencer
     likesArray = []     #likes per influencer
     commentsArray = [] #comments per influencer
+    totalPostsArray = []
+    totalLikesArray = []
+    totalCommentsArray = []
 
     # if session.get('instagram_access_token') and session.get('instagram_user'):
     # userAPI = InstagramAPI(access_token=session['instagram_access_token'])
     # recent_media, next = userAPI.user_recent_media(user_id=session['instagram_user'].get('id'),count=25)
     
-    templateData = influencerLoop(current_user.influencers, likes, comments, posts, media, names, pictures, numPostsArray, likesArray, commentsArray, current_user)
+    templateData = influencerLoop(current_user.influencers, likes, comments, posts, media, names, pictures, numPostsArray, likesArray, 
+        commentsArray, totalPostsArray, totalLikesArray, totalCommentsArray, current_user)
 
     return render_template('auth/dashboard.html', **templateData)
     # else:
@@ -239,6 +243,8 @@ def add():
 @login_required
 def removeInfluencer():
     influencer = Influencer.query.filter_by(handle=request.form['handle']).first()
+    for lead in influencer.leads:
+        db.session.delete(lead)
     db.session.delete(influencer)
     db.session.commit()
     flash("Influencer has been removed")
@@ -290,4 +296,14 @@ def call():
             response.append(dial)
 
     return str(response)
+
+
+@mod_auth.route("/addkeyword", methods=['GET','POST'])
+@login_required
+def keyword():
+    print(request.form['keyword'], sys.stderr)
+    current_user.keyword = request.form['keyword']
+    db.session.commit()
+    flash("keyword has been added")
+    return redirect(url_for('auth.dashboard'))
 

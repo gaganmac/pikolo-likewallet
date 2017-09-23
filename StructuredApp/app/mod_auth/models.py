@@ -21,6 +21,7 @@ class User(UserMixin, db.Model):
 	email = db.Column(db.String(128), unique=True)
 	phone = db.Column(db.String(12))
 	password = db.Column(db.String(128))
+	keyword = db.Column(db.String(128))
 	influencers = db.relationship("Influencer", secondary=association_table, backref=db.backref('users', lazy='dynamic'))
 	
 

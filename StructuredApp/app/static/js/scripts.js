@@ -47,6 +47,13 @@ function main(){
 
 	});
 
+	$(document).on("click", ".keyword-btn", function(){
+
+		var keyword = $("#campaignHandle").val();
+		$.post($SCRIPT_ROOT + '/addkeyword', {"keyword" : keyword});
+
+	});
+
 	//INFLUENCERS PAGE
 
 	//Hide elements
