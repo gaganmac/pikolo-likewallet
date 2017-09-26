@@ -115,82 +115,94 @@ def influencerLoop(influencers, likes, comments, posts, media, names, pictures, 
 			totalPosts += 1
 			totalLikes += post['likes']['count']
 			totalComments += post['comments']['count']
-			if post['caption']['text'].lower().find(current_user.keyword.lower()) != -1:
-				mediaId = post['id'].split('_')[0]
-				media += [post]
-				posts += 1
-				comments += post['comments']['count']
-				likes += post['likes']['count']
-				numPosts += 1
-				numLikes += post['likes']['count']
-				numComments += post['comments']['count']
+		if not current_user.keyword:
+			mediaId = data['items'][0]['id'].split('_')[0]
+			media += [data['items'][0]]
+			posts += 1
+			comments += data['items'][0]['comments']['count']
+			likes += data['items'][0]['likes']['count']
+			numPosts += 1
+			numLikes += data['items'][0]['likes']['count']
+			numComments += data['items'][0]['comments']['count']
 
-				try:
-					#Get comments data
-					commentsUrl = urllib.urlopen('https://api.instagram.com/v1/media/'+ mediaId + '/comments?access_token=' + instagram_access_token)
-					commentsData = json.loads(commentsUrl.read().decode())
-					
-					for comment in commentsData['data']:
-						#run sentiment analysis 
-						score, magnitude = analyze(comment['text'])
-						name = comment['from']['full_name']
+		else:
+			for post in data['items']:
+				if current_user.keyword and post['caption'] and post['caption']['text'].lower().find(current_user.keyword.lower()) != -1:
+					mediaId = post['id'].split('_')[0]
+					media += [post]
+					posts += 1
+					comments += post['comments']['count']
+					likes += post['likes']['count']
+					numPosts += 1
+					numLikes += post['likes']['count']
+					numComments += post['comments']['count']
 
-						leads = [lead.name for lead in influencer.leads]
-						if name not in leads:
-							#Get commenter data
-
-							id = comment['from']['id']
-							commenterURL = urllib.urlopen('https://www.instagram.com/' +  comment['from']['username'] + '/media/')
-							commenterMedia = json.loads(commenterURL.read().decode())
-							locations = []
-							#Add locations of commenter's media
-							for item in commenterMedia['items']:
-								if item['location'] is not None:
-									locations += [item['location']['name']]
-
-							states = []
-					        
-							for location in locations:
-
-								#Get location data
-								graphURL = urllib.urlopen('https://graph.facebook.com/v2.10/search?type=place&q=' + urllib.quote(location) +'&limit=1&access_token=' + facebook_access_token)
-								placeID = json.loads(graphURL.read().decode())['data'][0]['id']
-								instagramPlaceURL = urllib.urlopen('https://api.instagram.com/v1/locations/search?facebook_places_id='+ placeID +'&access_token=' + instagram_access_token)
-								placeData = json.loads(instagramPlaceURL.read().decode())
-								latitude = placeData['data'][0]['latitude']
-								longitude = placeData['data'][0]['longitude']
-								geocodeURL = urllib.urlopen('https://maps.googleapis.com/maps/api/geocode/json?latlng='+ str(latitude) +','+ str(longitude) +'&sensor=false&result_type=administrative_area_level_1&key=' + geocoding_token)
-								
-								try:
-									place = json.loads(geocodeURL.read().decode())
-									if len(place['results']):
-										states += [place['results'][0]['address_components'][0]['short_name']]
-								except:
-									print('Location does not use English characters', sys.stderr)
-
-								
-
-							#Choose most common state of all locations
-
-							state = Counter(states).most_common(1)[0][0]
-							#Add new lead to database
-							newLead = Lead(id, name, state, score * magnitude, current_user.id)
-							influencer.leads.append(newLead)
-							db.session.add(newLead)
-							db.session.commit()
+					try:
+						#Get comments data
+						commentsUrl = urllib.urlopen('https://api.instagram.com/v1/media/'+ mediaId + '/comments?access_token=' + instagram_access_token)
+						commentsData = json.loads(commentsUrl.read().decode())
 						
+						for comment in commentsData['data']:
+							#run sentiment analysis 
+							score, magnitude = analyze(comment['text'])
+							name = comment['from']['full_name']
+
+							leads = [lead.name for lead in influencer.leads]
+							if name not in leads:
+								#Get commenter data
+
+								id = comment['from']['id']
+								commenterURL = urllib.urlopen('https://www.instagram.com/' +  comment['from']['username'] + '/media/')
+								commenterMedia = json.loads(commenterURL.read().decode())
+								locations = []
+								#Add locations of commenter's media
+								for item in commenterMedia['items']:
+									if item['location'] is not None:
+										locations += [item['location']['name']]
+
+								states = []
+						        
+								for location in locations:
+
+									#Get location data
+									graphURL = urllib.urlopen('https://graph.facebook.com/v2.10/search?type=place&q=' + urllib.quote(location) +'&limit=1&access_token=' + facebook_access_token)
+									placeID = json.loads(graphURL.read().decode())['data'][0]['id']
+									instagramPlaceURL = urllib.urlopen('https://api.instagram.com/v1/locations/search?facebook_places_id='+ placeID +'&access_token=' + instagram_access_token)
+									placeData = json.loads(instagramPlaceURL.read().decode())
+									latitude = placeData['data'][0]['latitude']
+									longitude = placeData['data'][0]['longitude']
+									geocodeURL = urllib.urlopen('https://maps.googleapis.com/maps/api/geocode/json?latlng='+ str(latitude) +','+ str(longitude) +'&sensor=false&result_type=administrative_area_level_1&key=' + geocoding_token)
+									
+									try:
+										place = json.loads(geocodeURL.read().decode())
+										if len(place['results']):
+											states += [place['results'][0]['address_components'][0]['short_name']]
+									except:
+										print('Location does not use English characters', sys.stderr)
+
+									
+
+								#Choose most common state of all locations
+
+								state = Counter(states).most_common(1)[0][0]
+								#Add new lead to database
+								newLead = Lead(id, name, state, score * magnitude, current_user.id)
+								influencer.leads.append(newLead)
+								db.session.add(newLead)
+								db.session.commit()
 							
-						else:
+								
+							else:
 
-							lead =  Lead.query.filter_by(name=name).filter_by(influencer_id=influencer.id).first()
+								lead =  Lead.query.filter_by(name=name).filter_by(influencer_id=influencer.id).first()
 
-							#Update score of existing lead
+								#Update score of existing lead
 
-							lead.score = (lead.score + score * magnitude) / 2
-							db.session.commit()
-						
-				except Exception as e:
-					print('Cannot access comments ' + str(e), sys.stderr)
+								lead.score = (lead.score + score * magnitude) / 2
+								db.session.commit()
+							
+					except Exception as e:
+						print('Cannot access comments ' + str(e), sys.stderr)
 
 
 
