@@ -47,10 +47,42 @@ function main(){
 
 	});
 
-	$(document).on("click", ".keyword-btn", function(){
+	//Get tracking keyword entered by user
+	$(document).on("submit", "#formKeyword", function(e){
 
+		//prevent form submission
+		e.preventDefault();
+		//Add loading spinner
+		$("#formKeyword > .loadSpinner").show();
+		//disable track button
+		$(".keyword-btn").attr("disabled", true);
+		//store keyword in database
 		var keyword = $("#campaignHandle").val();
-		$.post($SCRIPT_ROOT + '/addkeyword', {"keyword" : keyword});
+		$.post($SCRIPT_ROOT + '/addkeyword', {"keyword" : keyword})
+		//Submit form and refresh page after keyword is stored succesfully
+		.done(function(result){
+			$("#formKeyword").submit();
+			location.reload();
+		});
+
+	});
+
+	//Removing tracking keyword
+	$(document).on("click", ".chip .close", function(){
+		//Hide chip
+		$(this).parent().hide();
+		//Add loading spinner
+		$("#formKeyword > .loadSpinner").show();
+		//disable track button
+		$(".keyword-btn").attr("disabled", true);
+		//store empty keyword in database
+		var keyword = "";
+		$.post($SCRIPT_ROOT + '/addkeyword', {"keyword" : keyword})
+		//refresh page
+		.done(function(result){
+			location.reload();
+		});
+
 
 	});
 

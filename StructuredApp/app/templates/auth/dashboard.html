@@ -74,19 +74,33 @@
 
         <div class="container">
 
-            <!--Input for Campaign Handle-->
-            <form class="form-inline">
+            <br>
+            <div class="keywordContainer">
 
-                <div class="md-form form-group">
-                    <i class="fa fa-instagram prefix"></i>
-                    <input type="text" id="campaignHandle" class="form-control">
-                    <label for="campaignHandle">Enter keyword to track posts</label>
+                <!--Input for Campaign Handle-->
+                <form class="form-inline" id="formKeyword">
+
+                    <div class="md-form form-group">
+                        <input placeholder="e.g. yourBrandName" type="text" id="campaignHandle" class="form-control">
+                        <label for="campaignHandle">Enter keyword to track posts</label>
+                    </div>
+
+                    <button type="submit" class="keyword-btn btn btn-primary btn-lg extra-margin-right">Track</button>
+
+                    <i class="loadSpinner fa fa-circle-o-notch fa-spin"></i>
+
+                </form>
+
+                {% if current_user.keyword %}
+                <div class="chip">
+                    {{current_user.keyword}}
+                    <i class="close fa fa-close"></i>
                 </div>
+                {% endif %}
 
-                <a class="keyword-btn btn btn-primary btn-lg">Track</a>
+            </div>
 
-            </form>
-
+            <br>
             <br>
 
             <section id="goals">
