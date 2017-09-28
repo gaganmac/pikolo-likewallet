@@ -126,10 +126,14 @@
                             </div>
                             <!--Body-->
                             <div class="modal-body">
-                                <div class="md-form" id ="formAddInfluencer">
-                                    <input id="profileUrl" type="search" class="form-control" placeholder="Enter Influencer Instagram Handle">
-                                </div>
-                                <button type="button" class="add-influencer-btn btn btn-default ml-auto">Add</button>
+
+                                <form class="form-inline" id ="formAddInfluencer">
+                                    <div class="md-form form-group">
+                                        <input id="formInfluencerHandle" type="search" class="form-control" placeholder="Enter Influencer Instagram Handle">
+                                    </div>
+                                    <button type="submit" class="add-influencer-btn btn btn-default extra-margin-right">Add</button>
+                                    <i class="loadSpinner fa fa-circle-o-notch fa-spin"></i>
+                                </form>
 
                                 
                                 <div class="alert alert-danger" id="invalid" role="alert">Influencer handle is invalid. Please try again!</div>

@@ -108,7 +108,14 @@
                 <a class="anchor" id="anchor-goals"></a>
 
                 <h1 class=h1.responsive>Summary</h1>
+
+                {% if current_user.keyword %}
                 <br>
+                {% else %}
+                <div class="alert alert-warning" role="alert">
+                  <strong>Hey!</strong> Better enter a keyword to start viewing info about your posts ;)
+                </div>
+                {% endif %}
 
                 <div class="row">
 
@@ -118,9 +125,15 @@
                         <div class=" card card-block">
                             <!--Text-->
                             <div class="row">
+                                {% if current_user.keyword %}
                                 <div class="col-sm-2"><p class="card-text text-center">{{posts}}<br /><small>posts</small></p></div>
                                 <div class="col-sm-2"><p class="card-text text-center">{{likes}}<br /><small>likes</small></p></div>
                                 <div class="col-sm-2"><p class="card-text text-center">{{comments}}<br /><small>comments</small></p></div>
+                                {% else %}
+                                <div class="col-sm-2"><p class="card-text text-center comingSoon">N/A<br /><small>posts</small></p></div>
+                                <div class="col-sm-2"><p class="card-text text-center comingSoon">N/A<br /><small>likes</small></p></div>
+                                <div class="col-sm-2"><p class="card-text text-center comingSoon">N/A<br /><small>comments</small></p></div>
+                                {% endif %}
                                 <div class="col-sm-2"><p class="card-text text-center comingSoon">N/A<br /><small>views</small></p></div>
                                 <div class="col-sm-2"><p class="card-text text-center comingSoon">N/A<br /><small>clicks</small></p></div>
                                 <div class="col-sm-2"><p class="card-text text-center comingSoon">N/A<br /><small>sales</small></p></div>
@@ -138,9 +151,15 @@
                         <div class=" card card-block">
                             <!--Text-->
                             <div class="row">
+                                {% if current_user.keyword %}
                                 <div class="col"><p class="card-text">{{posts}}<br />posts</p></div>
                                 <div class="col"><p class="card-text">{{likes}}<br />likes</p></div>
                                 <div class="col"><p class="card-text">{{comments}}<br />comments</p></div>
+                                {% else %}
+                                <div class="col"><p class="card-text comingSoon">N/A<br />posts</p></div>
+                                <div class="col"><p class="card-text comingSoon">N/A<br />likes</p></div>
+                                <div class="col"><p class="card-text comingSoon">N/A<br />comments</p></div>
+                                {% endif %}
                             </div>
                             <br>
                             <div class="row">
@@ -215,8 +234,18 @@
                             <!--Influencer Stats-->
                             <div>
                                 <div class="d-flex flex-wrap">
-                                    <div class="metric"><strong data-toggle="tooltip" data-placement="top" title="Avg for your posts">{{ likesArray[loop.index0] }}</strong> | <p data-toggle="tooltip" data-placement="top" title="Avg for regular posts">{{ totalLikesArray[loop.index0] }}<br /></p><small>likes per post</small></div>
-                                    <div class="metric"><strong data-toggle="tooltip" data-placement="top" title="Avg for your posts">{{ commentsArray[loop.index0] }}</strong> | <p data-toggle="tooltip" data-placement="top" title="Avg for regular posts">{{ totalCommentsArray[loop.index0] }}<br /></p><small>coms per post</small></div>
+                                    <div class="metric">
+                                        {% if current_user.keyword %}
+                                        <strong data-toggle="tooltip" data-placement="top" title="Avg for your posts">{{ likesArray[loop.index0] }}</strong> | 
+                                        {% endif %}
+                                        <p data-toggle="tooltip" data-placement="top" title="Avg for regular posts">{{ totalLikesArray[loop.index0] }}<br /></p><small>likes per post</small>
+                                    </div>
+                                    <div class="metric">
+                                        {% if current_user.keyword %}
+                                        <strong data-toggle="tooltip" data-placement="top" title="Avg for your posts">{{ commentsArray[loop.index0] }}</strong> | 
+                                        {% endif %}
+                                        <p data-toggle="tooltip" data-placement="top" title="Avg for regular posts">{{ totalCommentsArray[loop.index0] }}<br /></p><small>coms per post</small>
+                                    </div>
                                     <div class="metric comingSoon">N/A<br /><small>views per post</small></div>
                                     <div class="metric comingSoon">N/A<br /><small>clicks per post</small></div>
                                     <div class="metric comingSoon">N/A<br /><small>sales per post</small></div>
@@ -225,8 +254,10 @@
                         </div>
 
                         <div class="d-flex flex-nowrap ml-auto">
+                            {% if current_user.keyword %}
                             <div class="metric">{{ numPostsArray[loop.index0]}}<br /><small>posts</small></div>
                             <div class="metric comingSoon">N/A<br /><small>cost</small></div>
+                            {% endif %}
                         </div>
 
                     </a>
@@ -267,7 +298,13 @@
                 -->
                 </div>
 
+                {% if current_user.keyword %}
                 <br>
+                {% else %}
+                <div class="alert alert-warning" role="alert">
+                  <strong>Still no keyword!</strong> Showing the influencers' most recent posts for now. Enter keyword to view your posts.
+                </div>
+                {% endif %}
 
                 <div class="row">
                     

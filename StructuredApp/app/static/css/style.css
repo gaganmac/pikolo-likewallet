@@ -115,6 +115,9 @@ main {
 	width:300px;
 	margin-bottom:0;
 }
+#formInfluencerHandle {
+	width: 300px !important;
+}
 
 .groups-btn {
 	margin-left:auto;
@@ -215,6 +218,8 @@ main {
 .post-image img {
 	position:absolute;
 }
+
+
 .remove-influencer-btn{
 	margin-left: 2rem;
 }

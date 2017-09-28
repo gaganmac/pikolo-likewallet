@@ -95,18 +95,28 @@ function main(){
 
 
 	//Add new influencer (e.g.Selena Gomez)
-	$(document).on("click", ".add-influencer-btn", function(){
+	$(document).on("submit", "#formAddInfluencer", function(e){
 
-		var username = $("#profileUrl").val();
+		e.preventDefault();
+		//Add loading spinner
+		$("#formAddInfluencer > .loadSpinner").show();
+		//disable button
+		$(".add-influencer-btn").attr("disabled", true);
+		//Get username
+		var username = $("#formInfluencerHandle").val();
 		$.ajax({
         url: "https://cors-anywhere.herokuapp.com/" + "http://instagram.com/" + username + "/media/",        //get JSON from specific user
         dataType: "json",
         success: function(data) {
-        	 if (data.items[0].user && $(".influencer-list:contains('" + data.items[0].user.full_name + "')" ).length > 0) { //influencer already added
-        	 	 $('#invalid').hide();
-        	 	 $('#duplicate').show();
+        	if (data.items[0].user && $(".influencer-list:contains('" + data.items[0].user.full_name + "')" ).length > 0) { //influencer already added
+        	 	$('#invalid').hide();
+        	 	$('#duplicate').show();
+        	 	//Hide loading spinner
+				$("#formAddInfluencer > .loadSpinner").hide();
+				//Enable button
+				$(".add-influencer-btn").attr("disabled", false);
 
-        	 } else {
+        	} else {
 
         	 	
         	 	var posts;
@@ -125,6 +135,10 @@ function main(){
         			$('#add-influencers').modal('hide');
         			$('#duplicate').hide();
         	 		$('#invalid').hide();
+        	 		//Hide loading spinner
+					$("#formAddInfluencer > .loadSpinner").hide();
+					//Enable button
+					$(".add-influencer-btn").attr("disabled", false);
         	 	});
         		
         		
