@@ -137,82 +137,82 @@ def influencerLoop(influencers, likes, comments, posts, media, names, pictures, 
 					numLikes += post['likes']['count']
 					numComments += post['comments']['count']
 
-					try:
-						#Get comments data
-						commentsUrl = urllib.urlopen('https://api.instagram.com/v1/media/'+ mediaId + '/comments?access_token=' + instagram_access_token)
-						commentsData = json.loads(commentsUrl.read().decode())
+		# 			try:
+		# 				#Get comments data
+		# 				commentsUrl = urllib.urlopen('https://api.instagram.com/v1/media/'+ mediaId + '/comments?access_token=' + instagram_access_token)
+		# 				commentsData = json.loads(commentsUrl.read().decode())
 						
-						for comment in commentsData['data']:
-							#run sentiment analysis 
-							score, magnitude = analyze(comment['text'])
-							name = comment['from']['full_name']
+		# 				for comment in commentsData['data']:
+		# 					#run sentiment analysis 
+		# 					score, magnitude = analyze(comment['text'])
+		# 					name = comment['from']['full_name']
 
-							leads = [lead.name for lead in influencer.leads]
-							if name not in leads:
-								#Get commenter data
+		# 					leads = [lead.name for lead in influencer.leads]
+		# 					if name not in leads:
+		# 						#Get commenter data
 
-								id = comment['from']['id']
-								commenterURL = urllib.urlopen('https://www.instagram.com/' +  comment['from']['username'] + '/media/')
-								commenterMedia = json.loads(commenterURL.read().decode())
-								locations = []
-								#Add locations of commenter's media
-								for item in commenterMedia['items']:
-									if item['location'] is not None:
-										locations += [item['location']['name']]
+		# 						id = comment['from']['id']
+		# 						commenterURL = urllib.urlopen('https://www.instagram.com/' +  comment['from']['username'] + '/media/')
+		# 						commenterMedia = json.loads(commenterURL.read().decode())
+		# 						locations = []
+		# 						#Add locations of commenter's media
+		# 						for item in commenterMedia['items']:
+		# 							if item['location'] is not None:
+		# 								locations += [item['location']['name']]
 
-								states = []
+		# 						states = []
 						        
-								for location in locations:
+		# 						for location in locations:
 
-									#Get location data
-									graphURL = urllib.urlopen('https://graph.facebook.com/v2.10/search?type=place&q=' + urllib.quote(location) +'&limit=1&access_token=' + facebook_access_token)
-									placeID = json.loads(graphURL.read().decode())['data'][0]['id']
-									instagramPlaceURL = urllib.urlopen('https://api.instagram.com/v1/locations/search?facebook_places_id='+ placeID +'&access_token=' + instagram_access_token)
-									placeData = json.loads(instagramPlaceURL.read().decode())
-									latitude = placeData['data'][0]['latitude']
-									longitude = placeData['data'][0]['longitude']
-									geocodeURL = urllib.urlopen('https://maps.googleapis.com/maps/api/geocode/json?latlng='+ str(latitude) +','+ str(longitude) +'&sensor=false&result_type=administrative_area_level_1&key=' + geocoding_token)
+		# 							#Get location data
+		# 							graphURL = urllib.urlopen('https://graph.facebook.com/v2.10/search?type=place&q=' + urllib.quote(location) +'&limit=1&access_token=' + facebook_access_token)
+		# 							placeID = json.loads(graphURL.read().decode())['data'][0]['id']
+		# 							instagramPlaceURL = urllib.urlopen('https://api.instagram.com/v1/locations/search?facebook_places_id='+ placeID +'&access_token=' + instagram_access_token)
+		# 							placeData = json.loads(instagramPlaceURL.read().decode())
+		# 							latitude = placeData['data'][0]['latitude']
+		# 							longitude = placeData['data'][0]['longitude']
+		# 							geocodeURL = urllib.urlopen('https://maps.googleapis.com/maps/api/geocode/json?latlng='+ str(latitude) +','+ str(longitude) +'&sensor=false&result_type=administrative_area_level_1&key=' + geocoding_token)
 									
-									try:
-										place = json.loads(geocodeURL.read().decode())
-										if len(place['results']):
-											states += [place['results'][0]['address_components'][0]['short_name']]
-									except:
-										print('Location does not use English characters', sys.stderr)
+		# 							try:
+		# 								place = json.loads(geocodeURL.read().decode())
+		# 								if len(place['results']):
+		# 									states += [place['results'][0]['address_components'][0]['short_name']]
+		# 							except:
+		# 								print('Location does not use English characters', sys.stderr)
 
 									
 
-								#Choose most common state of all locations
+		# 						#Choose most common state of all locations
 
-								state = Counter(states).most_common(1)[0][0]
-								#Add new lead to database
-								newLead = Lead(id, name, state, score * magnitude, current_user.id)
-								influencer.leads.append(newLead)
-								db.session.add(newLead)
-								db.session.commit()
+		# 						state = Counter(states).most_common(1)[0][0]
+		# 						#Add new lead to database
+		# 						newLead = Lead(id, name, state, score * magnitude, current_user.id)
+		# 						influencer.leads.append(newLead)
+		# 						db.session.add(newLead)
+		# 						db.session.commit()
 							
 								
-							else:
+		# 					else:
 
-								lead =  Lead.query.filter_by(name=name).filter_by(influencer_id=influencer.id).first()
+		# 						lead =  Lead.query.filter_by(name=name).filter_by(influencer_id=influencer.id).first()
 
-								#Update score of existing lead
+		# 						#Update score of existing lead
 
-								lead.score = (lead.score + score * magnitude) / 2
-								db.session.commit()
+		# 						lead.score = (lead.score + score * magnitude) / 2
+		# 						db.session.commit()
 							
-					except Exception as e:
-						print('Cannot access comments ' + str(e), sys.stderr)
+		# 			except Exception as e:
+		# 				print('Cannot access comments ' + str(e), sys.stderr)
 
 
 
 	
-		for lead in influencer.leads:
-			if lead.location not in graph.keys():
-				graph[lead.location] = 1
-			else:
-				graph[lead.location] += 1
-			length += 1
+		# for lead in influencer.leads:
+		# 	if lead.location not in graph.keys():
+		# 		graph[lead.location] = 1
+		# 	else:
+		# 		graph[lead.location] += 1
+		# 	length += 1
 
 		numPostsArray += [numPosts]
 		totalPostsArray += [totalPosts]
@@ -229,10 +229,10 @@ def influencerLoop(influencers, likes, comments, posts, media, names, pictures, 
 			totalLikesArray += [truncate(totalLikes/totalPosts)]
 			totalCommentsArray += [truncate(totalComments/totalPosts)]
 
-	for state in graph.keys(): 
-		if length != 0:
-			graph[state] = (float(graph[state]) / length) * 100
-			mapData.append({'value': graph[state], 'code': state})
+	# for state in graph.keys(): 
+	# 	if length != 0:
+	# 		graph[state] = (float(graph[state]) / length) * 100
+	# 		mapData.append({'value': graph[state], 'code': state})
 
 
 	#Structure data
@@ -261,10 +261,13 @@ def influencerLoop(influencers, likes, comments, posts, media, names, pictures, 
 
 
 def validateNumber(number):
-	number = client.lookups.phone_numbers(number).fetch(type="carrier")
-	if number.country_code == 'US' and number.carrier['type'] == 'mobile':
-		return True
-	return False
+	try:
+		number = client.lookups.phone_numbers(number).fetch(type="carrier")
+		if number.country_code == 'US' and number.carrier['type'] == 'mobile':
+			return True
+		return False
+	except:
+		return False
 
 
 
