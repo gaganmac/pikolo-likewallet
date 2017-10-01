@@ -206,7 +206,7 @@
                 <br>
 
                 <!--Influencers Card-->
-                <div class="list-group">
+                <div class="list-group influencer-list">
                     
                     {% for i in influencers %}
 
@@ -473,6 +473,40 @@
                 <hr>
 
             </section>
+
+            
+            <!--Modal for when user has zero influencers-->
+            {% if not influencers %}
+            <div class="modal fade" id="modalZeroInfluencers" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title w-100" id="myModalLabel">Add your first influencer</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <br>
+                            <form class="form-inline" id ="formAddInfluencer">
+                                <div class="md-form form-group">
+                                    <input id="formInfluencerHandle" type="search" class="form-control" placeholder="aryastark80">
+                                    <label for="formInfluencerHandle">Enter Public Instagram Handle</label>
+                                </div>
+                                <button type="submit" class="add-influencer-btn btn btn-default extra-margin-right">Add</button>
+                                <i class="loadSpinner fa fa-circle-o-notch fa-spin"></i>
+                            </form>
+
+                            
+                            <div class="alert alert-danger" id="invalid" role="alert">Influencer handle is invalid. Please try again!</div>
+                            <div class="alert alert-danger" id="duplicate" role="alert">You are already following this influencer!</div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
 
 
         </div>

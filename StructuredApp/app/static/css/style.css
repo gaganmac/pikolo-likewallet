@@ -166,9 +166,6 @@ main {
 	height: 500px;
 }
 
-.modal, .modal-backdrop {
-    position: absolute !important;
-}
 
 .navbar{
 	background-color:#E91E63;

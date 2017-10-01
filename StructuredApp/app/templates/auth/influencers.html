@@ -83,10 +83,7 @@
                 -->
 
                     {% for i in influencers %}
-
-
-    
-                        <div href="#" class="list-group-item list-group-item-action d-flex justify-content-start flex-nowrap">
+                    <div href="#" class="list-group-item list-group-item-action d-flex justify-content-start flex-nowrap">
                         <img class="img-fluid rounded-circle" src={{ pictures[loop.index0] }}>
                         <div class="d-flex justify-content-start flex-wrap">
                             <div class="influencer-name"><strong>{{ names[loop.index0] }}</strong></div>
@@ -127,9 +124,11 @@
                             <!--Body-->
                             <div class="modal-body">
 
+                                <br>
                                 <form class="form-inline" id ="formAddInfluencer">
                                     <div class="md-form form-group">
-                                        <input id="formInfluencerHandle" type="search" class="form-control" placeholder="Enter Influencer Instagram Handle">
+                                        <input id="formInfluencerHandle" type="search" class="form-control" placeholder="aryastark80">
+                                        <label for="formInfluencerHandle">Enter Public Instagram Handle</label>
                                     </div>
                                     <button type="submit" class="add-influencer-btn btn btn-default extra-margin-right">Add</button>
                                     <i class="loadSpinner fa fa-circle-o-notch fa-spin"></i>
