@@ -1,104 +1,113 @@
 {% extends "auth/parent.html" %}
+
+{% block navigation %}
+
+<li class="nav-item">
+    <a class="nav-link" href="{{ url_for('auth.register') }}">Create Account</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{{ url_for('auth.login') }}">Sign In</a>
+</li>
+
+{% endblock %}
+
 {% block secondary %}{% endblock %}
 {% block main %}
 <main>
 
-  <div class="container">
+  <div class="signIn d-flex flex-column justify-content-center">
 
-    <br>
+    <p class="logo">LikeWallet</p>
 
-    <h1 class="card-title text-center">Sign Up</h1>
+    <div class="d-flex flex-column align-items-center">
 
-    <br>
+      <div class= "col-sm-5">
 
-    <div class="card">
+        <div class="card">
 
-      <div class="card-block">
+          <div class="card-block">
 
-        <form role="form" action="" method="post">
-    
-          <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-6">
-              <div class="form-group md-form">
-                <input type="text" name="first" id="first" class="form-control input-lg" placeholder="Arya" tabindex="1" required>
-                <label for="first" class="">First name</label>
+            <form role="form" action="" method="post">
+        
+              <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                  <div class="form-group md-form">
+                    <input type="text" name="first" id="first" class="form-control input-lg" placeholder="Arya" tabindex="1" required>
+                    <label for="first" class="">First name</label>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                  <div class="form-group md-form">
+                    <input type="text" name="last" id="last" class="form-control input-lg" placeholder="Stark" tabindex="2" required>
+                    <label for="last" class="">Last name</label>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-6">
+
               <div class="form-group md-form">
-                <input type="text" name="last" id="last" class="form-control input-lg" placeholder="Stark" tabindex="2" required>
-                <label for="last" class="">Last name</label>
+                <input type="text" name="company" id="company" class="form-control input-lg" placeholder="Winterfell, Inc" tabindex="3" required>
+                <label for="company" class="">Company name</label>
               </div>
-            </div>
-          </div>
 
-          <div class="form-group md-form">
-            <input type="text" name="company" id="company" class="form-control input-lg" placeholder="Winterfell, Inc" tabindex="3" required>
-            <label for="company" class="">Company name</label>
-          </div>
-
-          <div class="form-group md-form">
-            <input type="url" name="companyWebsite" id="companyWebsite" class="form-control input-lg" placeholder="http://winterfell.com" tabindex="4" required>
-            <label for="companyWebsite" class="control-label">Company website</label>
-            <small class="form-text text-muted">Don't forget to include "http://" :)</small>
-          </div>
-
-          <div class="form-group md-form">
-            <input type="email" name="email" id="email" class="form-control input-lg" tabindex="5" required>
-            <label for="email" class="control-label">Email</label>
-          </div>
-
-          <div class="form-group md-form">
-            <input type="tel" name="phone" id="phone" class="form-control input-lg" tabindex="6" required>
-            <label for="phone" class="">Phone number</label>
-          </div>
-
-          <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-6">
               <div class="form-group md-form">
-                <input type="password" name="password" id="password" class="form-control input-lg" tabindex="7" required>
-                <label for="password" class="">Password</label>
+                <input type="url" name="companyWebsite" id="companyWebsite" class="form-control input-lg" placeholder="http://winterfell.com" tabindex="4" required>
+                <label for="companyWebsite" class="control-label">Company website</label>
+                <small class="form-text text-muted">Don't forget to include "http://" :)</small>
               </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-6">
-              <div class="form-group md-form">
-                <input type="password" name="passwordRepeat" id="passwordRepeat" class="form-control input-lg" tabindex="8" required>
-                <label for="passwordRepeat" class="">Confirm password</label>
-              </div>
-            </div>
-          </div>
 
-          <div class="row">
-            <div class="col-xs-4 col-sm-3 col-md-3">
-              <span class="button-checkbox">
-               
-              </span>
-            </div>
+              <div class="form-group md-form">
+                <input type="email" name="email" id="email" class="form-control input-lg" tabindex="5" required>
+                <label for="email" class="control-label">Email</label>
+              </div>
+
+              <div class="form-group md-form">
+                <input type="tel" name="phone" id="phone" class="form-control input-lg" tabindex="6" required>
+                <label for="phone" class="">Phone number</label>
+              </div>
+
+              <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                  <div class="form-group md-form">
+                    <input type="password" name="password" id="password" class="form-control input-lg" tabindex="7" required>
+                    <label for="password" class="">Password</label>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                  <div class="form-group md-form">
+                    <input type="password" name="passwordRepeat" id="passwordRepeat" class="form-control input-lg" tabindex="8" required>
+                    <label for="passwordRepeat" class="">Confirm password</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xs-4 col-sm-3 col-md-3">
+                  <span class="button-checkbox">
+                   
+                  </span>
+                </div>
+                
+              </div>
             
+              <button type="submit" class="btn btn-primary btn-block" tabindex="9">Create Account</div>
+            
+            </form> 
+
           </div>
-        
-          <button type="submit" class="btn btn-primary btn-block" tabindex="9">Sign up</div>
-        
-        </form> 
+
+        </div>
+
+        <br>
+
+        <div class="d-flex justify-content-center">
+          <p>Already have an account? <a href="{{ url_for('auth.login') }}">Sign in</a></p>
+        </div>
 
       </div>
 
     </div>
 
   </div>
-
- <!-- Modal -->
-  <div class="modal fade" id="t_and_c_m" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        </div>
-        
-        
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
 
 </main>
 
