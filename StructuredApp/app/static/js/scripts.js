@@ -5,6 +5,23 @@ function main(){
 	  $('[data-toggle="tooltip"]').tooltip()
 	})
 
+	/* URL formatting for registration form (not working)
+
+	$(document).on("submit", "#formRegister", function(e){
+
+		event.preventDefault();
+		url = $("#companyWebsite").val();
+		if (url.match("^http")) {
+			$("#formRegister").submit();
+		}
+		else {
+			$("#companyWebsite").val("http://" + url);
+			alert(("#companyWebsite").val())
+			$("#formRegister").submit();
+		}
+
+	}); */
+
 	//DASHBOARD PAGE
 	$("#posts").on("activate.bs.scrollspy", function () {
 	  	alert("test");
@@ -95,6 +112,7 @@ function main(){
 	$(".add-group-menu").hide();
 	$('#invalid').hide();
 	$('#duplicate').hide();
+	$('#privateProfile').hide();
 
 
 	//Add new influencer (e.g.Selena Gomez)
@@ -107,19 +125,39 @@ function main(){
 		$(".add-influencer-btn").attr("disabled", true);
 		//Get username
 		var username = $("#formInfluencerHandle").val();
+		
+		//remove "@" if user inputted it
+		if (username.charAt(0) == "@") {
+			username = username.substring(1);
+		}
+
 		$.ajax({
         url: "https://cors-anywhere.herokuapp.com/" + "http://instagram.com/" + username + "/media/",        //get JSON from specific user
         dataType: "json",
         success: function(data) {
-        	if (data.items[0].user && $(".influencer-list:contains('" + data.items[0].user.full_name + "')" ).length > 0) { //influencer already added
+
+			if (data.items.length == 0) {
+				$('#invalid').hide();
+        	 	$('#duplicate').hide();
+        	 	$('#privateProfile').show();
+        	 	//Hide loading spinner
+				$("#formAddInfluencer > .loadSpinner").hide();
+				//Enable button
+				$(".add-influencer-btn").attr("disabled", false);
+			}
+
+			else if (data.items[0].user && $(".influencer-list:contains('" + data.items[0].user.full_name + "')" ).length > 0) { //influencer already added
         	 	$('#invalid').hide();
+        	 	$('#privateProfile').hide()
         	 	$('#duplicate').show();
         	 	//Hide loading spinner
 				$("#formAddInfluencer > .loadSpinner").hide();
 				//Enable button
 				$(".add-influencer-btn").attr("disabled", false);
 
-        	} else {
+			} 
+
+        	else {
 
         	 	
         	 	var posts;
@@ -139,18 +177,19 @@ function main(){
 					$('#add-influencers').modal('hide');
         			$('#duplicate').hide();
         	 		$('#invalid').hide();
+        	 		$('#privateProfile').hide()
         	 		//Hide loading spinner
 					$("#formAddInfluencer > .loadSpinner").hide();
 					//Enable button
 					$(".add-influencer-btn").attr("disabled", false);
         	 	});
-        		
-        		
+        			
         	}
         	
         	
         }, error: function(error) {      //influencer does not exist
         	$('#duplicate').hide();
+        	$('#privateProfile').hide()
         	$('#invalid').show();
         	//Hide loading spinner
 			$("#formAddInfluencer > .loadSpinner").hide();
