@@ -1,23 +1,58 @@
 {% extends "auth/parent.html" %}
+
+{% block navigation %}
+
+<li class="nav-item">
+    <a class="nav-link" href="{{ url_for('auth.register') }}">Create Account</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{{ url_for('auth.login') }}">Sign In</a>
+</li>
+
+{% endblock %}
+
 {% block secondary %}{% endblock %}
 {% block main %}
-<div class= "col-md-6 col-md-offset-3">
-<h2>Please login:</h2>
-</div>
 
+<main>
 
+	<!-- <iframe src="https://instagram.com/accounts/logout/" width="0" height="0"></iframe> -->
+	<div class="signIn d-flex flex-column justify-content-center">
 
-<iframe src="https://instagram.com/accounts/logout/" width="0" height="0"></iframe>
+		<p class="logo">LikeWallet</p>
+		
+		<div class="d-flex justify-content-center">
 
-<div class= "col-md-6 col-md-offset-3">
-<form action= "" method="post">
-  Email:<br>
-  <input class="form-control" type="text" name="email"><br>
-  Password:<br>
-  <input class="form-control" type="password" name="password"><br>
-  <input type="submit" class="btn btn-primary" style="background-color:rgb(251, 70, 78)" value="Submit">
-</form>
-</div>
+			<div class= "col-sm-5">
+
+				<div class="card">
+					<div class="card-block">
+
+						<form action= "" method="post">
+							<div class="md-form">
+								<input class="form-control" type="text" name="email" placeholder="Email"><br>
+							</div>
+							<div class="md-form">
+								<input class="form-control" type="password" name="password" placeholder="Password"><br>
+								<button type="submit" class="btn btn-primary btn-block">Log In</button>
+							</div>
+						</form>
+
+					</div>
+				</div>
+
+				<br>
+
+				<div class="d-flex justify-content-center">
+					<p>Not registered? <a href="{{ url_for('auth.register') }}">Create an account</a></p>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+
+</main>
 
 
 {% endblock %}

@@ -363,6 +363,14 @@ def validateNumber(number):
 	except:
 		return False
 
+#Add html:// to url if it doesn't already contain it. Work in progress
+#def formatUrl(url):
+	#if not url.startswith("http"):
+		#url = "http://" + url
+		#return url
+	#else:
+		#return url
+
 
 
 

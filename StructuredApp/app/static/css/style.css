@@ -142,6 +142,14 @@ main {
 	display: none;
 }
 
+.logo{
+	text-align:center;
+	font-size: 50px;
+	letter-spacing: -3px;
+	color: #E91E63;
+	font-weight: 450;
+}
+
 .margins-reset {
 	margin-top:0;
 	margin-bottom:0;
@@ -219,4 +227,8 @@ main {
 
 .remove-influencer-btn{
 	margin-left: 2rem;
+}
+
+.signIn {
+	height: 70vh;
 }
