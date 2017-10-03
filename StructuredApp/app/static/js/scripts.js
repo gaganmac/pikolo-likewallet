@@ -134,7 +134,7 @@ function main(){
         	 		posts = array[array.indexOf('Posts') - 1]
         	 		
         	 		$("#influencers .influencer-list").append('<div href="#" class="list-group-item list-group-item-action d-flex justify-content-start flex-nowrap"><img class="img-fluid rounded-circle" src=' + profilePicture  + '><div class="d-flex justify-content-start flex-wrap"><div class="influencer-name"><strong>' + fullName + '</strong></div><div class="extra-margin-right"><small>'+ followers + ' followers</small></div><div class="extra-margin-right"><small>' + posts + ' posts</small></div></div><div class="ml-auto d-flex flex-nowrap"><a href="https://www.instagram.com/' + username + '/"' +  ' target="_blank"><i class="fa fa-instagram btn-influencer"></i></a><a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-facebook btn-influencer" style="color:#E0E0E0;"></i></a><a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-twitter btn-influencer" style="color:#E0E0E0;"></i></a><a href="https://www.instagram.com/audreylombard/" target="_blank"><i class="fa fa-snapchat btn-influencer" style="color:#E0E0E0;"></i></a><a class="remove-influencer-btn btn-influencer"><i class="fa fa-trash-o"></i></a>');
-        			$.post($SCRIPT_ROOT + '/addinfluencer', {"handle" : username})
+        			$.post($SCRIPT_ROOT + '/addinfluencer', {"handle" : username, "followers" : followers})
 					$("#modalZeroInfluencers").modal("hide");
 					$('#add-influencers').modal('hide');
         			$('#duplicate').hide();

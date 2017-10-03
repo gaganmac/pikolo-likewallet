@@ -64,7 +64,6 @@ def analyze(content):
     # Print the results
     return score, magnitude
 
-
 def truncate(num):
 	if num > 1000000:
 		num = int(round(num, -6))
@@ -86,10 +85,92 @@ def truncate(num):
 	else:
 		return str('{:,}'.format(num))
 
+def expandNum(number):
+	if number[-1] == 'm':
+		return float(number[:-1]) * 1000000
+	elif number[-1] == 'k':
+		return float(number[:-1]) * 1000
+
+	elif number[1] == ',':
+		number = number[0] + number[2:]
+		return float(number)
+	else:
+		return float(number)
+
+def starRating(followers, engagement):
+	followers = expandNum(followers)
+	percent = (engagement / followers) * 100
+	if followers >= 500000:
+		if percent >= 5:
+			return 5
+		elif percent >= 3:
+			return 4
+		elif percent >= 1.7:
+			return 3
+		elif percent >= .5:
+			return 2
+		else:
+			return 1
+	elif followers >= 100000:
+		if percent >= 7:
+			return 5
+		elif percent >= 4:
+			return 4
+		elif percent >= 2:
+			return 3
+		elif percent >= 1.25:
+			return 2
+		else:
+			return 1
+	elif followers >= 10000:
+		if percent >= 10:
+			return 5
+		elif percent >= 5:
+			return 4
+		elif percent >= 2.4:
+			return 3
+		elif percent >= 1:
+			return 2
+		else:
+			return 1
+	elif followers >= 5000:
+		if percent >= 13:
+			return 5
+		elif percent >= 8:
+			return 4
+		elif percent >= 4:
+			return 3
+		elif percent >= 2:
+			return 2
+		else:
+			return 1
+	elif followers >= 1000:
+		if percent >= 15:
+			return 5
+		elif percent >= 10:
+			return 4
+		elif percent >= 5.7:
+			return 3
+		elif percent >= 3:
+			return 2
+		else:
+			return 1
+	else:
+		if percent >= 20:
+			return 5
+		elif percent >= 14:
+			return 4
+		elif percent >= 8:
+			return 3
+		elif percent >= 4:
+			return 2
+		else:
+			return 1
+
 
 
 def influencerLoop(influencers, likes, comments, posts, media, names, pictures, numPostsArray, likesArray, commentsArray, totalPostsArray, 
-	totalLikesArray, totalCommentsArray, current_user):
+	totalLikesArray, totalCommentsArray, stars, current_user):
 	length = 0
 	mapData = []
 	graph = {}
@@ -219,39 +300,52 @@ def influencerLoop(influencers, likes, comments, posts, media, names, pictures, 
 		if numPosts == 0:
 			likesArray += [0]
 			commentsArray += [0]
+			influencer.stars = 0
+			db.session.commit()
 		else:
-			likesArray += [truncate(numLikes/numPosts)]
-			commentsArray += [truncate(numComments/numPosts)]
+			avLikes = numLikes/numPosts
+			avComments = numComments/numPosts
+			likesArray += [truncate(avLikes)]
+			commentsArray += [truncate(avComments)]
+			if influencer.followers and current_user.keyword:
+				influencer.stars = starRating(influencer.followers, float(avLikes) + float(avComments))
+			else:
+				influencer.stars = 0
+			db.session.commit()
 		if totalPosts == 0:
 			totalLikesArray += [0]
 			totalCommentsArray += [0]
 		else:
 			totalLikesArray += [truncate(totalLikes/totalPosts)]
 			totalCommentsArray += [truncate(totalComments/totalPosts)]
+		stars += [influencer.stars]
+
 
 	# for state in graph.keys(): 
 	# 	if length != 0:
 	# 		graph[state] = (float(graph[state]) / length) * 100
 	# 		mapData.append({'value': graph[state], 'code': state})
 
+	zipList = sorted(zip(current_user.influencers, pictures, names, commentsArray, likesArray, numPostsArray, totalCommentsArray, totalLikesArray, totalPostsArray, stars), key=(lambda x : x[9]), reverse=True)
 
 	#Structure data
 	templateData = {
 	'size' : request.args.get('size','thumb'),
 	# 'media' : recent_media,
 	'media' : media,
-	'influencers' : current_user.influencers,
+	'influencers' : [i[0] for i in zipList],
 	'likes' : '{:,}'.format(likes),
 	'comments' : '{:,}'.format(comments),
 	'posts' : '{:,}'.format(posts),
-	'pictures' : pictures,
-	'names' : names,
-	'commentsArray' : commentsArray,
-	'likesArray' : likesArray,
-	'numPostsArray' : numPostsArray,
-	'totalCommentsArray' : totalCommentsArray,
-	'totalLikesArray' : totalLikesArray,
-	'totalPostsArray' : totalPostsArray,
+	'pictures' : [i[1] for i in zipList],
+	'names' : [i[2] for i in zipList],
+	'commentsArray' : [i[3] for i in zipList],
+	'likesArray' : [i[4] for i in zipList],
+	'numPostsArray' : [i[5] for i in zipList],
+	'totalCommentsArray' : [i[6] for i in zipList],
+	'totalLikesArray' : [i[7] for i in zipList],
+	'totalPostsArray' : [i[8] for i in zipList],
+	'stars' : [i[9] for i in zipList],
 	'json' : mapData
 
 	}
@@ -268,6 +362,10 @@ def validateNumber(number):
 		return False
 	except:
 		return False
+
+
+
+
 
 
 

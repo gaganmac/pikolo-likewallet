@@ -223,11 +223,12 @@
                                 <strong>{{ names[loop.index0] }}</strong>
                                 <!--Influencer Rating-->
                                 <ul class="rating inline-ul margins-reset">
+                                    {% for star in range(stars[loop.index0]) %}
                                     <li><i class="fa fa-star amber-text"></i></li>
-                                    <li><i class="fa fa-star amber-text"></i></li>
-                                    <li><i class="fa fa-star amber-text"></i></li>
+                                    {% endfor %}
+                                    {% for nostar in range(5 - stars[loop.index0]) %}
                                     <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
+                                    {% endfor %}
                                 </ul>
                             </div>
 

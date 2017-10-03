@@ -50,6 +50,7 @@ class Influencer(db.Model):
 	handle = db.Column(db.String(128))
 	token = db.Column(db.String(128))
 	stars = db.Column(db.Integer)
+	followers = db.Column(db.String(128))
 	leads = db.relationship("Lead", backref="influencer", lazy='dynamic')
 
 

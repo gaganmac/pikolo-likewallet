@@ -29,7 +29,7 @@ from BeautifulSoup import BeautifulSoup
 
 
 from collections import Counter
-from helpers import truncate, analyze, influencerLoop, validateNumber
+from helpers import truncate, analyze, influencerLoop, validateNumber, expandNum, starRating
 
 import ujson as json
 import argparse
@@ -161,13 +161,14 @@ def dashboard():
     totalPostsArray = []
     totalLikesArray = []
     totalCommentsArray = []
+    stars = []
 
     # if session.get('instagram_access_token') and session.get('instagram_user'):
     # userAPI = InstagramAPI(access_token=session['instagram_access_token'])
     # recent_media, next = userAPI.user_recent_media(user_id=session['instagram_user'].get('id'),count=25)
     
     templateData = influencerLoop(current_user.influencers, likes, comments, posts, media, names, pictures, numPostsArray, likesArray, 
-        commentsArray, totalPostsArray, totalLikesArray, totalCommentsArray, current_user)
+        commentsArray, totalPostsArray, totalLikesArray, totalCommentsArray, stars, current_user)
 
     return render_template('auth/dashboard.html', **templateData)
     # else:
@@ -232,6 +233,8 @@ def http_error_handler(error):
 @login_required
 def add():
     influencer = Influencer(request.form['handle'], None)
+    followers = request.form['followers']
+    influencer.followers = followers
     influencer.users.append(current_user)
     db.session.add(influencer)
     db.session.commit()
@@ -245,6 +248,7 @@ def removeInfluencer():
     influencer = Influencer.query.filter_by(handle=request.form['handle']).first()
     for lead in influencer.leads:
         db.session.delete(lead)
+    current_user.influencers.remove(influencer)
     db.session.delete(influencer)
     db.session.commit()
     flash("Influencer has been removed")
@@ -263,7 +267,11 @@ def manage():
         page = urllib.urlopen('https://www.instagram.com/' +  i.handle).read()
         soup = BeautifulSoup(page)
         description = soup.find("meta",  property="og:description")['content'].split(' ')
-        followers += [description[description.index('Followers,') - 1]]
+        follower = description[description.index('Followers,') - 1]
+        followers += [follower]
+        if i.followers != follower:
+            i.followers = follower
+            db.session.commit()
         posts += [description[description.index('Posts') - 1]]
         data = json.loads(url.read().decode())
         pictures += [data['items'][0]['user']['profile_picture']]
