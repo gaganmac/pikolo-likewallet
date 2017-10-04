@@ -230,7 +230,7 @@
                                  <!--Influencer Name-->
                                 <strong>{{ names[loop.index0] }}</strong>
                                 <!--Influencer Rating-->
-                                <ul class="rating inline-ul margins-reset">
+                                <ul class="rating inline-ul margins-reset" data-toggle="tooltip" data-placement="top" title="Based on engagament and reach">
                                     {% for star in range(stars[loop.index0]) %}
                                     <li><i class="fa fa-star amber-text"></i></li>
                                     {% endfor %}
@@ -243,19 +243,27 @@
                             <!--Influencer Stats-->
                             <div>
                                 <div class="d-flex flex-wrap">
+                                    
+                                    <div class="metric">
+                                        <p>{{ engagement[loop.index0] }} %<br /></p>
+                                        <small>engagement rate</small>
+                                    </div>
+
                                     <div class="metric">
                                         {% if current_user.keyword %}
                                         <strong data-toggle="tooltip" data-placement="top" title="Avg for your posts">{{ likesArray[loop.index0] }}</strong> | 
                                         {% endif %}
-                                        <p data-toggle="tooltip" data-placement="top" title="Avg for regular posts">{{ totalLikesArray[loop.index0] }}<br /></p><small>likes per post</small>
+                                        <p data-toggle="tooltip" data-placement="top" title="Avg for regular posts">{{ totalLikesArray[loop.index0] }}<br /></p>
+                                        <small>likes per post</small>
                                     </div>
                                     <div class="metric">
                                         {% if current_user.keyword %}
                                         <strong data-toggle="tooltip" data-placement="top" title="Avg for your posts">{{ commentsArray[loop.index0] }}</strong> | 
                                         {% endif %}
-                                        <p data-toggle="tooltip" data-placement="top" title="Avg for regular posts">{{ totalCommentsArray[loop.index0] }}<br /></p><small>coms per post</small>
+                                        <p data-toggle="tooltip" data-placement="top" title="Avg for regular posts">{{ totalCommentsArray[loop.index0] }}<br /></p>
+                                        <small>coms per post</small>
                                     </div>
-                                    <div class="metric comingSoon">N/A<br /><small>views per post</small></div>
+
                                     <div class="metric comingSoon">N/A<br /><small>clicks per post</small></div>
                                     <div class="metric comingSoon">N/A<br /><small>sales per post</small></div>
                                 </div>

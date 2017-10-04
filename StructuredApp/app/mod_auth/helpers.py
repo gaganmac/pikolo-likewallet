@@ -97,9 +97,13 @@ def expandNum(number):
 	else:
 		return float(number)
 
-def starRating(followers, engagement):
+def engagementRate(followers, engagement):
 	followers = expandNum(followers)
 	percent = (engagement / followers) * 100
+	return percent
+
+def starRating(followers, percent):
+	followers = expandNum(followers)
 	if followers >= 500000:
 		if percent >= 5:
 			return 5
@@ -170,7 +174,7 @@ def starRating(followers, engagement):
 
 
 def influencerLoop(influencers, likes, comments, posts, media, names, pictures, numPostsArray, likesArray, commentsArray, totalPostsArray, 
-	totalLikesArray, totalCommentsArray, stars, current_user):
+	totalLikesArray, totalCommentsArray, engagement, stars, current_user):
 	length = 0
 	mapData = []
 	graph = {}
@@ -301,6 +305,7 @@ def influencerLoop(influencers, likes, comments, posts, media, names, pictures, 
 			likesArray += [0]
 			commentsArray += [0]
 			influencer.stars = 0
+			avEngagement = 0
 			db.session.commit()
 		else:
 			avLikes = numLikes/numPosts
@@ -308,8 +313,10 @@ def influencerLoop(influencers, likes, comments, posts, media, names, pictures, 
 			likesArray += [truncate(avLikes)]
 			commentsArray += [truncate(avComments)]
 			if influencer.followers and current_user.keyword:
-				influencer.stars = starRating(influencer.followers, float(avLikes) + float(avComments))
+				avEngagement = engagementRate(influencer.followers, float(avLikes) + float(avComments))
+				influencer.stars = starRating(influencer.followers, avEngagement)
 			else:
+				avEngagement = engagementRate(influencer.followers, (float(totalLikes) + float(totalComments)) / totalPosts)
 				influencer.stars = 0
 			db.session.commit()
 		if totalPosts == 0:
@@ -318,6 +325,7 @@ def influencerLoop(influencers, likes, comments, posts, media, names, pictures, 
 		else:
 			totalLikesArray += [truncate(totalLikes/totalPosts)]
 			totalCommentsArray += [truncate(totalComments/totalPosts)]
+		engagement += [round(avEngagement, 2)]
 		stars += [influencer.stars]
 
 
@@ -326,7 +334,7 @@ def influencerLoop(influencers, likes, comments, posts, media, names, pictures, 
 	# 		graph[state] = (float(graph[state]) / length) * 100
 	# 		mapData.append({'value': graph[state], 'code': state})
 
-	zipList = sorted(zip(current_user.influencers, pictures, names, commentsArray, likesArray, numPostsArray, totalCommentsArray, totalLikesArray, totalPostsArray, stars), key=(lambda x : x[9]), reverse=True)
+	zipList = sorted(zip(current_user.influencers, pictures, names, commentsArray, likesArray, numPostsArray, totalCommentsArray, totalLikesArray, totalPostsArray, engagement, stars), key=(lambda x : x[10]), reverse=True)
 
 	#Structure data
 	templateData = {
@@ -345,7 +353,8 @@ def influencerLoop(influencers, likes, comments, posts, media, names, pictures, 
 	'totalCommentsArray' : [i[6] for i in zipList],
 	'totalLikesArray' : [i[7] for i in zipList],
 	'totalPostsArray' : [i[8] for i in zipList],
-	'stars' : [i[9] for i in zipList],
+	'engagement' : [i[9] for i in zipList],
+	'stars' : [i[10] for i in zipList],
 	'json' : mapData
 
 	}
